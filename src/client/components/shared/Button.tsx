@@ -4,10 +4,15 @@ interface ButtonProps {
   label: string;
   style: string;
   action?: () => void;
+  type?: "submit" | "reset" | "button";
 }
 
-const Button: React.FC<ButtonProps> = ({ label, style, action }) => {
-  return <button className={style} onClick={action}>{label}</button>;
+const Button: React.FC<ButtonProps> = ({ label, style, action, type }) => {
+  return (
+    <button className={style} onClick={action} type={type}>
+      {label}
+    </button>
+  );
 };
 
 export default Button;
