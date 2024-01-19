@@ -17,19 +17,6 @@ type userDetailsFormProps = {
   token: string | undefined;
   user: string;
 };
-// type UserFormData = {
-//   first_name: string;
-//   last_name: string;
-// };
-// type DriverFormData = {
-//   first_name: string;
-//   last_name: string;
-//   liscence_number: string;
-//   liscence_image: string;
-//   vehicle_number: string;
-//   vehicle_image: string;
-//   vehicle_color: string;
-// };
 export default function UserDetailsform({
   phone,
   token,
@@ -42,39 +29,41 @@ export default function UserDetailsform({
   const repo: IUserRepo = new UserRepo(api);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function handleDriverDataSubmit(data: any) {
-    console.log(data, phone, token, user);
     const newData: User = {
       ...data,
       liscence_image: data.liscence_image[0],
       vehicle_image: data.vehicle_image[0],
       phone,
       token,
+      user,
     };
     try {
       const response = await repo.registerUser(newData);
-      if (response) {
-        // console.log(response);
+      if (typeof response !== "string") {
         toast.success("You are registerd successfully");
         navigate("/download");
+      } else {
+        toast.error(response);
       }
     } catch (err) {
       toast.error("Error while registration");
     }
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function handleUserDataSubmit(data: any) {
-    console.log(data, phone, token, user);
+  async function handleUserDataSubmit(data: any) {
     const newData: User = {
       ...data,
       phone,
       token,
+      user,
     };
     try {
-      const response = repo.registerUser(newData);
-      if (response) {
-        console.log(response);
+      const response = await repo.registerUser(newData);
+      if (typeof response !== "string") {
         toast.success("You are registerd successfully");
         navigate("/download");
+      } else {
+        toast.error(response);
       }
     } catch (err) {
       toast.error("Error while registration");
@@ -142,18 +131,18 @@ export default function UserDetailsform({
               <div className="flex flex-col">
                 {user === "driver" ? (
                   <form onSubmit={handleSubmit(handleDriverDataSubmit)}>
-                    {formValue.map((value, index) => (
+                    {formValue.map((value) => (
                       <div>
                         <label
                           htmlFor={value.id}
-                          key={index}
+                          key={`${value.id}_label`}
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
                         >
                           {value.labelText}
                         </label>
                         <input
                           type={value.type}
-                          key={index}
+                          key={`${value.id}_input`}
                           id={value.id}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="John"
@@ -198,14 +187,14 @@ export default function UserDetailsform({
                     <div>
                       <label
                         htmlFor="first_name"
-                        key="first_name"
+                        key="first_name_label"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
                       >
                         First Name
                       </label>
                       <input
                         type="text"
-                        key="first_name"
+                        key="first_name_input"
                         id="first_name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         {...register("first_name", { required: true })}
@@ -214,14 +203,14 @@ export default function UserDetailsform({
                     <div>
                       <label
                         htmlFor="last_name"
-                        key="last_name"
+                        key="last_name_label"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
                       >
                         Last Name{" "}
                       </label>
                       <input
                         type="text"
-                        key="last_name"
+                        key="last_name_input"
                         id="last_name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         {...register("last_name", { required: true })}
