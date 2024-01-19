@@ -1,9 +1,14 @@
-import Reg from "./Reg";
+import DownloadLink from "../components/DownloadLink"
 
 
-export default function Download() {
-  return <div className=" text-center">
+function DownloadApp() {
+  return (
+    <div>
 
-    <Reg />
-  </div>;
+      <DownloadLink />
+
+    </div>
+  )
 }
+
+export default DownloadApp
