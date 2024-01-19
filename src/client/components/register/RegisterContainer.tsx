@@ -7,18 +7,10 @@ import UserDetailsform from "./UserDetailsForm";
 
 export default function RegisterContainer() {
   const [phone, setPhone] = useState<string>("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [confirmed, setConfirmed] = useState<ConfirmationResult | null>(null);
   const [currentForm, setCurrentForm] = useState<number>(1);
-  // const [otp, setOtp] = useState<number>();
   const [token, setToken] = useState<string>("");
   const [user, setUser] = useState<string>("");
-  if (token) {
-    console.log(token);
-  }
-  if (user) {
-    console.log(user);
-  }
   switch (currentForm) {
     case 1:
       return (
