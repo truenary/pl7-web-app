@@ -7,6 +7,9 @@ import PhoneInput from "react-phone-input-2";
 import { auth } from "../../pages/firebase.config";
 import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
+// import { UserApi } from "../../../api/UserApi";
+// import { IUserRepo, UserRepo } from "../../../Repos/UserRepo";
+// import { IUserApi } from "../../../api/type";
 
 declare type formProps = {
   phone: string;
@@ -21,12 +24,19 @@ export default function FormWithNumber({
   setConfirmed,
   setCurrentForm,
 }: formProps) {
+  // const api: IUserApi = new UserApi();
+  // const repo: IUserRepo = new UserRepo(api);
+
   //sending otp to the user's phone
   async function handlePhoneSubmit() {
     const regex =
       /977((986)|(985)|(984)|(981)|(982)|(980)|(976)|(975)|(974)|(971)|(972))\d{6}/;
     const isValid = regex.test(phone);
     if (phone && isValid) {
+      ///this already existed user is not completed yet
+      // const userResponse = repo.isUserExist(phone);
+      // const driverResponse = repo.isDriverExist(phone);
+      // if (userResponse === null) {
       try {
         const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {
           size: "invisible",
@@ -36,7 +46,6 @@ export default function FormWithNumber({
           `+${phone}`,
           recaptcha
         );
-
         setConfirmed(confirmation);
         setCurrentForm(2);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,12 +54,14 @@ export default function FormWithNumber({
           toast.error("Invalid Phone number");
         } else {
           toast.error("Error while sending otp, please try again");
-          // console.log(err);
         }
       }
     } else {
-      toast.error("Phone number is not valid");
+      toast.error("This phone number is already exist");
     }
+    // } else {
+    //   toast.error("Phone number is not valid");
+    // }
   }
   return (
     <>

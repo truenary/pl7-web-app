@@ -1,25 +1,36 @@
-declare type Driver = {
-  firstName: string;
-  lastName: string;
-  liscenceNumber: string;
-  liscenceImage: string;
-  vehicleNumber: string;
-  vehicleImage: string;
-  vehicleColor: string;
-  token: string;
-  phoneNumber: string;
-  role: string;
+declare type User = {
+  first_name: string;
+  last_name: string;
+  liscence_number?: string;
+  liscence_image?: string;
+  vehicle_number?: string;
+  vehicle_image?: string;
+  vehicle_color?: string;
+  token: string | undefined;
+  phone: string;
 };
-declare type ViewDriver = {
+declare type ViewUser = {
   id: number;
-  firstName: string;
-  lastName: string;
-  liscenceNumber: string;
-  liscenceImage: string;
-  vehicleNumber: string;
-  vehicleImage: string;
-  vehicleColor: string;
-  token: string;
-  phoneNumber: string;
-  role: string;
+  first_name: string;
+  last_name: string;
+  liscence_number?: string;
+  liscence_image?: string;
+  vehicle_number?: string;
+  vehicle_image?: string;
+  vehicle_color?: string;
+  token: string | undefined;
+  phone: string;
 };
+// declare type User = {
+//   first_name: string;
+//   last_name: string;
+//   phone: string;
+//   token: string | undefined;
+// };
+// declare type ViewUser = {
+//   id: string;
+//   first_name: string;
+//   last_name: string;
+//   phone: string;
+//   token: string | undefined;
+// };

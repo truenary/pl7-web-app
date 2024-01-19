@@ -1,4 +1,9 @@
 import { useForm } from "react-hook-form";
+import { UserApi } from "../../../api/UserApi";
+import { IUserApi } from "../../../api/type";
+import { IUserRepo, UserRepo } from "../../../Repos/UserRepo";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type formValueData = {
   labelText?: string;
@@ -12,19 +17,68 @@ type userDetailsFormProps = {
   token: string | undefined;
   user: string;
 };
+// type UserFormData = {
+//   first_name: string;
+//   last_name: string;
+// };
+// type DriverFormData = {
+//   first_name: string;
+//   last_name: string;
+//   liscence_number: string;
+//   liscence_image: string;
+//   vehicle_number: string;
+//   vehicle_image: string;
+//   vehicle_color: string;
+// };
 export default function UserDetailsform({
   phone,
   token,
   user,
 }: userDetailsFormProps) {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
+  const api: IUserApi = new UserApi();
+  const repo: IUserRepo = new UserRepo(api);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function handleDriverDataSubmit(data: any) {
+  async function handleDriverDataSubmit(data: any) {
     console.log(data, phone, token, user);
+    const newData: User = {
+      ...data,
+      liscence_image: data.liscence_image[0],
+      vehicle_image: data.vehicle_image[0],
+      phone,
+      token,
+    };
+    try {
+      const response = await repo.registerUser(newData);
+      if (response) {
+        // console.log(response);
+        toast.success("You are registerd successfully");
+        navigate("/download");
+      }
+    } catch (err) {
+      toast.error("Error while registration");
+    }
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleUserDataSubmit(data: any) {
     console.log(data, phone, token, user);
+    const newData: User = {
+      ...data,
+      phone,
+      token,
+    };
+    try {
+      const response = repo.registerUser(newData);
+      if (response) {
+        console.log(response);
+        toast.success("You are registerd successfully");
+        navigate("/download");
+      }
+    } catch (err) {
+      toast.error("Error while registration");
+    }
   }
   const formValue: formValueData[] = [
     {
@@ -88,18 +142,18 @@ export default function UserDetailsform({
               <div className="flex flex-col">
                 {user === "driver" ? (
                   <form onSubmit={handleSubmit(handleDriverDataSubmit)}>
-                    {formValue.map((value) => (
+                    {formValue.map((value, index) => (
                       <div>
                         <label
                           htmlFor={value.id}
-                          key={value.id}
+                          key={index}
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
                         >
                           {value.labelText}
                         </label>
                         <input
                           type={value.type}
-                          key={value.id}
+                          key={index}
                           id={value.id}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="John"
