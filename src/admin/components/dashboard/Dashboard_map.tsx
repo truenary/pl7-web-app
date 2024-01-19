@@ -1,33 +1,47 @@
 import React from 'react'
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+
+
+const libraries: ['places'] = ['places'];
+const mapContainerStyle = {
+    width: '79vw',
+    height: '80vh',
+};
+const center = {
+    lat: 27.431353305174838, // default latitude
+    lng: 85.03178229329563, // default longitude
+};
 
 function Dashboard_map() {
-    const lat = 53.338741;
-    const lon = -6.261563;
-    const zoom = 16; // 15 is ideal
+
+
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: 'AIzaSyCaYa9vMmqtJyBo47znD-vZrNRSVuOKJz4',
+        libraries,
+    });
+
+    if (loadError) {
+        return <div>Error loading maps</div>;
+    }
+
+    if (!isLoaded) {
+        return <div>Loading maps</div>;
+    }
 
 
     return (
-        <div>
-
-
-
-
-
-
-            <div className="">
-                <iframe
-                    src={`https://maps.google.com/maps?q=${lat},${lon}&z=${zoom}&output=embed`}
-                    width="600"
-                    height="450"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="google map"
-                ></iframe>
-            </div>
-
-
-
+        <div className='my-4'>
+            <GoogleMap
+                mapContainerStyle={mapContainerStyle}
+                zoom={15}
+                center={center}
+            >
+                <Marker position={center} />
+            </GoogleMap>
         </div>
+
+
+
     )
 }
 
