@@ -4,5 +4,5 @@ export declare interface IUserApi {
   updatePassword(password: string, userId: string): Promise<ViewUser | string>;
 }
 export declare interface IDriverApi {
-  getAllDriver(): Promise<ViewUser>;
+  getAllDriver(): Promise<AllDriver>;
 }

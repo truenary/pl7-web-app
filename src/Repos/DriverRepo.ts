@@ -1,18 +1,18 @@
 import { IDriverApi } from "../api/type";
 
-export declare interface IDriverRepo {
-    getAllDriver(): Promise<ViewUser>;
+export interface IDriverRepo {
+    getAllDriver(): Promise<AllDriver>;
 }
 export class DriverRepo implements IDriverRepo {
 
 
     driverAPI: IDriverApi;
     constructor(driverApi: IDriverApi) {
-        this.driverAPI = driverApi
+        this.driverAPI = driverApi;
     }
-    getAllDriver(): Promise<ViewUser> {
+    async getAllDriver(): Promise<AllDriver> {
 
-        const driverData = this.driverAPI.getAllDriver();
+        const driverData = await this.driverAPI.getAllDriver();
 
         console.log(driverData);
         return driverData;
