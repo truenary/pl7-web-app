@@ -20,7 +20,7 @@ const SideBar = () => {
     return (
         <div className="w-64 p-4 text-gray-900 mt-5">
             <nav className="grid justify-between space-y-6 text-base ">
-                <NavLink to="dashboard" className="nav-link  " title="Dashboard">
+                <NavLink to="/admin" className="nav-link  " title="Dashboard">
                     {homeIcon} Dashboard
                 </NavLink>
                 <NavLink to="onlinedriver" className="nav-link  " title="Online_driver">
