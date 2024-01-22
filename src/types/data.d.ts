@@ -10,7 +10,7 @@ declare type User = {
   phone: string;
 };
 declare type ViewUser = {
-  id: number;
+  id: string;
   first_name: string;
   last_name: string;
   liscence_number?: string;
