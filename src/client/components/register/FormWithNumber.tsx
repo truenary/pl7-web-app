@@ -7,9 +7,10 @@ import PhoneInput from "react-phone-input-2";
 import { auth } from "../../pages/firebase.config";
 import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
-// import { UserApi } from "../../../api/UserApi";
-// import { IUserRepo, UserRepo } from "../../../Repos/UserRepo";
-// import { IUserApi } from "../../../api/type";
+import { UserApi } from "../../../api/UserApi";
+import { IUserRepo, UserRepo } from "../../../Repos/UserRepo";
+import { IUserApi } from "../../../api/type";
+import { useState } from "react";
 
 declare type formProps = {
   phone: string;
@@ -24,44 +25,50 @@ export default function FormWithNumber({
   setConfirmed,
   setCurrentForm,
 }: formProps) {
-  // const api: IUserApi = new UserApi();
-  // const repo: IUserRepo = new UserRepo(api);
-
+  const api: IUserApi = new UserApi();
+  const repo: IUserRepo = new UserRepo(api);
+  const [disabled, setDisabled] = useState<boolean>(false);
   //sending otp to the user's phone
   async function handlePhoneSubmit() {
     const regex =
       /977((986)|(985)|(984)|(981)|(982)|(980)|(976)|(975)|(974)|(971)|(972))\d{6}/;
     const isValid = regex.test(phone);
     if (phone && isValid) {
-      ///this already existed user is not completed yet
-      // const userResponse = repo.isUserExist(phone);
-      // const driverResponse = repo.isDriverExist(phone);
-      // if (userResponse === null) {
-      try {
-        const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {
-          size: "invisible",
-        });
-        const confirmation = await signInWithPhoneNumber(
-          auth,
-          `+${phone}`,
-          recaptcha
-        );
-        setConfirmed(confirmation);
-        setCurrentForm(2);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        if (err.code === "auth/invalid-phone-number") {
-          toast.error("Invalid Phone number");
+      //checking either user already exist or not
+      const isExist = await repo.isUserExist(phone);
+      if (typeof isExist !== "string") {
+        if (!isExist) {
+          setDisabled(true);
+          try {
+            const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {
+              size: "invisible",
+            });
+
+            const confirmation = await signInWithPhoneNumber(
+              auth,
+              `+${phone}`,
+              recaptcha
+            );
+            setConfirmed(confirmation);
+            setCurrentForm(2);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err: any) {
+            if (err.code === "auth/invalid-phone-number") {
+              toast.error("Invalid Phone number");
+            } else {
+              toast.error("Error while sending otp, please try again");
+            }
+          }
         } else {
-          toast.error("Error while sending otp, please try again");
+          toast.error("This phone number is already exist");
         }
+      } else {
+        toast.error(isExist);
       }
     } else {
-      toast.error("This phone number is already exist");
+      setPhone("");
+      toast.error("Phone number is not valid");
     }
-    // } else {
-    //   toast.error("Phone number is not valid");
-    // }
   }
   return (
     <>
@@ -88,13 +95,13 @@ export default function FormWithNumber({
                     />
                   </div>
                 </div>
-
                 <div className="flex flex-col space-y-5">
                   <div>
                     <button
+                      disabled={disabled}
                       type="submit"
                       onClick={handlePhoneSubmit}
-                      className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm"
+                      className="hover:bg-blue-500 disabled:bg-gray-700 flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm focus:border focus:border-b-black"
                     >
                       Next
                     </button>

@@ -2,19 +2,51 @@ import { IUserApi } from "./type";
 
 export class UserApi implements IUserApi {
   BASE_URL = "http://localhost:8000";
-  // async getDriverByPhone(phone: string): Promise<ViewDriver> {
-  //   const driverResponse = await fetch(
-  //     `${this.BASE_URL}/drivers?phone=${phone}`
-  //   );
-  //   return await driverResponse.json();
-  // }
 
-  async getUserByPhone(phone: string): Promise<ViewUser> {
-    const userResponse = await fetch(`${this.BASE_URL}/users?phone=${phone}`);
-    return await userResponse.json();
+  _getResponse(response: Response): string {
+    if (!response.ok) {
+      let errorMessage = "";
+      if (response.status === 404) {
+        errorMessage = "Resource not found";
+      } else if (response.status === 500) {
+        errorMessage = "Internal server error";
+      } else {
+        errorMessage = `HTTP error! status:${response.status}`;
+      }
+      return errorMessage;
+    }
+    return "ok";
+  }
+  async updatePassword(
+    passwordData: string,
+    userId: string
+  ): Promise<ViewUser | string> {
+    const response = await fetch(`${this.BASE_URL}/users/${userId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ password: passwordData }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const message = this._getResponse(response);
+    if (message === "ok") {
+      return response.json();
+    } else {
+      return message;
+    }
   }
 
-  async createUser<User, ViewUser>(userData: User): Promise<ViewUser> {
+  async getUserByPhone(phone: string): Promise<ViewUser | string> {
+    const response = await fetch(`${this.BASE_URL}/users?phone=${phone}`);
+    const message = this._getResponse(response);
+    if (message === "ok") {
+      return response.json();
+    } else {
+      return message;
+    }
+  }
+
+  async createUser(userData: User): Promise<ViewUser | string> {
     const response = await fetch(`${this.BASE_URL}/users`, {
       method: "POST",
       body: JSON.stringify(userData),
@@ -22,20 +54,11 @@ export class UserApi implements IUserApi {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
-    return data;
+    const message = this._getResponse(response);
+    if (message === "ok") {
+      return response.json();
+    } else {
+      return message;
+    }
   }
-  // async createDriver<Driver, ViewDriver>(
-  //   userData: Driver
-  // ): Promise<ViewDriver> {
-  //   const response = await fetch(`${this.BASE_URL}/drivers`, {
-  //     method: "POST",
-  //     body: JSON.stringify(userData),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   const data = await response.json();
-  //   return data;
-  // }
 }

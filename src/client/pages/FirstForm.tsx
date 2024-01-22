@@ -1,52 +1,36 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { UserApi } from "../../api/UserApi";
-import { IUserRepo, UserRepo } from "../../Repos/UserRepo";
-import { IUserApi } from "../../api/type";
-import { useNavigate } from "react-router";
+import { loginForm } from "./Login";
 
-type loginForm = {
-  phone: string;
-  password: string;
-};
-function Login() {
+export function FirstForm() {
   const api: IUserApi = new UserApi();
   const repo: IUserRepo = new UserRepo(api);
   const { register, handleSubmit, reset } = useForm<loginForm>();
 
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   async function handleLogin(data: loginForm) {
     const response = await repo.login(`977${data.phone}`);
-    if (typeof response !== "string") {
-      if (!response.isExist) {
-        toast.error("User does not exist, please register first");
-        reset();
-        navigate("/register");
-      } else {
-        if (response.role === "admin") {
-          if (response.password === undefined) {
-            const res = await repo.addPassword(data.password, response.id);
-            if (typeof res === "string") {
-              toast.error(res);
-            } else {
-              navigate("/admin");
-              toast.success("you are logged in successfully");
-            }
-          } else {
-            if (response.password === data.password) {
-              reset();
-              navigate("/admin");
-              toast.success("you are logged in successfully");
-            } else {
-              toast.error("password or phone number is incorrect");
-            }
-          }
-        } else {
-          toast.error("Access denied");
-        }
-      }
+    console.log(response);
+    if (!response.isExist) {
+      toast.error("User does not exist, please register first");
+      reset();
+      //   navigate("/register");
     } else {
-      toast.error(response);
+      if (response.role === "admin") {
+        console.log("user is admin");
+        if (response.password === undefined) {
+          const res = await repo.addPassword(data.password, response.id);
+          console.log(res);
+        } else {
+          if (response.password === data.password) {
+            toast.success("you are logged in successfully");
+          } else {
+            toast.error("password or phone number is incorrect");
+          }
+        }
+      } else {
+        toast.error("Access denied");
+      }
     }
   }
   return (
@@ -110,4 +94,3 @@ function Login() {
     </>
   );
 }
-export default Login;

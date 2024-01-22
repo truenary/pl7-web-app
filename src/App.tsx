@@ -5,7 +5,6 @@ import Contact from "./client/pages/Contact";
 import Register from "./client/pages/Register";
 import Blog from "./client/pages/Blog";
 import About from "./client/pages/About";
-import Login from "./client/pages/Login";
 import Download from "./client/pages/Download";
 import PageNotFound from "./shared/PageNotFound";
 import Dashboard from "./admin/pages/Dashboard";
@@ -17,6 +16,7 @@ import Passengers from "./admin/pages/Passengers";
 import Rating from "./admin/pages/Rating";
 import Ride from "./admin/pages/Ride";
 import { Toaster } from "react-hot-toast";
+import Login from "./client/pages/Login";
 
 function App() {
   return (

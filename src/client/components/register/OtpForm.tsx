@@ -34,7 +34,6 @@ export default function OtpForm({
       if (er.code === "auth/invalid-verification-code") {
         toast.error("Wrong OTP Please check again");
       } else {
-        // console.log(er);
         toast.error("Error while verifying otp, please try again");
       }
     }
