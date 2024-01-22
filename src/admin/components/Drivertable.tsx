@@ -1,5 +1,8 @@
 // src/components/UserTable.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { DriverRepo, IDriverRepo } from '../../Repos/DriverRepo';
+import { IDriverApi } from '../../api/type';
+import { DriverApi } from '../../api/DriverApi';
 
 
 interface User {
@@ -10,30 +13,26 @@ interface User {
     vehicle_number?: string;
     vehicle_color?: string;
     phone?: string;
-    token?: string;
 }
 
-const UserTable: React.FC = () => {
-    const [users, setUsers] = useState<User[]>([]);
+async function UserTable() {
+    const [users, setUsers] = useState<User | undefined>();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('');
-                if (!response.ok) {
-                    throw new Error('Error fetching data');
-                }
+    const api: IDriverApi = new DriverApi();
+    const repo: IDriverRepo = new DriverRepo(api);
+    const data = await repo.getAllDriver();
+    const newData: User = {
 
-                const data = await response.json();
-                setUsers(data.users);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+        id: data[0].id,
+        first_name: data[0].first_name,
+        last_name: data[0].last_name,
+        license_number: data[0].liscence_number,
+        vehicle_number: data[0].vehicle_number,
+        vehicle_color: data[0].vehicle_color,
+        phone: data[0].phone,
 
-        fetchData();
-    }, []);
-
+    }
+    setUsers(newData);
     return (
         <table className='table-fixed'>
             <thead>
@@ -49,7 +48,18 @@ const UserTable: React.FC = () => {
                 </tr>
             </thead>
             <tbody>
-                {users?.map(user => (
+                <tr>
+
+                    <td>{users?.id}</td>
+                    <td>{users?.first_name}</td>
+                    <td>{users?.last_name}</td>
+                    <td>{users?.license_number}</td>
+                    <td>{users?.vehicle_number}</td>
+                    <td>{users?.vehicle_color}</td>
+                    <td>{users?.phone}</td>
+
+                </tr>
+                {/* {users?.map(user > (
                     <tr key={user.id}>
                         <td>{user.id}</td>
                         <td>{user.first_name}</td>
@@ -60,10 +70,10 @@ const UserTable: React.FC = () => {
                         <td>{user.phone}</td>
                         <td>{user.token}</td>
                     </tr>
-                ))}
+                ))} */}
             </tbody>
         </table>
     );
-};
+}
 
 export default UserTable;
