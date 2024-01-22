@@ -9,7 +9,7 @@ export default function Admin_Layout() {
                 <div className=''>
                     <Sidebar />
                 </div>
-                <div className="pt-0 px-4 bg-blue-500 mt-0 mx-auto flex-1 flex-col max-h-screen overflow-y-auto">
+                <div className="pt-0 px-4  mt-0 mx-auto flex-1 flex-col max-h-screen overflow-y-auto">
                     <Outlet />
                 </div>
             </main>

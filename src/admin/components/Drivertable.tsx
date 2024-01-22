@@ -42,9 +42,9 @@ function Drivertable() {
     }, []);
     return (
         <div className="overflow-x-auto">
-            <table className='min-w-full bg-white border border-gray-300"'>
+            <table className='min-w-full bg-slate-500 border border-gray-300 text-center'>
                 <thead>
-                    <tr>
+                    <tr className='bg-neutral-400'>
                         <th className='py-2 px-4 border-b'>ID</th>
                         <th className='py-2 px-4 border-b'>First Name</th>
                         <th className='py-2 px-4 border-b'>Last Name</th>

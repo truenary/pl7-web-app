@@ -1,8 +1,10 @@
 import { IDriverApi } from "../api/type";
-
+//interacting with a driver API
 export interface IDriverRepo {
+    //declares a method getAllDriver that returns a promise of type AllDriver
     getAllDriver(): Promise<AllDriver>;
 }
+//Implementing the Interface:
 export class DriverRepo implements IDriverRepo {
 
 
