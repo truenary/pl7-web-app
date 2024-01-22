@@ -32,10 +32,10 @@ declare type AllDriver = [
     id: string;
     first_name: string;
     last_name: string;
-    phone_number: string;
-    address?: string;
+    phone: string;
+    address: string;
     liscence_number: string;
     vehicle_number: string;
     vehicle_color: string;
   }
-]
+];
