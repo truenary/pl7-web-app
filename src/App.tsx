@@ -17,52 +17,60 @@ import Rating from "./admin/pages/Rating";
 import Ride from "./admin/pages/Ride";
 import { Toaster } from "react-hot-toast";
 import Login from "./client/pages/Login";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Logout from "./admin/pages/Logout";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/*" element={<AppLayout />}>
-            <Route index element={<Home />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="register" element={<Register />} />
-            <Route path="blog" element={<Blog />} />
-            <Route path="about" element={<About />} />
-            <Route path="login" element={<Login />} />
-            <Route path="download" element={<Download />} />
-          </Route>
-          <Route path="/admin/*" element={<Admin_Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="onlinedriver" element={<Onlinedriver />} />
-            <Route path="driverDetails" element={<Driver />} />
-            <Route path="passengers" element={<Passengers />} />
-            <Route path="Rating" element={<Rating />} />
-            <Route path="rides" element={<Ride />} />
-          </Route>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
+        <Router>
+          <Routes>
+            <Route path="/*" element={<AppLayout />}>
+              <Route index element={<Home />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="register" element={<Register />} />
+              <Route path="blog" element={<Blog />} />
+              <Route path="about" element={<About />} />
+              <Route path="login" element={<Login />} />
+              <Route path="download" element={<Download />} />
+            </Route>
+            <Route path="/admin/*" element={<Admin_Layout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="onlinedriver" element={<Onlinedriver />} />
+              <Route path="drivers" element={<Driver />} />
+              <Route path="passengers" element={<Passengers />} />
+              <Route path="ratings" element={<Rating />} />
+              <Route path="rides" element={<Ride />} />
+              <Route path="logout" element={<Logout />} />
+            </Route>
 
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </Router>
-      <Toaster
-        position="top-center"
-        gutter={12}
-        toastOptions={{
-          success: {
-            duration: 4000,
-          },
-          error: {
-            duration: 5000,
-          },
-          style: {
-            fontSize: "16px",
-            padding: "16px 24px",
-            maxWidth: "500px",
-            backgroundColor: "blue-100",
-          },
-        }}
-        containerStyle={{ margin: "8px" }}
-      />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Router>
+        <Toaster
+          position="top-center"
+          gutter={12}
+          toastOptions={{
+            success: {
+              duration: 4000,
+            },
+            error: {
+              duration: 5000,
+            },
+            style: {
+              fontSize: "16px",
+              padding: "16px 24px",
+              maxWidth: "500px",
+              backgroundColor: "blue-100",
+            },
+          }}
+          containerStyle={{ margin: "8px" }}
+        />
+      </QueryClientProvider>
     </>
   );
 }

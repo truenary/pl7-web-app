@@ -6,3 +6,6 @@ export declare interface IUserApi {
 export declare interface IDriverApi {
   getAllDriver(): Promise<AllDriver>;
 }
+export declare interface IPassengerApi {
+  getAllPassenger(): Promise<ViewUser>;
+}
