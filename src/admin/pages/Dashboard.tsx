@@ -1,3 +1,4 @@
+import Dashboard_map from "../components/dashboard/Dashboard_map"
 
 
 import TotalChart from "../components/Charts/TotalChart";
