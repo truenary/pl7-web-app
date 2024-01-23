@@ -1,14 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Ride() {
-  return (
-    <div>
-      Ride
-
-
-      asdjsbkdjbaksdb
-    </div>
-  )
+  return <div>Ride</div>;
 }
 
-export default Ride
+export default Ride;
