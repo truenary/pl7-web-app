@@ -4,13 +4,11 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import PhoneInput from "react-phone-input-2";
-import { auth } from "../../pages/firebase.config";
+import { auth } from "../../../config/firebase.config";
 import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
-import { UserApi } from "../../../api/UserApi";
-import { IUserRepo, UserRepo } from "../../../Repos/UserRepo";
-import { IUserApi } from "../../../api/type";
 import { useState } from "react";
+import { useRepository } from "../../../hooks/CustomHook";
 
 declare type formProps = {
   phone: string;
@@ -25,14 +23,15 @@ export default function FormWithNumber({
   setConfirmed,
   setCurrentForm,
 }: formProps) {
-  const api: IUserApi = new UserApi();
-  const repo: IUserRepo = new UserRepo(api);
+  const { userRepo: repo } = useRepository();
   const [disabled, setDisabled] = useState<boolean>(false);
+
   //sending otp to the user's phone
   async function handlePhoneSubmit() {
     const regex =
       /977((986)|(985)|(984)|(981)|(982)|(980)|(976)|(975)|(974)|(971)|(972))\d{6}/;
     const isValid = regex.test(phone);
+
     if (phone && isValid) {
       //checking either user already exist or not
       const isExist = await repo.isUserExist(phone);
