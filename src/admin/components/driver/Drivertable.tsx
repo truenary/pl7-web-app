@@ -1,21 +1,18 @@
-import { DriverRepo, IDriverRepo } from "../../../Repos/DriverRepo";
-import { IDriverApi } from "../../../api/type";
-import { DriverApi } from "../../../api/DriverApi";
 import { useQuery } from "@tanstack/react-query";
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
+import { useRepository } from "../../../hooks/CustomHook";
 
 function Drivertable() {
-  const api: IDriverApi = new DriverApi();
-  const repo: IDriverRepo = new DriverRepo(api);
-  if (!repo) {
+  const { driverRepo } = useRepository();
+  if (!driverRepo) {
     return null;
   }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, error, isLoading, isError } = useQuery({
     queryKey: ["drivers"],
     queryFn: async () => {
-      const result = await repo.getAllDriver();
+      const result = await driverRepo.getAllDriver();
       return result;
     },
   });
@@ -45,7 +42,7 @@ function Drivertable() {
         </thead>
         <tbody>
           {data?.map((driver, index) => (
-            <DriverTableRow user={driver} index={index} />
+            <DriverTableRow user={driver} index={index} key={driver.id} />
           ))}
         </tbody>
       </table>

@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
-import { UserApi } from "../../../api/UserApi";
-import { IUserApi } from "../../../api/type";
-import { IUserRepo, UserRepo } from "../../../Repos/UserRepo";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useRepository } from "../../../hooks/CustomHook";
 
 type formValueData = {
   labelText?: string;
@@ -25,8 +23,7 @@ export default function UserDetailsform({
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
-  const api: IUserApi = new UserApi();
-  const repo: IUserRepo = new UserRepo(api);
+  const { userRepo: repo } = useRepository();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function handleDriverDataSubmit(data: any) {
     const newData: User = {
