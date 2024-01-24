@@ -1,17 +1,14 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { UserApi } from "../../api/UserApi";
-import { IUserRepo, UserRepo } from "../../Repos/UserRepo";
-import { IUserApi } from "../../api/type";
 import { useNavigate } from "react-router";
+import { useRepository } from "../../hooks/CustomHook";
 
 type loginForm = {
   phone: string;
   password: string;
 };
 function Login() {
-  const api: IUserApi = new UserApi();
-  const repo: IUserRepo = new UserRepo(api);
+  const { userRepo: repo } = useRepository();
   const { register, handleSubmit, reset } = useForm<loginForm>();
 
   const navigate = useNavigate();

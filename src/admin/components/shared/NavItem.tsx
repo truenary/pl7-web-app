@@ -8,8 +8,6 @@ type navLinkProp = {
 };
 export default function NavItem({ to, text, icon }: navLinkProp) {
   const { pathname } = useLocation();
-  console.log(pathname);
-  console.log(to);
   const activeLinkClass =
     pathname === `/admin/${to}`
       ? "bg-green-500 text-white shadow-md shadow-gray-300"

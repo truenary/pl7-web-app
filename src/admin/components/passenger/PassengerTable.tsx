@@ -1,14 +1,11 @@
 // import { useEffect, useState } from "react";
-import { IPassengerApi } from "../../../api/type";
-import { IPassengerRepo, PassengerRepo } from "../../../Repos/PassengerRepo";
-import { PassengerApi } from "../../../api/PassengerApi";
 import { useQuery } from "@tanstack/react-query";
 import TableRow from "../shared/TableHeading";
 import PassengerTableRow from "./PassengerTableRow";
+import { useRepository } from "../../../hooks/CustomHook";
 
 export default function PassengerTable() {
-  const api: IPassengerApi = new PassengerApi();
-  const repo: IPassengerRepo = new PassengerRepo(api);
+  const { passengerRepo: repo } = useRepository();
   if (!repo) {
     return null;
   }
@@ -50,7 +47,11 @@ export default function PassengerTable() {
             </tr>
           ) : (
             data.map((passenger, index) => (
-              <PassengerTableRow user={passenger} index={index} />
+              <PassengerTableRow
+                user={passenger}
+                index={index}
+                key={passenger.id}
+              />
             ))
           )}
         </tbody>
