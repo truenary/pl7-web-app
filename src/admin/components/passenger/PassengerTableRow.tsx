@@ -9,11 +9,11 @@ export default function PassengerTableRow({ user, index }: tableRowProp) {
     <tr className="bg-white border-b-2 text-center">
       <td className="px-4 py-2">{(index + 1).toString()}</td>
       <td className="px-4 py-2">{`${user.first_name} ${user.last_name}`}</td>
-      <td className="px-4 py-2">{}</td>
+      <td className="px-4 py-2">{user.address}</td>
       <td className="px-4 py-2">{user.phone}</td>
-      <td className="px-4 py-2">date</td>
-      <td className="px-4 py-2">total rides</td>
-      <td className="px-4 py-2">status</td>
+      <td className="px-4 py-2">{user.joining_date}</td>
+      <td className="px-4 py-2">{user.total_rides}</td>
+      <td className="px-4 py-2">{user.status}</td>
       <td className="px-2 py-4">
         <button
           title="Edit"

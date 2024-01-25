@@ -1,6 +1,6 @@
-import { DriverRepo, IDriverRepo } from "../Repos/DriverRepo";
-import { IPassengerRepo, PassengerRepo } from "../Repos/PassengerRepo";
-import { IUserRepo, UserRepo } from "../Repos/UserRepo";
+import { DriverRepo, IDriverRepo } from "../repositories/DriverRepo";
+import { IPassengerRepo, PassengerRepo } from "../repositories/PassengerRepo";
+import { IUserRepo, UserRepo } from "../repositories/UserRepo";
 import { DriverApi } from "../api/DriverApi";
 import { PassengerApi } from "../api/PassengerApi";
 import { UserApi } from "../api/UserApi";

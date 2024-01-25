@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { deleteIcon, editIcon, explore } from "../shared/Icons";
 
 type tableRowProp = {
@@ -5,8 +6,13 @@ type tableRowProp = {
   index: number;
 };
 export default function DriverTableRow({ user, index }: tableRowProp) {
+  const navigate = useNavigate();
   function handleEdit() {
     console.log("user id:" + user.id);
+  }
+  function handleExplore() {
+    console.log("userid :" + user.id);
+    navigate(`${user.id}`);
   }
   return (
     <tr className="bg-white border-b-2 text-center" key={index}>
@@ -14,10 +20,16 @@ export default function DriverTableRow({ user, index }: tableRowProp) {
       <td className="px-4 py-2">{`${user.first_name} ${user.last_name}`}</td>
       <td className="px-4 py-2">{user.address}</td>
       <td className="px-4 py-2">{user.phone}</td>
-      <td className="px-4 py-2">date</td>
-      <td className="px-4 py-2">total rides</td>
-      <td className="px-4 py-2">ratings</td>
-      <td className="px-4 py-2">status</td>
+      <td className="px-4 py-2">{user.joining_date}</td>
+      <td className="px-4 py-2">{user.total_rides}</td>
+      <td className="px-4 py-2">{user.ratings}</td>
+      <td
+        className={`px-4 py-2 ${
+          user.status === "Not Verified" ? "text-red-500" : "text-green-500"
+        }`}
+      >
+        {user.status}
+      </td>
       <td className="px-2 py-4">
         <button
           onClick={handleEdit}
@@ -33,6 +45,7 @@ export default function DriverTableRow({ user, index }: tableRowProp) {
           {deleteIcon}
         </button>
         <button
+          onClick={handleExplore}
           title="View"
           className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-green-600 border-green-600 hover:bg-green-600 hover:text-white  text-base"
         >

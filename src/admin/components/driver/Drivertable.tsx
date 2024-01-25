@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
-import { useRepository } from "../../../hooks/CustomHook";
+import { useDrivers, useRepository } from "../../../hooks/CustomHook";
 
 function Drivertable() {
   const { driverRepo } = useRepository();
@@ -9,13 +8,7 @@ function Drivertable() {
     return null;
   }
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, error, isLoading, isError } = useQuery({
-    queryKey: ["drivers"],
-    queryFn: async () => {
-      const result = await driverRepo.getAllDriver();
-      return result;
-    },
-  });
+  const { data, error, isLoading, isError } = useDrivers();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
