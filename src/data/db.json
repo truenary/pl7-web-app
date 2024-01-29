@@ -280,5 +280,100 @@
     {
       "id": "8a55"
     }
+  ],
+  "DRIVER": [
+    {
+      "id": 1,
+      "lat": 27.431353305174838,
+      "lng": 85.03178229329563
+    },
+    {
+      "id": 2,
+      "lat": 20.4401,
+      "lng": 80.3199
+    }
+  ],
+  "rides": [
+    {
+      "id": "1",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": "thulo pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "2000",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "120"
+    },
+    {
+      "id": "2",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " small pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "0",
+      "Message": "wow nice  nice , chadum chadum ",
+      "distance": "0"
+    },
+    {
+      "id": "3",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " rapti road",
+      "NumberOfPassenger": "2",
+      "Price": "200",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "12"
+    },
+    {
+      "id": "1",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": "thulo pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "2000",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "120"
+    },
+    {
+      "id": "2",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " small pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "0",
+      "Message": "wow nice  nice , chadum chadum ",
+      "distance": "0"
+    },
+    {
+      "id": "3",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " rapti road",
+      "NumberOfPassenger": "2",
+      "Price": "200",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "12"
+    },
+    {
+      "id": "1",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": "thulo pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "2000",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "120"
+    },
+    {
+      "id": "2",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " small pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "0",
+      "Message": "wow nice  nice , chadum chadum ",
+      "distance": "0"
+    },
+    {
+      "id": "3",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " rapti road",
+      "NumberOfPassenger": "2",
+      "Price": "200",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "12"
+    }
   ]
 }
