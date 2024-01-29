@@ -31,12 +31,13 @@ export default function PassengerTable() {
         <thead>
           <tr>
             <TableRow label="SN" />
+            <TableRow label="Image" />
             <TableRow label="Name" />
             <TableRow label="Address" />
             <TableRow label="Phone" />
             <TableRow label="Joining Date" />
             <TableRow label="Total Rides" />
-            <TableRow label="Account Status" />
+            <TableRow label="Status" />
             <TableRow label="Action" />
           </tr>
         </thead>

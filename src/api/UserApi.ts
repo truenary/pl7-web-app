@@ -1,6 +1,7 @@
 import { IUserApi } from "./type";
 
 declare type FinalUser = User & {
+  account_status?: string;
   status: string;
   total_rides: number;
   ratings?: number;
@@ -57,7 +58,8 @@ export class UserApi implements IUserApi {
     userData.user === "driver"
       ? (newUserData = {
           ...userData,
-          status: "Not Verified",
+          account_status: "Not Verified",
+          status: "Inactive",
           joining_date: new Date().toDateString(),
           total_rides: 0,
           ratings: 5,

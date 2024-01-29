@@ -29,7 +29,8 @@ function Drivertable() {
             <TableHeading label="Joining Date" />
             <TableHeading label="Total Rides" />
             <TableHeading label="Ratings" />
-            <TableHeading label="Status" />
+            <TableHeading label="Account Status" />
+            <TableHeading label="Driver Status" />
             <TableHeading label="Action" />
           </tr>
         </thead>

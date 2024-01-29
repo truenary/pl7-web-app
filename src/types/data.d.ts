@@ -16,6 +16,7 @@ declare type User = {
 };
 declare type VUser = User & {
   id: string;
+  account_status?: string;
   status: string;
   total_rides: number;
   ratings: number;
@@ -35,6 +36,7 @@ declare type Driver = {
   vehicle_color: string;
   vehicle_image: string;
   user: string;
+  account_status;
   status: string;
   total_rides: number;
   ratings: number;
@@ -45,6 +47,7 @@ declare type Passenger = {
   id: string;
   first_name: string;
   last_name: string;
+  user_image: string;
   phone: string;
   address: string;
   user: string;
