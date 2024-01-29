@@ -28,8 +28,6 @@ export default function UserDetailsform({
   async function handleDriverDataSubmit(data: any) {
     const newData: User = {
       ...data,
-      liscence_image: data.liscence_image[0],
-      vehicle_image: data.vehicle_image[0],
       phone,
       token,
       user,
@@ -50,6 +48,7 @@ export default function UserDetailsform({
   async function handleUserDataSubmit(data: any) {
     const newData: User = {
       ...data,
+      user_image: data.user_image[0].name,
       phone,
       token,
       user,
@@ -80,6 +79,18 @@ export default function UserDetailsform({
       required: true,
     },
     {
+      labelText: "Address",
+      id: "adress",
+      type: "text",
+      required: true,
+    },
+    {
+      labelText: "Driver Photo",
+      id: "user_image",
+      type: "file",
+      required: true,
+    },
+    {
       labelText: "Liscence Number",
       id: "liscence_number",
       type: "text",
@@ -88,6 +99,12 @@ export default function UserDetailsform({
     {
       labelText: "Liscence Image",
       id: "liscence_image",
+      type: "file",
+      required: true,
+    },
+    {
+      labelText: "BillBook Image",
+      id: "billBook_image",
       type: "file",
       required: true,
     },
@@ -142,7 +159,6 @@ export default function UserDetailsform({
                           key={`${value.id}_input`}
                           id={value.id}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="John"
                           {...register(value.id, { required: value.required })}
                         />
                       </div>
@@ -211,6 +227,38 @@ export default function UserDetailsform({
                         id="last_name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         {...register("last_name", { required: true })}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="address"
+                        key="address_label"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
+                      >
+                        Address
+                      </label>
+                      <input
+                        type="text"
+                        key="address_input"
+                        id="address"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        {...register("address", { required: true })}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="user_image"
+                        key="image_label"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
+                      >
+                        Add your Image
+                      </label>
+                      <input
+                        type="file"
+                        key="image_input"
+                        id="user_image"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        {...register("user_image", { required: true })}
                       />
                     </div>
                     <button

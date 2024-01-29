@@ -21,6 +21,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Logout from "./admin/pages/Logout";
 import { RepositoryProvider } from "./provider/RepositoryProvider";
+import DriverInfo from "./admin/pages/DriverInfo";
+import PassengerInfo from "./admin/pages/PassengerInfo";
 
 function App() {
   const queryClient = new QueryClient();
@@ -44,7 +46,9 @@ function App() {
                 <Route index element={<Dashboard />} />
                 <Route path="onlinedriver" element={<Onlinedriver />} />
                 <Route path="drivers" element={<Driver />} />
+                <Route path="drivers/:id" element={<DriverInfo />} />
                 <Route path="passengers" element={<Passengers />} />
+                <Route path="passengers/:id" element={<PassengerInfo />} />
                 <Route path="ratings" element={<Rating />} />
                 <Route path="rides" element={<Ride />} />
                 <Route path="logout" element={<Logout />} />
