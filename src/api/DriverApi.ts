@@ -10,4 +10,22 @@ export class DriverApi implements IDriverApi {
     const data: AllDriver = await response.json();
     return data;
   }
+  async getDriverById(id: string): Promise<Driver> {
+    const response = await fetch(`${this.BASE_URL}/users/${id}`);
+    if (!response.ok) {
+      throw new Error("Error fetching data");
+    }
+    const data = await response.json();
+    return data;
+  }
+  async verifyDriver(id: string, status: string): Promise<Driver> {
+    const response = await fetch(`${this.BASE_URL}/users/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ status: status }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  }
 }

@@ -1,5 +1,12 @@
 import { IUserApi } from "./type";
 
+declare type FinalUser = User & {
+  account_status?: string;
+  status: string;
+  total_rides: number;
+  ratings?: number;
+  joining_date: string;
+};
 export class UserApi implements IUserApi {
   BASE_URL = "http://localhost:8000";
 
@@ -47,9 +54,27 @@ export class UserApi implements IUserApi {
   }
 
   async createUser(userData: User): Promise<ViewUser | string> {
+    let newUserData: FinalUser | undefined;
+    userData.user === "driver"
+      ? (newUserData = {
+          ...userData,
+          account_status: "Not Verified",
+          status: "Inactive",
+          joining_date: new Date().toDateString(),
+          total_rides: 0,
+          ratings: 5,
+        })
+      : userData.user === "passenger"
+      ? (newUserData = {
+          ...userData,
+          status: "Inactive",
+          joining_date: new Date().toDateString(),
+          total_rides: 0,
+        })
+      : undefined;
     const response = await fetch(`${this.BASE_URL}/users`, {
       method: "POST",
-      body: JSON.stringify(userData),
+      body: JSON.stringify(newUserData),
       headers: {
         "Content-Type": "application/json",
       },

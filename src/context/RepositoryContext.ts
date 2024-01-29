@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import { IUserRepo } from "../Repos/UserRepo";
-import { IPassengerRepo } from "../Repos/PassengerRepo";
-import { IDriverRepo } from "../Repos/DriverRepo";
+import { IUserRepo } from "../repositories/UserRepo";
+import { IPassengerRepo } from "../repositories/PassengerRepo";
+import { IDriverRepo } from "../repositories/DriverRepo";
 
 export type repositoryContextProps = {
   userRepo: IUserRepo;
