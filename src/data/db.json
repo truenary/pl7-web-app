@@ -2,69 +2,106 @@
   "users": [
     {
       "id": "a33f"
-    },
-    {
-      "id": "ff8f",
-      "first_name": "Animesh",
-      "last_name": "Dahal",
-      "address": "hetauda, chaukitol",
-      "user_image": {
-        "0": {}
-      },
-      "liscence_number": "111111111111",
-      "liscence_image": {
-        "0": {}
-      },
-      "billBook_image": {
-        "0": {}
-      },
-      "vehicle_number": "10001",
-      "vehicle_image": {
-        "0": {}
-      },
-      "vehicle_color": "red",
-      "phone": "9779817225862",
-      "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjViNjAyZTBjYTFmNDdhOGViZmQxMTYwNGQ5Y2JmMDZmNGQ0NWY4MmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXVkIjoiYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXV0aF90aW1lIjoxNzA2MTc5NDcyLCJ1c2VyX2lkIjoibEhGMTVra0RRQk43dEpKZ1IwSTlkeWxqc3RyMSIsInN1YiI6ImxIRjE1a2tEUUJON3RKSmdSMEk5ZHlsanN0cjEiLCJpYXQiOjE3MDYxNzk0NzIsImV4cCI6MTcwNjE4MzA3MiwicGhvbmVfbnVtYmVyIjoiKzk3Nzk4MTcyMjU4NjIiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7InBob25lIjpbIis5Nzc5ODE3MjI1ODYyIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGhvbmUifX0.LWILbVE46NtWM0Gvx-5LmQfXhNnp_kYYjGAQDqqg2TjZo0dcFbtwf9aoTlQDdxbFSO2ZPuTtd70EXN4Q1sLSM--7EJY7NpID21wSVEblV9aXCfgt15z2Baf-KUgomktdgbENt0Ngr9I7tse-E3WBE9y8TNxkVErwElhw8BgFIvmhVsvRhgiEPxwghsRt8SxQ7vJR-5ozfXSTxal90u3bW_RrC7z0PdnaFgPLRSg91at4bPRVmJXiiJd9Ba8mT4T3h6uIgFMz-rpaMZaOaXtbTEx_qYDWha7eBVpnCGR-o8o6GTgsrQPPtmtgZQkgExcbvoE4Fx0FYJqlM9gHz34gKQ",
-      "user": "driver",
-      "account_status": "Verified",
-      "status": "Inactive",
-      "joining_date": "Thu Jan 25 2024",
-      "total_rides": 0,
-      "ratings": 5
-    },
-    {
-      "id": "c635",
-      "first_name": "Smriti",
-      "last_name": "Paudel",
-      "address": "hetauda",
-      "image": {},
-      "user_image": {
-        "0": {}
-      },
-      "phone": "9779865514370",
-      "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjViNjAyZTBjYTFmNDdhOGViZmQxMTYwNGQ5Y2JmMDZmNGQ0NWY4MmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXVkIjoiYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXV0aF90aW1lIjoxNzA2MjQ4Nzk5LCJ1c2VyX2lkIjoiYXEzYnpIVUVON1E5amF4S0lIVU9ZbGpIa0RJMiIsInN1YiI6ImFxM2J6SFVFTjdROWpheEtJSFVPWWxqSGtESTIiLCJpYXQiOjE3MDYyNDg3OTksImV4cCI6MTcwNjI1MjM5OSwicGhvbmVfbnVtYmVyIjoiKzk3Nzk4NjU1MTQzNzAiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7InBob25lIjpbIis5Nzc5ODY1NTE0MzcwIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGhvbmUifX0.MTrHornkVvC6MzTqert1Noh6KrU4qZzZ_paktpkxfmlLBYulv7c-qQZwe-4rQIDsuNkSUccbSE7gcAX4pFGwuAkIIvl2hO8yPpU0E-A9MyTAv2qDoBw14jYV-QDlHJTfaOuZ-udaXDOenhXhNSAHt5KwwhyMMxjlAVHR07um6pDJjHdY1D13d1sJLnd5gt-OAHWwrvYjc7O7wQovM9IHGr0nrvXxlQ69WlfIkmpY1Q8AiXzy1bse6TigwqGE6p8khBWrFVVvsekovcOFK4Dx5A056MlGVGYwcNr3k1RaNJegJ8y0-PjZMLQnt54t659lZfauPFFtkPusnOzTAeobrg",
-      "user": "passenger",
-      "status": "Inactive",
-      "joining_date": "Fri Jan 26 2024",
-      "total_rides": 0
-    },
-    {
-      "id": "c34f",
-      "first_name": "Rahul",
-      "last_name": "Mijar",
-      "address": "hetauda-10, aananda toll",
-      "user_image": "SagarImage.jpg",
-      "phone": "9779865410868",
-      "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjViNjAyZTBjYTFmNDdhOGViZmQxMTYwNGQ5Y2JmMDZmNGQ0NWY4MmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXVkIjoiYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXV0aF90aW1lIjoxNzA2MjQ5ODgxLCJ1c2VyX2lkIjoiY0FwdUUzRkdsdFUzV0lJd0NYTWk3dDFDQnZPMiIsInN1YiI6ImNBcHVFM0ZHbHRVM1dJSXdDWE1pN3QxQ0J2TzIiLCJpYXQiOjE3MDYyNDk4ODEsImV4cCI6MTcwNjI1MzQ4MSwicGhvbmVfbnVtYmVyIjoiKzk3Nzk4NjU0MTA4NjgiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7InBob25lIjpbIis5Nzc5ODY1NDEwODY4Il19LCJzaWduX2luX3Byb3ZpZGVyIjoicGhvbmUifX0.GejDMA8IL2H1CFH4tIHsaP9IhIqBinADOhXGPBjVSOj0i6AIK1AiUGrnMmEw5Xs3Ot4ar878XqnYL-z0MltxiBFpUVg-NearU-mKVVFOX1JFhp4ZIJTfLIGyyL9T5Sw2ktxX9WNQFjPowDL6KFQ-pO7Mxg1M9wpQyaxCOGfXpd90HaORXsZyhJZg5qySuF3YTSLJ0AyfNDOeFbtNGscevkPCttpK1ziCZDtGiMM87wje7ykCfv1Z8aJIDbric4RSESTZY-MhOiTNy_EgTt1dvcZYFb1mrbGFe7FGIVEld_rgKANPIB12hB_tIDtVgZNw9XhKWngGDeYldNDNjjg8Fw",
-      "user": "passenger",
-      "status": "Inactive",
-      "joining_date": "Fri Jan 26 2024",
-      "total_rides": 0
     }
   ],
   "Ratings": [
     {
       "id": "8a55"
+    }
+  ],
+  "DRIVER": [
+    {
+      "id": 1,
+      "lat": 27.431353305174838,
+      "lng": 85.03178229329563
+    },
+    {
+      "id": 2,
+      "lat": 20.4401,
+      "lng": 80.3199
+    }
+  ],
+  "rides": [
+    {
+      "id": "1",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": "thulo pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "2000",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "120"
+    },
+    {
+      "id": "2",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " small pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "0",
+      "Message": "wow nice  nice , chadum chadum ",
+      "distance": "0"
+    },
+    {
+      "id": "3",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " rapti road",
+      "NumberOfPassenger": "2",
+      "Price": "200",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "12"
+    },
+    {
+      "id": "1",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": "thulo pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "2000",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "120"
+    },
+    {
+      "id": "2",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " small pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "0",
+      "Message": "wow nice  nice , chadum chadum ",
+      "distance": "0"
+    },
+    {
+      "id": "3",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " rapti road",
+      "NumberOfPassenger": "2",
+      "Price": "200",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "12"
+    },
+    {
+      "id": "1",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": "thulo pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "2000",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "120"
+    },
+    {
+      "id": "2",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " small pokhara",
+      "NumberOfPassenger": "1",
+      "Price": "0",
+      "Message": "wow nice  nice , chadum chadum ",
+      "distance": "0"
+    },
+    {
+      "id": "3",
+      "PickupLocation": "sano Pokhara",
+      "DropLocation": " rapti road",
+      "NumberOfPassenger": "2",
+      "Price": "200",
+      "Message": "wow nice , chadum chadum ",
+      "distance": "12"
     }
   ]
 }

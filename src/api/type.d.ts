@@ -11,3 +11,6 @@ export declare interface IDriverApi {
 export declare interface IPassengerApi {
   getAllPassenger(): Promise<ViewUser>;
 }
+export declare interface IOnlineDriver {
+  getAllOnlineDriver(): Promise<AllOnlineDriver>;
+}

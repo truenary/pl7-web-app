@@ -56,3 +56,21 @@ declare type Passenger = {
   joining_date: string;
 };
 declare type AllPassenger = Passenger[];
+declare type ALLRides = [
+  {
+    id: string;
+    PickupLocation: string;
+    DropLocation: string;
+    NumberOfPassenger: string;
+    Price: string;
+    Message: string;
+    distance: string;
+  }
+];
+declare type AllOnlineDriver = [
+  {
+    id: number;
+    lat: number;
+    lng: number;
+  }
+];
