@@ -41,22 +41,20 @@ export default function DriverTableRow({ user, index }: tableRowProp) {
       <td className="px-4 py-2">{user.ratings}</td>
       <td className={`px-4 py-2 `}>
         <span
-          className={`${
-            user.account_status === ("Not Verified" || "not verified")
-              ? "text-white bg-red-500 py-2 px-4 rounded"
-              : "text-white bg-green-500 py-2 px-4 rounded"
-          }`}
+          className={`${user.account_status === ("Not Verified" || "not verified")
+            ? "text-white bg-red-500 py-2 px-4 rounded"
+            : "text-white bg-green-500 py-2 px-4 rounded"
+            }`}
         >
           {user.account_status}
         </span>
       </td>
       <td className={`px-4 py-2 `}>
         <span
-          className={`${
-            user.status === ("Inactive" || "Deactive")
-              ? "text-white bg-red-500 py-2 px-4 rounded"
-              : "text-white bg-green-500 py-2 px-4 rounded"
-          }`}
+          className={`${user.status === ("Inactive" || "Deactive")
+            ? "text-white bg-red-500 py-2 px-4 rounded"
+            : "text-white bg-green-500 py-2 px-4 rounded"
+            }`}
         >
           {user.status}
         </span>

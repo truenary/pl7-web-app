@@ -13,4 +13,11 @@ export declare interface IPassengerApi {
 }
 export declare interface IOnlineDriver {
   getAllOnlineDriver(): Promise<AllOnlineDriver>;
+
+
 }
+
+export declare interface IRideApi {
+  getAllRide(): Promise<ALLRides>;
+}
+

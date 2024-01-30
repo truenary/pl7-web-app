@@ -11,7 +11,7 @@ interface OnlineDriver {
 const libraries: ["places"] = ["places"];
 const mapContainerStyle = {
   width: "79vw",
-  height: "80vh",
+  height: "40vh",
 };
 const center = {
   lat: 27.431353305174838,
@@ -52,6 +52,12 @@ function DashboardMap() {
         mapContainerStyle={mapContainerStyle}
         zoom={13}
         center={center}
+        options={{
+          zoomControl: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false
+        }}
       >
         {Onlinedrivers.length > 0 &&
           Onlinedrivers.map((driver) => (

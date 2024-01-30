@@ -18,6 +18,7 @@ import Ride from "./admin/pages/Ride";
 import { Toaster } from "react-hot-toast";
 import Login from "./client/pages/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Logout from "./admin/pages/Logout";
 import { RepositoryProvider } from "./provider/RepositoryProvider";
