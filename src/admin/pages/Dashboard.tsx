@@ -18,10 +18,10 @@ function Dashboard() {
           <TotalChart />
         </div>
       </div>
-      <div className="my-6">
+      <div className=" my-44">
         <h1 className="text-center text-gray-800 text-3xl font-semibold mb-6">Travel Statistics</h1>
         <div className="flex justify-center">
-          <div className="flex flex-row gap-28 ">
+          <div className="flex flex-row gap-28  my-14">
             <ChildComponent children="Booked Trips" value="400" backgroundColor="bg-gradient-to-br from-blue-400 to-cyan-500" />
             <ChildComponent children="New Passengers" value="200" backgroundColor="bg-gradient-to-br from-red-400 to-pink-500" />
             <ChildComponent children="Cancelled Trips" value="20" backgroundColor="bg-gradient-to-br from-orange-400 to-yellow-500" />
