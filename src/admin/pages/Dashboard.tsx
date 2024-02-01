@@ -2,15 +2,11 @@
 
 import TotalChart from "../components/Charts/TotalChart";
 import ChildComponent from "../components/dashboard/ChildComponent";
-import Dashboard_map from "../components/dashboard/Dashboard_map";
+
 
 function Dashboard() {
   return (
     <>
-      <div className="map h-auto  ">
-        <h1>Auto Live Location</h1>
-        <Dashboard_map />
-      </div>
 
       <div className="my-6  grid-cols-2 gap-2">
         <div className="h-auto  bg-slate-200">
