@@ -1,10 +1,16 @@
 import React from 'react'
+import DashboardMap from '../components/dashboard/Dashboard_map'
+import OnlineDriverTable from '../components/OnlineDriver/OnlineDriverTable'
 
 function Onlinedriver() {
     return (
-        <div>
-            Onlinedriver
+        <div className='flex flex-row'>
+           <OnlineDriverTable />
+            <div className='flex-grow h-full'>
+                <DashboardMap />
+            </div>
         </div>
+
     )
 }
 

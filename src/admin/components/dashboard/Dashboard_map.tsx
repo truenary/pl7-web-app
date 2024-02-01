@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { IOnlineDriver } from "../../../api/type";
 import { OnlineDriverApi } from "../../../api/OnlineDriverApi";
 import { OnlineDriverRepo } from "../../../repositories/OnlineDriverRepo";
+import logo from '../../../../public/logo.jpg';
 interface OnlineDriver {
   id: number;
   lat: number;
@@ -10,8 +11,8 @@ interface OnlineDriver {
 }
 const libraries: ["places"] = ["places"];
 const mapContainerStyle = {
-  width: "79vw",
-  height: "80vh",
+  width: "40vw",
+  height: "70vh",
 };
 const center = {
   lat: 27.431353305174838,
@@ -38,8 +39,10 @@ function DashboardMap() {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
+    const intervalId = setInterval(fetchData, 1000);
+    return () => clearInterval(intervalId);
   }, []);
+
   if (loadError) {
     return <div>Error loading maps</div>;
   }
@@ -52,14 +55,21 @@ function DashboardMap() {
         mapContainerStyle={mapContainerStyle}
         zoom={13}
         center={center}
+        options={{
+          zoomControl: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false
+        }}
       >
+
         {Onlinedrivers.length > 0 &&
           Onlinedrivers.map((driver) => (
             <Marker
               key={driver.id}
               position={{ lat: driver.lat, lng: driver.lng }}
               icon={{
-                url: "logo.jpg",
+                url: logo,
                 scaledSize: new window.google.maps.Size(30, 30),
               }}
             />

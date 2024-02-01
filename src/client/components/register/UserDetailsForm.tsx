@@ -77,6 +77,7 @@ export default function UserDetailsform({
       id: "last_name",
       type: "text",
       required: true,
+    
     },
     {
       labelText: "Address",

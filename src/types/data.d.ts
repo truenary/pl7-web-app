@@ -74,3 +74,9 @@ declare type AllOnlineDriver = [
     lng: number;
   }
 ];
+declare type OnlineDriver ={
+  id: number;
+  name: string;
+  Status: string;
+  rating:string;
+}
