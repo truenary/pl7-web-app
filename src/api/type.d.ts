@@ -12,5 +12,9 @@ export declare interface IPassengerApi {
   getAllPassenger(): Promise<ViewUser>;
 }
 export declare interface IOnlineDriver {
-  getAllOnlineDriver(): Promise<AllOnlineDriver>;
+  getAllOnlineDriver(): Promise<OnlineDriver>;
+}
+
+export declare interface IRideApi {
+  getAllRide(): Promise<ALLRides>;
 }

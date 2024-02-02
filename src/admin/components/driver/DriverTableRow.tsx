@@ -7,10 +7,20 @@ type tableRowProp = {
   index: number;
 };
 export default function DriverTableRow({ user, index }: tableRowProp) {
-  // console.log(user);
   const navigate = useNavigate();
   function handleExplore() {
-    // console.log("userid :" + user.id);
+    console.log("userid :" + user.id);
+    navigate(`${user.id}`);
+  }
+  function handleDelete() {
+    if (confirm("Are you sure you want to delete!") == true) {
+      // console.log(report);
+      // setReport("");
+      toast.error("currently deleting feature is not available");
+    }
+  }
+  function handleExplore() {
+    console.log("userid :" + user.id);
     navigate(`${user.id}`);
   }
   function handleDelete() {

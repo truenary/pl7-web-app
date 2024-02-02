@@ -17,6 +17,7 @@ function Drivertable({ filterValue }: driverTableProp) {
   console.log(filterValue);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, error, isLoading, isError } = useDrivers();
+  const { data, error, isLoading, isError } = useDrivers();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -43,6 +44,8 @@ function Drivertable({ filterValue }: driverTableProp) {
             <TableHeading label="Joining Date" />
             <TableHeading label="Total Rides" />
             <TableHeading label="Ratings" />
+            <TableHeading label="Account Status" />
+            <TableHeading label="Driver Status" />
             <TableHeading label="Account Status" />
             <TableHeading label="Driver Status" />
             <TableHeading label="Action" />

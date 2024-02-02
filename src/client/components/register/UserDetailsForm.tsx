@@ -77,6 +77,19 @@ export default function UserDetailsform({
       id: "last_name",
       type: "text",
       required: true,
+    
+    },
+    {
+      labelText: "Address",
+      id: "adress",
+      type: "text",
+      required: true,
+    },
+    {
+      labelText: "Driver Photo",
+      id: "user_image",
+      type: "file",
+      required: true,
     },
     {
       labelText: "Address",

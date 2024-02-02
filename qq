@@ -1,0 +1,23 @@
+[33ma2069ca[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat/onlinedriver[m[33m)[m feat/onlinedriver map fixed
+[33m3d6a8f6[m[33m ([m[1;32mfeat/charts[m[33m)[m feat/charts- perf
+[33mdbc1590[m  feat/charts
+[33m7bb85a9[m[33m ([m[1;31morigin/feat/map[m[33m, [m[1;31morigin/feat/manageDriver[m[33m, [m[1;32mfeat/map[m[33m)[m added a map feature from sagar
+[33mc51eeb8[m some changes added
+[33m92007ec[m feat:managed driver info
+[33m0530bbd[m Merge branch 'main' of github.com:truenary/pl7-web-app
+[33m582236f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m feat: first preview (#8)
+[33me57defa[m[33m ([m[1;31morigin/features[m[33m)[m feat:added a repository context to access all repos objects
+[33m2809820[m added some changes in admin side UI
+[33m4180ce0[m table created
+[33mef671b6[m jsondb_updated
+[33m0ce3a8b[m admin-dashboard-updated
+[33mb4d873a[m feat: added client side pages and components
+[33m2c249d3[m Feat/admin/passenger (#6)
+[33m4a6edd4[m fixed:registration and added a login feature
+[33mf131f31[m feat:user registration with custom json for testing
+[33m7edf98c[m Master (#3)
+[33m455fe0d[m Master (#2)
+[33m8ddcbde[m added: driver type data (#1)
+[33m1c4d6b4[m modified: app.tsx and main.tsx
+[33m36304da[m chore:added dependencies
+[33m489cdb5[m Initial commit

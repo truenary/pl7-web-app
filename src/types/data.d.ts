@@ -3,11 +3,14 @@ declare type User = {
   last_name: string;
   address: string;
   user_image: string;
+  address: string;
+  user_image: string;
   liscence_number?: string;
   liscence_image?: string;
   vehicle_number?: string;
   vehicle_image?: string;
   vehicle_color?: string;
+  billBook_image?: string;
   billBook_image?: string;
   token: string | undefined;
   phone: string;
@@ -30,7 +33,9 @@ declare type Driver = {
   phone: string;
   address: string;
   billBook_image: string;
+  billBook_image: string;
   liscence_number: string;
+  liscence_image: string;
   liscence_image: string;
   vehicle_number: string;
   vehicle_color: string;
@@ -48,7 +53,13 @@ declare type Passenger = {
   first_name: string;
   last_name: string;
   user_image: string;
+  user_image: string;
   phone: string;
+  address: string;
+  user: string;
+  status: string;
+  total_rides: number;
+  joining_date: string;
   address: string;
   user: string;
   status: string;
