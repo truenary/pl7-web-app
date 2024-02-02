@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
-import { useDrivers, useRepository } from "../../hooks/CustomHook";
-import { capitalize } from "../../utils/utilities";
+
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { useDrivers, useRepository } from "../../../hooks/CustomHook";
+import { capitalize } from "../../../utils/utilities";
 export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
@@ -103,7 +104,9 @@ export default function DriverInfo() {
                   </div>
                   <div
                     className={`${
-                      driver[0].status !== "Verified" ? "flex" : "hidden"
+                      driver[0].account_status !== "Verified"
+                        ? "flex"
+                        : "hidden"
                     } flex flex-row gap-x-2 mt-4`}
                   >
                     <button

@@ -2,6 +2,61 @@
   "users": [
     {
       "id": "a33f"
+    },
+    {
+      "id": "cf6c",
+      "first_name": "Animesh",
+      "last_name": "Dahal",
+      "address": "hetauda, chaukitol",
+      "user_image": "model biku-PhotoRoom.jpg",
+      "phone": "9779817225862",
+      "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjViNjAyZTBjYTFmNDdhOGViZmQxMTYwNGQ5Y2JmMDZmNGQ0NWY4MmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXVkIjoiYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXV0aF90aW1lIjoxNzA2NTIzNzIyLCJ1c2VyX2lkIjoibEhGMTVra0RRQk43dEpKZ1IwSTlkeWxqc3RyMSIsInN1YiI6ImxIRjE1a2tEUUJON3RKSmdSMEk5ZHlsanN0cjEiLCJpYXQiOjE3MDY1MjM3MjIsImV4cCI6MTcwNjUyNzMyMiwicGhvbmVfbnVtYmVyIjoiKzk3Nzk4MTcyMjU4NjIiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7InBob25lIjpbIis5Nzc5ODE3MjI1ODYyIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGhvbmUifX0.PVTDYEjyip-P9G8GzXTIfBsFq3J4RRJjjD0Q2LWOBYUL6EbSY8oAEM8wKNxtwXRvK7_6IQcCJM-QRVwdSmdpg-YecsO-I-X4AyGsAJC27yNwAwIAIGfE5xpL0im-oJhrmPy-5EInAZlNbB6HOvWx9In5AIsX2LgttsZzaUAeZ5UuvsXddYsKFYo2o0sBt3jToBGZpZqZPhDifIRqT_3S1OvCL7C_78jO1tXYWQqqOGWFgR5uXEcL9LZXKmwiDZpgQ3O5pFZPu68paWxwZG6Z2txMDhLUkguVH-JYt-hqmbQbW60bw1JRLIzZ6HT0eLdsfxSn5oYwOUmmS6XIdz83_w",
+      "user": "passenger",
+      "status": "Active",
+      "joining_date": "Mon Jan 29 2024",
+      "total_rides": 0
+    },
+    {
+      "id": "5760",
+      "first_name": "Rahul",
+      "last_name": "Mijar",
+      "address": "hetauda-10, aananda toll",
+      "user_image": {
+        "0": {}
+      },
+      "liscence_number": "1212112",
+      "liscence_image": {
+        "0": {}
+      },
+      "billBook_image": {
+        "0": {}
+      },
+      "vehicle_number": "10101",
+      "vehicle_image": {
+        "0": {}
+      },
+      "vehicle_color": "white",
+      "phone": "9779865410868",
+      "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjViNjAyZTBjYTFmNDdhOGViZmQxMTYwNGQ5Y2JmMDZmNGQ0NWY4MmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXVkIjoiYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXV0aF90aW1lIjoxNzA2NTI2NzYxLCJ1c2VyX2lkIjoiY0FwdUUzRkdsdFUzV0lJd0NYTWk3dDFDQnZPMiIsInN1YiI6ImNBcHVFM0ZHbHRVM1dJSXdDWE1pN3QxQ0J2TzIiLCJpYXQiOjE3MDY1MjY3NjEsImV4cCI6MTcwNjUzMDM2MSwicGhvbmVfbnVtYmVyIjoiKzk3Nzk4NjU0MTA4NjgiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7InBob25lIjpbIis5Nzc5ODY1NDEwODY4Il19LCJzaWduX2luX3Byb3ZpZGVyIjoicGhvbmUifX0.W3YiIG2g2AljlanJmtUuGUVFdVbMT5J0F01xmXsux2yHSpydXqbIoB6cIZ0RT8N2K481ngaDQ7UqfWR8FrWU0r_-jEJTfUeqVH7YHAqSCYlcIzFnSAP7ZUiHWvyLC8Ej_yG_6UlurveSRM_Wd2ijrb9BDFRsNyRn6u7wbPsaqmfPDCK_EfyiEKlnLgM403MSbuUL9RMsYP5AXxKci2aCoawPt5kWw7wFH0A3NolHMWIkYEinLHHKqALd-jWUyb2c0ZOMot2pZ3tK909Mrq_9F7ZjZDYJY86LkuowUoISJ8xAMveFgRccOMqwyAmhnxy6fVdS1NJcHQVtCIzkJCo8RA",
+      "user": "driver",
+      "account_status": "Verified",
+      "status": "Inactive",
+      "joining_date": "Mon Jan 29 2024",
+      "total_rides": 0,
+      "ratings": 5
+    },
+    {
+      "id": "f59e",
+      "first_name": "Puja",
+      "last_name": "Negi",
+      "address": "heatauda",
+      "user_image": "user.jpg",
+      "phone": "9779845846211",
+      "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY5NjI5NzU5NmJiNWQ4N2NjOTc2Y2E2YmY0Mzc3NGE3YWE5OTMxMjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXVkIjoiYXV0by1oaXJpbmctYXBwLTU4N2IwIiwiYXV0aF90aW1lIjoxNzA2ODU2MjE2LCJ1c2VyX2lkIjoiU0huN3oxTzlad1Z5dk1lUVZKQnNjeUZ5RW9nMiIsInN1YiI6IlNIbjd6MU85WndWeXZNZVFWSkJzY3lGeUVvZzIiLCJpYXQiOjE3MDY4NTYyMTYsImV4cCI6MTcwNjg1OTgxNiwicGhvbmVfbnVtYmVyIjoiKzk3Nzk4NDU4NDYyMTEiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7InBob25lIjpbIis5Nzc5ODQ1ODQ2MjExIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGhvbmUifX0.AE58rY4tADLUbhOFUa9L6xHgiIb_lPjnlRI2vOJ_TsFsSEB2VPrVAaRHZ3fTfOUBRZV3rVkV73fackxFoUfROdqoXxOiEKHas-xH89rt7BFe0pONHrnCwrQiWt7Ktt6xpTyymEcifPLwJRmMWEkdcZV3-GKyDQoivdjZqUMA_--08N2BzPQ1a5mnAC1ATjAkayIBFtml_AJuYHddBoUKDf3oPkQg7vddvnBOYMfJV26DbhlKQfeau4lfZUzNi3D9J0SfvHnreyxcR_GX-GId7mpFDXKzYoB4JlaOEva1Ts4Vu8IfgX8k-wFemcQuOQRYXYlANZ0xc8P26oyXTnwCMA",
+      "user": "passenger",
+      "status": "Inactive",
+      "joining_date": "Fri Feb 02 2024",
+      "total_rides": 0
     }
   ],
   "Ratings": [
@@ -11,12 +66,12 @@
   ],
   "DRIVER": [
     {
-      "id": 1,
+      "id": "1",
       "lat": 27.431353305174838,
       "lng": 85.03178229329563
     },
     {
-      "id": 2,
+      "id": "2",
       "lat": 20.4401,
       "lng": 80.3199
     }

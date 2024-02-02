@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { deleteIcon, explore } from "../shared/Icons";
+import { deleteIcon } from "../shared/Icons";
 import toast from "react-hot-toast";
 
 type tableRowProp = {
@@ -7,11 +6,6 @@ type tableRowProp = {
   index: number;
 };
 export default function PassengerTableRow({ user, index }: tableRowProp) {
-  const navigate = useNavigate();
-  function handleExplore() {
-    console.log("userid :" + user.id);
-    navigate(`${user.id}`);
-  }
   function handleDelete() {
     if (confirm("Are you sure you want to delete!") == true) {
       // console.log(report);
@@ -49,13 +43,6 @@ export default function PassengerTableRow({ user, index }: tableRowProp) {
           className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-red-600 border-red-600 hover:bg-red-600  hover:text-white  text-base"
         >
           {deleteIcon}
-        </button>
-        <button
-          onClick={handleExplore}
-          title="View"
-          className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-green-600 border-green-600 hover:bg-green-600 hover:text-white  text-base"
-        >
-          {explore}
         </button>
       </td>
     </tr>

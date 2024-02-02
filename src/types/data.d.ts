@@ -16,7 +16,7 @@ declare type User = {
 };
 declare type VUser = User & {
   id: string;
-  account_status?: string;
+  account_status?: false; //boolena
   status: string;
   total_rides: number;
   ratings: number;
@@ -36,7 +36,7 @@ declare type Driver = {
   vehicle_color: string;
   vehicle_image: string;
   user: string;
-  account_status;
+  account_status: string;
   status: string;
   total_rides: number;
   ratings: number;

@@ -21,7 +21,7 @@ export class DriverApi implements IDriverApi {
   async verifyDriver(id: string, status: string): Promise<Driver> {
     const response = await fetch(`${this.BASE_URL}/users/${id}`, {
       method: "PATCH",
-      body: JSON.stringify({ status: status }),
+      body: JSON.stringify({ account_status: status }),
       headers: {
         "Content-Type": "application/json",
       },

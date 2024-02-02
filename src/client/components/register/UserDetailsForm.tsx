@@ -80,7 +80,7 @@ export default function UserDetailsform({
     },
     {
       labelText: "Address",
-      id: "adress",
+      id: "address",
       type: "text",
       required: true,
     },
