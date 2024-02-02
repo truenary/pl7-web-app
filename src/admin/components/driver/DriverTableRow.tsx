@@ -30,6 +30,17 @@ export default function DriverTableRow({ user, index }: tableRowProp) {
       toast.error("currently deleting feature is not available");
     }
   }
+  function handleExplore() {
+    console.log("userid :" + user.id);
+    navigate(`${user.id}`);
+  }
+  function handleDelete() {
+    if (confirm("Are you sure you want to delete!") == true) {
+      // console.log(report);
+      // setReport("");
+      toast.error("currently deleting feature is not available");
+    }
+  }
   return (
     <tr className="bg-white border-b-2 text-center" key={index}>
       <td className="px-4 py-2">{(index + 1).toString()}</td>
