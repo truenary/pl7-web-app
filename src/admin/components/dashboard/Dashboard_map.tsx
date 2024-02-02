@@ -3,7 +3,7 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { IOnlineDriver } from "../../../api/type";
 import { OnlineDriverApi } from "../../../api/OnlineDriverApi";
 import { OnlineDriverRepo } from "../../../repositories/OnlineDriverRepo";
-import logo from '../../../../public/logo.jpg';
+import logo from "../../../../public/logo.jpg";
 interface OnlineDriver {
   id: number;
   lat: number;
@@ -59,10 +59,9 @@ function DashboardMap() {
           zoomControl: false,
           streetViewControl: false,
           mapTypeControl: false,
-          fullscreenControl: false
+          fullscreenControl: false,
         }}
       >
-
         {Onlinedrivers.length > 0 &&
           Onlinedrivers.map((driver) => (
             <Marker
