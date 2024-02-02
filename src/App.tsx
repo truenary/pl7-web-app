@@ -23,6 +23,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Logout from "./admin/pages/Logout";
 import { RepositoryProvider } from "./provider/RepositoryProvider";
 import DriverInfo from "./admin/pages/DriverInfoPage";
+import PassengerInfo from "./admin/pages/PassengerInfo";
 
 function App() {
   const queryClient = new QueryClient();
