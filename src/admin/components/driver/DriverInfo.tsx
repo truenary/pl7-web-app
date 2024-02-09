@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 
 import toast from "react-hot-toast";
-import { useState } from "react";
-import { useDrivers, useRepository } from "../../../hooks/CustomHook";
+import { useEffect, useState } from "react";
+import { useRepository } from "../../../hooks/CustomHook";
 import { capitalize } from "../../../utils/utilities";
 export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
@@ -25,16 +25,29 @@ export default function DriverInfo() {
       }
     }
   }
-  // console.log(id);
-  const { data, error, isLoading, isError } = useDrivers();
-  if (isLoading) {
-    return <h2>Data is loading....</h2>;
-  }
-  if (isError) {
-    return <h2>Error: {error.message}</h2>;
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const driver: Driver[] | undefined = data?.filter((d: any) => d.id === id);
+  const [driver, setDriver] = useState<Driver>();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (typeof id !== "undefined") {
+          const response = await repo.getDriverById(id);
+          if (response) {
+            if ("errors" in response) {
+              console.log("error while fetching data");
+            } else {
+              //it needs to to refactor
+              setDriver(undefined);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   // console.log(driver);
   if (typeof driver === "undefined") {
     console.log(driver);
@@ -53,7 +66,7 @@ export default function DriverInfo() {
                       className="w-full h-48 bg-gray-300 rounded mb-4 shrink-0"
                     ></img>
                     <h1 className="text-xl font-bold">
-                      Role: {capitalize(driver[0].user)}
+                      Role: {capitalize(driver.user)}
                     </h1>
                   </div>
                   <hr className="my-6 border-t border-gray-300" />
@@ -62,13 +75,13 @@ export default function DriverInfo() {
                       Driver Status
                     </span>
                     <ul>
-                      <li className="mb-2">status: {driver[0].status}</li>
+                      <li className="mb-2">status: {driver.status}</li>
                       <li className="mb-2">
-                        Total Rides: {driver[0].total_rides}
+                        Total Rides: {driver.total_rides}
                       </li>
-                      <li className="mb-2">Ratings: {driver[0].ratings}</li>
+                      <li className="mb-2">Ratings: {driver.ratings}</li>
                       <li className="mb-2">
-                        Joining Date: {driver[0].joining_date}
+                        Joining Date: {driver.joining_date}
                       </li>
                     </ul>
                   </div>
@@ -80,14 +93,14 @@ export default function DriverInfo() {
                     <ul>
                       <li className="mb-2">
                         Name:{" "}
-                        {`${capitalize(driver[0].first_name)} ${capitalize(
-                          driver[0].last_name
+                        {`${capitalize(driver.first_name)} ${capitalize(
+                          driver.last_name
                         )}`}
                       </li>
-                      <li className="mb-2">Address: {driver[0].address}</li>
-                      <li className="mb-2">Phone: {driver[0].phone}</li>
+                      <li className="mb-2">Address: {driver.address}</li>
+                      <li className="mb-2">Phone: {driver.phone}</li>
                       <li className="mb-2">
-                        Liscence Number:{driver[0].liscence_number}
+                        Liscence Number:{driver.liscence_number}
                       </li>
                     </ul>
                   </div>
@@ -98,16 +111,14 @@ export default function DriverInfo() {
                     </span>
                     <ul>
                       <li className="mb-2">
-                        Number Plate: {driver[0].vehicle_number}
+                        Number Plate: {driver.vehicle_number}
                       </li>
-                      <li className="mb-2">Color: {driver[0].vehicle_color}</li>
+                      <li className="mb-2">Color: {driver.vehicle_color}</li>
                     </ul>
                   </div>
                   <div
                     className={`${
-                      driver[0].account_status !== "Verified"
-                        ? "flex"
-                        : "hidden"
+                      driver.account_status !== "Verified" ? "flex" : "hidden"
                     } flex flex-row gap-x-2 mt-4`}
                   >
                     <button

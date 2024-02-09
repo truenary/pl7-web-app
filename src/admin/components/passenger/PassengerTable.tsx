@@ -1,30 +1,29 @@
-// import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import TableRow from "../shared/TableHeading";
 import PassengerTableRow from "./PassengerTableRow";
 import { useRepository } from "../../../hooks/CustomHook";
+import { useEffect, useState } from "react";
 
-export default function PassengerTable() {
+export default async function PassengerTable() {
   const { repo } = useRepository();
-  if (!repo) {
-    return null;
-  }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, error, isLoading, isError } = useQuery({
-    queryKey: ["passenger"],
-    queryFn: async () => {
-      const result = await repo.getAllPassengers();
-      return result;
-    },
-  });
+  const [passengers, setPassengers] = useState<AllPassenger>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await repo.getAllPassengers();
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-  if (isError) {
-    console.log(error);
-    return <h2>Error: {error.message}</h2>;
-  }
+        // Check if data is an array
+        if (Array.isArray(data)) {
+          setPassengers(data);
+        } else {
+          console.error("Data is not in the expected format:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="overflow-x-auto text-center">
       <table className='min-w-full bg-white border border-gray-300"'>
@@ -42,12 +41,12 @@ export default function PassengerTable() {
           </tr>
         </thead>
         <tbody>
-          {typeof data === "undefined" ? (
+          {typeof passengers === "undefined" ? (
             <tr>
               <td>The data is undefined</td>
             </tr>
           ) : (
-            data.map((passenger: any, index: number) => (
+            passengers.map((passenger: Passenger, index: number) => (
               <PassengerTableRow
                 user={passenger}
                 index={index}

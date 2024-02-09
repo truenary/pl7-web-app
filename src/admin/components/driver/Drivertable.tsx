@@ -1,36 +1,33 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
-import { useDrivers, useRepository } from "../../../hooks/CustomHook";
-import { useState } from "react";
-import Pagination from "../shared/Pagination";
+import { useRepository } from "../../../hooks/CustomHook";
+import { useEffect, useState } from "react";
 
 declare type driverTableProp = {
   filterValue: string;
 };
 function Drivertable({ filterValue }: driverTableProp) {
-  const { repo } = useRepository();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [userPerPage] = useState(5);
-  if (!repo) {
-    return null;
-  }
   console.log(filterValue);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, error, isLoading, isError } = useDrivers();
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-  if (isError) {
-    console.log(error);
-    return <h2>Error: {error.message}</h2>;
-  }
-  const indexOfLastUser = currentPage * userPerPage;
-  const indexOfFirstUser = indexOfLastUser - userPerPage;
-  const currentUser = data?.slice(indexOfFirstUser, indexOfLastUser);
-  function paginate(pageNumber: number) {
-    setCurrentPage(pageNumber);
-  }
+  const { repo } = useRepository();
+  const [drivers, setDrivers] = useState<AllDriver>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await repo.getAllDriver();
+
+        // Check if data is an array
+        if (Array.isArray(data)) {
+          setDrivers(data);
+        } else {
+          console.error("Data is not in the expected format:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="overflow-x-auto text-center">
       <table className='min-w-full bg-white border border-gray-300"'>
@@ -51,20 +48,11 @@ function Drivertable({ filterValue }: driverTableProp) {
           </tr>
         </thead>
         <tbody>
-          {currentUser?.map((driver: any, index: number) => (
+          {drivers?.map((driver: Driver, index: number) => (
             <DriverTableRow user={driver} index={index} key={driver.id} />
           ))}
         </tbody>
       </table>
-      {typeof data !== "undefined" ? (
-        <Pagination
-          postPerPage={userPerPage}
-          totalPost={data.length}
-          paginate={paginate}
-        />
-      ) : (
-        ""
-      )}
     </div>
   );
 }
