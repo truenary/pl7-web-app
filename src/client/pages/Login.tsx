@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useRepository } from "../../hooks/CustomHook";
 
@@ -8,42 +8,18 @@ type loginForm = {
   password: string;
 };
 function Login() {
-  const { userRepo: repo } = useRepository();
-  const { register, handleSubmit, reset } = useForm<loginForm>();
+  const { repo } = useRepository();
+  const { register, handleSubmit } = useForm<loginForm>();
 
   const navigate = useNavigate();
   async function handleLogin(data: loginForm) {
-    const response = await repo.login(`977${data.phone}`);
-    if (typeof response !== "string") {
-      if (!response.isExist) {
-        toast.error("User does not exist, please register first");
-        reset();
-        navigate("/register");
-      } else {
-        if (response.role === "admin") {
-          if (response.password === undefined) {
-            const res = await repo.addPassword(data.password, response.id);
-            if (typeof res === "string") {
-              toast.error(res);
-            } else {
-              navigate("/admin");
-              toast.success("you are logged in successfully");
-            }
-          } else {
-            if (response.password === data.password) {
-              reset();
-              navigate("/admin");
-              toast.success("you are logged in successfully");
-            } else {
-              toast.error("password or phone number is incorrect");
-            }
-          }
-        } else {
-          toast.error("Access denied");
-        }
-      }
-    } else {
-      toast.error(response);
+    const formData = new FormData();
+    formData.append("phone", `977${data.phone}`);
+    formData.append("password", data.password);
+    const response = await repo.login(formData);
+    if (response) {
+      console.log(response);
+      navigate("");
     }
   }
   return (

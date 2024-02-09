@@ -3,15 +3,13 @@ import PassengerTableRow from "./PassengerTableRow";
 import { useRepository } from "../../../hooks/CustomHook";
 import { useEffect, useState } from "react";
 
-export default async function PassengerTable() {
+export default function PassengerTable() {
   const { repo } = useRepository();
   const [passengers, setPassengers] = useState<AllPassenger>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await repo.getAllPassengers();
-
-        // Check if data is an array
         if (Array.isArray(data)) {
           setPassengers(data);
         } else {

@@ -40,7 +40,7 @@ export class Repository implements IRepository {
     loginInfo: FormData | null
   ): Promise<JsonAPIErrorResp | loginResponse | undefined> {
     const responseData = await this._api.post<loginResponse>(
-      `/register/passenger`,
+      `users/login`,
       loginInfo,
       undefined,
       false
