@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
 import { useDrivers, useRepository } from "../../../hooks/CustomHook";
@@ -8,10 +9,10 @@ declare type driverTableProp = {
   filterValue: string;
 };
 function Drivertable({ filterValue }: driverTableProp) {
-  const { driverRepo } = useRepository();
+  const { repo } = useRepository();
   const [currentPage, setCurrentPage] = useState(1);
   const [userPerPage] = useState(5);
-  if (!driverRepo) {
+  if (!repo) {
     return null;
   }
   console.log(filterValue);
@@ -50,7 +51,7 @@ function Drivertable({ filterValue }: driverTableProp) {
           </tr>
         </thead>
         <tbody>
-          {currentUser?.map((driver, index) => (
+          {currentUser?.map((driver: any, index: number) => (
             <DriverTableRow user={driver} index={index} key={driver.id} />
           ))}
         </tbody>

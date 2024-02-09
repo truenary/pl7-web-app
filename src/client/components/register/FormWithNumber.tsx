@@ -17,13 +17,27 @@ declare type formProps = {
   setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
 };
 
+// async function getUserByPhone(phone: string): Promise<null | undefined> {
+//   const response = await fetch(
+//     `http://localhost:8000/api/v1/users/checkPhone`,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ phoneNumber: phone }),
+//     }
+//   );
+//   console.log(response);
+//   return;
+// }
 export default function FormWithNumber({
   phone,
   setPhone,
   setConfirmed,
   setCurrentForm,
 }: formProps) {
-  const { userRepo: repo } = useRepository();
+  const { repo } = useRepository();
   const [disabled, setDisabled] = useState<boolean>(false);
 
   //sending otp to the user's phone
@@ -31,38 +45,35 @@ export default function FormWithNumber({
     const regex =
       /977((986)|(985)|(984)|(981)|(982)|(980)|(976)|(975)|(974)|(971)|(972))\d{6}/;
     const isValid = regex.test(phone);
-
+    console.log(phone);
     if (phone && isValid) {
-      //checking either user already exist or not
-      const isExist = await repo.isUserExist(phone);
-      if (typeof isExist !== "string") {
-        if (!isExist) {
-          setDisabled(true);
-          try {
-            const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {
-              size: "invisible",
-            });
+      const response = await repo.isPhoneExist(phone);
+      console.log(response);
+      if (response === null) {
+        // console.log(response);
+        setDisabled(true);
+        try {
+          const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {
+            size: "invisible",
+          });
 
-            const confirmation = await signInWithPhoneNumber(
-              auth,
-              `+${phone}`,
-              recaptcha
-            );
-            setConfirmed(confirmation);
-            setCurrentForm(2);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } catch (err: any) {
-            if (err.code === "auth/invalid-phone-number") {
-              toast.error("Invalid Phone number");
-            } else {
-              toast.error("Error while sending otp, please try again");
-            }
+          const confirmation = await signInWithPhoneNumber(
+            auth,
+            `+${phone}`,
+            recaptcha
+          );
+          setConfirmed(confirmation);
+          setCurrentForm(2);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+          if (err.code === "auth/invalid-phone-number") {
+            toast.error("Invalid Phone number");
+          } else {
+            toast.error("Error while sending otp, please try again");
           }
-        } else {
-          toast.error("This phone number is already exist");
         }
       } else {
-        toast.error(isExist);
+        toast.error("This phone number is already exist");
       }
     } else {
       setPhone("");

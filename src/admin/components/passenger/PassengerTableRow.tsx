@@ -56,7 +56,6 @@ export default function PassengerTableRow({ user, index }: tableRowProp) {
       <td className="px-2 py-4">
         <button
           onClick={handleDelete}
-          onClick={handleDelete}
           title="Delete"
           className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-red-600 border-red-600 hover:bg-red-600  hover:text-white  text-base"
         >

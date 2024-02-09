@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import { IOnlineDriver } from "../../../api/type";
-import { OnlineDriverApi } from "../../../api/OnlineDriverApi";
-import { OnlineDriverRepo } from "../../../repositories/OnlineDriverRepo";
 import logo from "../../../../public/logo.jpg";
+import { useRepository } from "../../../hooks/CustomHook";
 interface OnlineDriver {
   id: number;
   lat: number;
@@ -19,6 +17,7 @@ const center = {
   lng: 85.03178229329563,
 };
 function DashboardMap() {
+  const { repo } = useRepository();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyC2hVQsKcF5QA_kMTt9rBiR8YYt2icM3KA",
     libraries,
@@ -27,8 +26,6 @@ function DashboardMap() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const api: IOnlineDriver = new OnlineDriverApi();
-        const repo: IOnlineDriver = new OnlineDriverRepo(api);
         const data = await repo.getAllOnlineDriver();
         if (Array.isArray(data)) {
           setOnlineDrivers(data);

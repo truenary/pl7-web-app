@@ -10,22 +10,22 @@ export function useRepository() {
   return context;
 }
 export function useDrivers() {
-  const { driverRepo } = useRepository();
+  const { repo } = useRepository();
   const drivers = useQuery({
     queryKey: ["drivers"],
     queryFn: async () => {
-      const result = await driverRepo.getAllDriver();
+      const result = await repo.getAllDriver();
       return result;
     },
   });
   return drivers;
 }
 export function useDriverById(id: string) {
-  const { driverRepo } = useRepository();
+  const { repo } = useRepository();
   const drivers = useQuery({
     queryKey: ["driver"],
     queryFn: async () => {
-      const result = await driverRepo.getDriverById(id);
+      const result = await repo.getDriverById(id);
       return result;
     },
   });

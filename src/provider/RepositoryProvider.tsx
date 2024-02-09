@@ -1,32 +1,24 @@
-import { DriverRepo, IDriverRepo } from "../repositories/DriverRepo";
-import { IPassengerRepo, PassengerRepo } from "../repositories/PassengerRepo";
-import { IUserRepo, UserRepo } from "../repositories/UserRepo";
-import { DriverApi } from "../api/DriverApi";
-import { PassengerApi } from "../api/PassengerApi";
-import { UserApi } from "../api/UserApi";
-import { IDriverApi, IPassengerApi, IUserApi } from "../api/type";
 import {
   RepositoryContext,
   repositoryContextProps,
 } from "../context/RepositoryContext";
+import { API } from "../api/Api";
+import { IStorageClient } from "../storage/types";
+import { LocalStorageClient } from "../storage/Storage";
+import { IRepository } from "../repositories/types";
+import { Repository } from "../repositories/Repository";
+import { IJsonApi } from "../api/type";
 
 declare type props = {
   children: React.ReactNode;
 };
 export function RepositoryProvider({ children }: props) {
-  const driverApi: IDriverApi = new DriverApi();
-  const driverRepo: IDriverRepo = new DriverRepo(driverApi);
-
-  const passengerApi: IPassengerApi = new PassengerApi();
-  const passengerRepo: IPassengerRepo = new PassengerRepo(passengerApi);
-
-  const userApi: IUserApi = new UserApi();
-  const userRepo: IUserRepo = new UserRepo(userApi);
-
+  const base_url: string = "http://localhost:8000/api/v1/";
+  const storage: IStorageClient = new LocalStorageClient(window.localStorage);
+  const api: IJsonApi = new API(base_url, storage);
+  const repo: IRepository = new Repository(api);
   const contextValue: repositoryContextProps = {
-    userRepo,
-    passengerRepo,
-    driverRepo,
+    repo,
   };
 
   return (

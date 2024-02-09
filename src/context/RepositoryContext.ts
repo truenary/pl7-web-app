@@ -1,12 +1,8 @@
 import { createContext } from "react";
-import { IUserRepo } from "../repositories/UserRepo";
-import { IPassengerRepo } from "../repositories/PassengerRepo";
-import { IDriverRepo } from "../repositories/DriverRepo";
+import { IRepository } from "../repositories/types";
 
 export type repositoryContextProps = {
-  userRepo: IUserRepo;
-  passengerRepo: IPassengerRepo;
-  driverRepo: IDriverRepo;
+  repo: IRepository;
 };
 
 export const RepositoryContext = createContext<

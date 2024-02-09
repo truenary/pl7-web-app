@@ -8,7 +8,7 @@ export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
   const { id } = useParams();
-  const { driverRepo } = useRepository();
+  const { repo } = useRepository();
   function handleSendMessage() {
     if (confirm("Are you sure!") == true) {
       console.log(report);
@@ -18,7 +18,7 @@ export default function DriverInfo() {
   async function handleVerify() {
     if (confirm("Are you sured to verify the data?") === true) {
       if (typeof id !== "undefined") {
-        const driver = await driverRepo.verifyDrier(id, "Verified");
+        const driver = await repo.verifyDrier(id);
         if (driver) {
           toast.success("Driver is verified successfully");
         }
@@ -33,7 +33,8 @@ export default function DriverInfo() {
   if (isError) {
     return <h2>Error: {error.message}</h2>;
   }
-  const driver: Driver[] | undefined = data?.filter((d) => d.id === id);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const driver: Driver[] | undefined = data?.filter((d: any) => d.id === id);
   // console.log(driver);
   if (typeof driver === "undefined") {
     console.log(driver);

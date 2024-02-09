@@ -1,20 +1,44 @@
-export declare interface IUserApi {
-  createUser(userData: User): Promise<ViewUser | string>;
-  getUserByPhone(phone: string): Promise<ViewUser | string>;
-  updatePassword(password: string, userId: string): Promise<ViewUser | string>;
-}
-export declare interface IDriverApi {
-  getAllDriver(): Promise<AllDriver>;
-  getDriverById(id: string): Promise<Driver>;
-  verifyDriver(id: string, status: string): Promise<Driver>;
-}
-export declare interface IPassengerApi {
-  getAllPassenger(): Promise<ViewUser>;
-}
-export declare interface IOnlineDriver {
-  getAllOnlineDriver(): Promise<OnlineDriver>;
-}
+export declare type JsonAPIObjectResp<T> = {
+  data: T;
+};
+// https://jsonapi.org/format/#error-objects
+declare type JsonAPIError = {
+  status: string;
+  title: string;
+  detail: string?;
+};
+export declare type JsonAPIErrorResp = {
+  errors?: JsonAPIError[];
+  message: string;
+  success: boolean;
+};
+export declare type JsonAPIResp<T> = JsonAPIObjectResp<T> | JsonAPIErrorResp;
 
-export declare interface IRideApi {
-  getAllRide(): Promise<ALLRides>;
+//add isAuthorized option after complete backend api
+declare interface IJsonApi {
+  get<T>(
+    path: string,
+    headers: Map<string, string> = new Map(),
+    isAuthorized: boolean = true
+  ): Promise<JsonAPIResp<T>>;
+
+  post<T>(
+    path: string,
+    body: FormData | null,
+    headers: Map<string, string> = new Map(),
+    isAuthorized: boolean = true
+  ): Promise<JsonAPIResp<T>>;
+
+  put<T>(
+    path: string,
+    body?: FormData | null,
+    headers: Map<string, string> = new Map(),
+    isAuthorized: boolean = true
+  ): Promise<JsonAPIResp<T>>;
+
+  delete(
+    path: string,
+    headers: Map<string, string> = new Map(),
+    isAuthorized: boolean = true
+  ): Promise<JsonAPIResp<undefined>>;
 }

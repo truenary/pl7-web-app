@@ -5,7 +5,7 @@ import PassengerTableRow from "./PassengerTableRow";
 import { useRepository } from "../../../hooks/CustomHook";
 
 export default function PassengerTable() {
-  const { passengerRepo: repo } = useRepository();
+  const { repo } = useRepository();
   if (!repo) {
     return null;
   }
@@ -47,7 +47,7 @@ export default function PassengerTable() {
               <td>The data is undefined</td>
             </tr>
           ) : (
-            data.map((passenger, index) => (
+            data.map((passenger: any, index: number) => (
               <PassengerTableRow
                 user={passenger}
                 index={index}

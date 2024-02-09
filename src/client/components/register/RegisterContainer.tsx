@@ -3,12 +3,14 @@ import FormWithNumber from "./FormWithNumber";
 import { ConfirmationResult } from "firebase/auth";
 import OtpForm from "./OtpForm";
 import SelectUser from "./SelectUser";
-import UserDetailsform from "./UserDetailsForm";
+
+import UserDetailsForm from "./RegisterForm";
 
 export default function RegisterContainer() {
   const [phone, setPhone] = useState<string>("");
   const [confirmed, setConfirmed] = useState<ConfirmationResult | null>(null);
   const [currentForm, setCurrentForm] = useState<number>(1);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [token, setToken] = useState<string>("");
   const [user, setUser] = useState<string>("");
   switch (currentForm) {
@@ -33,7 +35,7 @@ export default function RegisterContainer() {
     case 3:
       return <SelectUser setUser={setUser} setCurrentForm={setCurrentForm} />;
     case 4:
-      return <UserDetailsform phone={phone} token={token} user={user} />;
+      return <UserDetailsForm phoneNumber={phone} userRole={user} />;
     default:
       break;
   }
