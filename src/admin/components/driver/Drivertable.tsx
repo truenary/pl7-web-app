@@ -1,11 +1,10 @@
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
-import { useRepository } from "../../../hooks/CustomHook";
+import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
+import { AllDriver, Driver, driverTableProp } from "@/types/data";
+import _ from "lodash";
 
-declare type driverTableProp = {
-  filterValue: string;
-};
 function Drivertable({ filterValue }: driverTableProp) {
   console.log(filterValue);
   const { repo } = useRepository();
@@ -14,9 +13,8 @@ function Drivertable({ filterValue }: driverTableProp) {
     const fetchData = async () => {
       try {
         const data = await repo.getAllDriver();
-
         // Check if data is an array
-        if (Array.isArray(data)) {
+        if (_.isArray(data)) {
           setDrivers(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -27,7 +25,7 @@ function Drivertable({ filterValue }: driverTableProp) {
     };
 
     fetchData();
-  }, []);
+  }, [repo]);
   return (
     <div className="overflow-x-auto text-center">
       <table className='min-w-full bg-white border border-gray-300"'>

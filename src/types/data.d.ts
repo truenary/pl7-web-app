@@ -1,3 +1,5 @@
+import { ConfirmationResult } from "firebase/auth";
+
 declare type UserRegisterRequest = {
   userImage: File;
   firstName: string;
@@ -130,13 +132,6 @@ declare type OnlineDriver = {
   lng: number;
 };
 declare type OnlineDriverArray = OnlineDriver[];
-// declare type AllOnlineDriver = [
-//   {
-//     id: number;
-//     lat: number;
-//     lng: number;
-//   }
-// ];
 
 declare type RefreshTokenRequest = {
   refreshToken: string;
@@ -144,4 +139,55 @@ declare type RefreshTokenRequest = {
 declare type TokenResponse = {
   access_token: string;
   refresh_token: string;
+};
+declare type Rides = {
+  id: string;
+  PickupLocation: string;
+  DropLocation: string;
+  NumberOfPassenger: string;
+  Price: string;
+  Message: string;
+  distance: string;
+};
+
+declare type PassengerTableRowProp = {
+  user: Passenger;
+  index: number;
+};
+declare type DriverTableRowProp = {
+  user: Driver;
+  index: number;
+};
+declare type driverTableProp = {
+  filterValue: string;
+};
+declare interface OnlineDriver {
+  id: number;
+  lat: number;
+  lng: number;
+}
+declare type inputProps = {
+  children: string;
+  value: string;
+  backgroundColor: string;
+};
+declare type TotalIncomeInputProps = {
+  children: number;
+  labelText: string;
+};
+
+declare type otpFormProps = {
+  phone: string;
+  confirmed: ConfirmationResult | null;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
+};
+declare type otpFormData = {
+  otp: string;
+};
+declare type FormWithNumberProp = {
+  phone: string;
+  setPhone: React.Dispatch<React.SetStateAction<string>>;
+  setConfirmed: React.Dispatch<React.SetStateAction<ConfirmationResult | null>>;
+  setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
 };

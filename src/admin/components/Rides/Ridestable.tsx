@@ -1,17 +1,7 @@
-// src/components/UserTable.tsx
 import { useEffect, useState } from "react";
-import { useRepository } from "../../../hooks/CustomHook";
-
-interface Rides {
-  id: string;
-  PickupLocation: string;
-  DropLocation: string;
-  NumberOfPassenger: string;
-  Price: string;
-  Message: string;
-  distance: string;
-}
-
+import { useRepository } from "@/hooks/CustomHook";
+import { Rides } from "@/types/data";
+import _ from "lodash";
 function Ridestable() {
   const { repo } = useRepository();
   const [Rides, setRides] = useState<Rides[]>([]);
@@ -20,9 +10,8 @@ function Ridestable() {
     const fetchData = async () => {
       try {
         const data = await repo.getAllRides();
-
         // Check if data is an array
-        if (Array.isArray(data)) {
+        if (_.isArray(data)) {
           setRides(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -33,7 +22,7 @@ function Ridestable() {
     };
 
     fetchData();
-  }, []);
+  }, [repo]);
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full  text-center">

@@ -1,26 +1,17 @@
-import { ConfirmationResult } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { otpFormData, otpFormProps } from "@/types/data";
 
-declare type otpFormProps = {
-  phone: string;
-  confirmed: ConfirmationResult | null;
-  setToken: React.Dispatch<React.SetStateAction<string>>;
-  setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
-};
-declare type FormData = {
-  otp: string;
-};
 export default function OtpForm({
   phone,
   confirmed,
   setToken,
   setCurrentForm,
 }: otpFormProps) {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<otpFormData>();
 
   //verifying the otp
-  async function verifyOtp(data: FormData) {
+  async function verifyOtp(data: otpFormData) {
     try {
       if (confirmed) {
         const response = await confirmed.confirm(data.otp);

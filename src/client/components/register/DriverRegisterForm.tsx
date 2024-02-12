@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useRepository } from "../../../hooks/CustomHook";
+import { useRepository } from "@/hooks/CustomHook";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { driverFormType } from "@/types/data";
 
 type formValueData = {
   labelText?: string;

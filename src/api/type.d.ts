@@ -1,7 +1,6 @@
 export declare type JsonAPIObjectResp<T> = {
   data: T;
 };
-// https://jsonapi.org/format/#error-objects
 declare type JsonAPIError = {
   status: string;
   title: string;
@@ -14,7 +13,6 @@ export declare type JsonAPIErrorResp = {
 };
 export declare type JsonAPIResp<T> = JsonAPIObjectResp<T> | JsonAPIErrorResp;
 
-//add isAuthorized option after complete backend api
 declare interface IJsonApi {
   get<T>(
     path: string,

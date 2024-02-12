@@ -2,22 +2,24 @@ import { useParams } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { useRepository } from "../../../hooks/CustomHook";
-import { capitalize } from "../../../utils/utilities";
+import { useRepository } from "@/hooks/CustomHook";
+import { capitalize } from "@/utils/utilities";
+import { Driver } from "@/types/data";
+import _ from "lodash";
 export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
   const { id } = useParams();
   const { repo } = useRepository();
   function handleSendMessage() {
-    if (confirm("Are you sure!") == true) {
+    if (_.isEqual(confirm("Are you sure!"), true)) {
       console.log(report);
       setReport("");
     }
   }
   async function handleVerify() {
     if (confirm("Are you sured to verify the data?") === true) {
-      if (typeof id !== "undefined") {
+      if (!_.isUndefined(id)) {
         const driver = await repo.verifyDrier(id);
         if (driver) {
           toast.success("Driver is verified successfully");
@@ -29,7 +31,7 @@ export default function DriverInfo() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (typeof id !== "undefined") {
+        if (!_.isUndefined(id)) {
           const response = await repo.getDriverById(id);
           if (response) {
             if ("errors" in response) {
@@ -46,13 +48,10 @@ export default function DriverInfo() {
     };
 
     fetchData();
-  }, []);
+  }, [repo, id]);
 
-  // console.log(driver);
-  if (typeof driver === "undefined") {
-    console.log(driver);
-  } else {
-    return (
+  return (
+    !_.isUndefined(driver) && (
       <>
         <div className="bg-gray-100 mb-20">
           <div className="container mx-auto py-2">
@@ -200,6 +199,6 @@ export default function DriverInfo() {
           </div>
         </div>
       </>
-    );
-  }
+    )
+  );
 }

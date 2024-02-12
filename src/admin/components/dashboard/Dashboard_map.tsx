@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import logo from "../../../../public/logo.jpg";
 import { useRepository } from "../../../hooks/CustomHook";
-interface OnlineDriver {
-  id: number;
-  lat: number;
-  lng: number;
-}
+import { OnlineDriver } from "@/types/data";
 const libraries: ["places"] = ["places"];
 const mapContainerStyle = {
   width: "40vw",
@@ -38,7 +34,7 @@ function DashboardMap() {
     };
     const intervalId = setInterval(fetchData, 1000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [repo]);
 
   if (loadError) {
     return <div>Error loading maps</div>;

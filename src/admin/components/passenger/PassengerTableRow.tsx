@@ -1,15 +1,13 @@
-import { deleteIcon } from "../shared/Icons";
+import { PassengerTableRowProp } from "@/types/data";
 import toast from "react-hot-toast";
+import { deleteIcon } from "../shared/Icons";
 
-type tableRowProp = {
-  user: Passenger;
-  index: number;
-};
-export default function PassengerTableRow({ user, index }: tableRowProp) {
+export default function PassengerTableRow({
+  user,
+  index,
+}: PassengerTableRowProp) {
   function handleDelete() {
     if (confirm("Are you sure you want to delete!") == true) {
-      // console.log(report);
-      // setReport("");
       toast.error("currently deleting feature is not available");
     }
   }

@@ -1,7 +1,9 @@
 import TableRow from "../shared/TableHeading";
 import PassengerTableRow from "./PassengerTableRow";
-import { useRepository } from "../../../hooks/CustomHook";
+import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
+import { AllPassenger, Passenger } from "@/types/data";
+import _ from "lodash";
 
 export default function PassengerTable() {
   const { repo } = useRepository();
@@ -10,7 +12,7 @@ export default function PassengerTable() {
     const fetchData = async () => {
       try {
         const data = await repo.getAllPassengers();
-        if (Array.isArray(data)) {
+        if (_.isArray(data)) {
           setPassengers(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -21,7 +23,7 @@ export default function PassengerTable() {
     };
 
     fetchData();
-  }, []);
+  }, [repo]);
   return (
     <div className="overflow-x-auto text-center">
       <table className='min-w-full bg-white border border-gray-300"'>

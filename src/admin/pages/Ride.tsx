@@ -1,9 +1,7 @@
-
 import Ridestable from "../components/Rides/Ridestable";
 
 function Ride() {
   return (
-
     <div className="mb-4">
       <div className="flex flex-row relative items-center mt-5 align-middle">
         <h1 className="text-lg font-medium">All Drivers</h1>
@@ -13,8 +11,7 @@ function Ride() {
         <Ridestable />
       </div>
     </div>
-  )
-
+  );
 }
 
 export default Ride;

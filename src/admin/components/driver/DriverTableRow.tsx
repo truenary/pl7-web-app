@@ -1,21 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { deleteIcon, explore } from "../shared/Icons";
 import toast from "react-hot-toast";
+import { DriverTableRowProp } from "@/types/data";
+import _ from "lodash";
 
-type tableRowProp = {
-  user: Driver;
-  index: number;
-};
-export default function DriverTableRow({ user, index }: tableRowProp) {
+export default function DriverTableRow({ user, index }: DriverTableRowProp) {
   const navigate = useNavigate();
   function handleExplore() {
     console.log("userid :" + user.id);
     navigate(`${user.id}`);
   }
   function handleDelete() {
-    if (confirm("Are you sure you want to delete!") == true) {
-      // console.log(report);
-      // setReport("");
+    if (_.isEqual(confirm("Are you sure you want to delete!"), true)) {
       toast.error("currently deleting feature is not available");
     }
   }

@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useRepository } from "../../../hooks/CustomHook";
+import { useRepository } from "@/hooks/CustomHook";
+import { userFormType } from "@/types/data";
 
 type formValueData = {
   labelText?: string;

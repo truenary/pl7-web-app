@@ -1,4 +1,14 @@
-import { IJsonApi, JsonAPIErrorResp, JsonAPIResp } from "../api/type";
+import {
+  ALLRides,
+  AllDriver,
+  AllPassenger,
+  Driver,
+  OnlineDriverArray,
+  Passenger,
+  RegisterResponse,
+  loginResponse,
+} from "@/types/data";
+import { IJsonApi, JsonAPIErrorResp, JsonAPIResp } from "@/api/type";
 import { IRepository } from "./types";
 
 export class Repository implements IRepository {
@@ -17,7 +27,7 @@ export class Repository implements IRepository {
     userDetails: FormData | null
   ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
     const responseData = await this._api.post<RegisterResponse>(
-      `/register/passenger`,
+      `users/register/passenger`,
       userDetails,
       undefined,
       false
@@ -29,7 +39,7 @@ export class Repository implements IRepository {
     driverInfo: FormData | null
   ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
     const responseData = await this._api.post<RegisterResponse>(
-      `/register/passenger`,
+      `users/register/driver`,
       driverInfo,
       undefined,
       false
@@ -51,7 +61,7 @@ export class Repository implements IRepository {
     phoneNumber: string
   ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
     const responseData = await this._api.get<RegisterResponse>(
-      `checkPhone/${phoneNumber}`
+      `users/checkPhone/${phoneNumber}`
     );
     return this._getResponse(responseData);
   }
