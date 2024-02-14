@@ -48,6 +48,7 @@ export class API implements IJsonApi {
     };
     // Add body to request options if it's not undefined
     if (body !== undefined && body !== null) {
+      console.log("at api");
       for (const [key, value] of body) {
         console.log(`${key}: ${value}\n`);
       }
@@ -55,6 +56,7 @@ export class API implements IJsonApi {
     }
     // Make the request to the API
     const response = await fetch(`${this.BASE_URL}${path}`, requestOption);
+    console.log(response);
     const apiResponse = await this._parseResponse<JsonAPIResp<T>>(response);
     return apiResponse;
   }

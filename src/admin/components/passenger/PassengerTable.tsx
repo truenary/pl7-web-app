@@ -3,16 +3,26 @@ import PassengerTableRow from "./PassengerTableRow";
 import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
 import { AllPassenger, Passenger } from "@/types/data";
-import _ from "lodash";
 
 export default function PassengerTable() {
   const { repo } = useRepository();
-  const [passengers, setPassengers] = useState<AllPassenger>([]);
+  const [passengers, setPassengers] = useState<AllPassenger>({
+    data: [],
+    pagination: {
+      totalPage: 0,
+      totalItem: 0,
+      previousPageNumber: null,
+      currentPageNumber: 0,
+      nextPageNumber: null,
+    },
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await repo.getAllPassengers();
-        if (_.isArray(data)) {
+        console.log(data);
+        if (data && "data" in data && "pagination" in data) {
+          console.log(data);
           setPassengers(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -46,11 +56,11 @@ export default function PassengerTable() {
               <td>The data is undefined</td>
             </tr>
           ) : (
-            passengers.map((passenger: Passenger, index: number) => (
+            passengers.data.map((passenger: Passenger, index: number) => (
               <PassengerTableRow
                 user={passenger}
                 index={index}
-                key={passenger.id}
+                key={passenger._id}
               />
             ))
           )}

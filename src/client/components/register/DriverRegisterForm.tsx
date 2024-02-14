@@ -3,6 +3,7 @@ import { useRepository } from "@/hooks/CustomHook";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { driverFormType } from "@/types/data";
+import _ from "lodash";
 
 type formValueData = {
   labelText?: string;
@@ -105,24 +106,38 @@ export default function DriverRegisterForm({
   const navigate = useNavigate();
   const { repo } = useRepository();
   async function handleDriverDataSubmit(data: driverFormType) {
+  
     const formData = new FormData();
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("address", data.address);
+    const fields = [
+      "firstName",
+      "lastName",
+      "address",
+      "password",
+      "userImage",
+      "liscenceImage",
+      "vehicleImage",
+      "billBookImage",
+      "liscenceNumber",
+      "color",
+      "numberPlate",
+    ];
+    fields.forEach((field) => {
+      if (data[field]) {
+        if (_.isArray(data[field])) {
+          const fileList: FileList = data[field] as FileList;
+          if (fileList.length > 0) {
+            const file: File = fileList[0];
+            formData.append(`${field}`, file);
+            formData.append(`${field}Name`, file.name);
+          }
+        } else {
+          formData.append(`${field}`, data[field] as string);
+        }
+      }
+    });
     formData.append("phoneNumber", phoneNumber);
     formData.append("userRole", userRole);
-    formData.append("password", data.password);
-    formData.append("userImage", data.userImage[0]);
-    formData.append("userImageName", data.userImage[0].name);
-    formData.append("liscenceImage", data.liscenceImage[0]);
-    formData.append("liscenceImageName", data.liscenceImage[0].name);
-    formData.append("vehicleImage", data.vehicleImage[0]);
-    formData.append("vehicleImageName", data.vehicleImage[0].name);
-    formData.append("billBookImage", data.billBookImage[0]);
-    formData.append("billBookImageName", data.billBookImage[0].name);
-    formData.append("liscenceNumber", data.liscenceNumber);
-    formData.append("vehicleColor", data.color);
-    formData.append("numberPlate", data.numberPlate);
+    console.log("here is the driver data");
     for (const [key, value] of formData) {
       console.log(`${key}: ${value}\n`);
     }

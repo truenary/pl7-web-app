@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
@@ -9,6 +8,7 @@ import _ from "lodash";
 export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
+  const [driver, setDriver] = useState<Driver>();
   const { id } = useParams();
   const { repo } = useRepository();
   function handleSendMessage() {
@@ -27,31 +27,31 @@ export default function DriverInfo() {
       }
     }
   }
-  const [driver, setDriver] = useState<Driver>();
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (!_.isUndefined(id)) {
-          const response = await repo.getDriverById(id);
-          if (response) {
-            if ("errors" in response) {
-              console.log("error while fetching data");
+          const data = await repo.getDriverById(id);
+          console.log(data);
+          if (data) {
+            if ("_id" in data) {
+              setDriver(data);
             } else {
-              //it needs to to refactor
-              setDriver(undefined);
+              console.log(data);
             }
           }
+        } else {
+          console.log("id is undefined");
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, [repo, id]);
 
-  return (
-    !_.isUndefined(driver) && (
+  if (driver) {
+    return (
       <>
         <div className="bg-gray-100 mb-20">
           <div className="container mx-auto py-2">
@@ -60,12 +60,12 @@ export default function DriverInfo() {
                 <div className="bg-white shadow rounded-lg p-6">
                   <div className="flex flex-col items-center">
                     <img
-                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src={driver.user.userImage}
                       alt="driverImage"
                       className="w-full h-48 bg-gray-300 rounded mb-4 shrink-0"
                     ></img>
                     <h1 className="text-xl font-bold">
-                      Role: {capitalize(driver.user)}
+                      Role: {capitalize(driver.user.userRole)}
                     </h1>
                   </div>
                   <hr className="my-6 border-t border-gray-300" />
@@ -74,14 +74,12 @@ export default function DriverInfo() {
                       Driver Status
                     </span>
                     <ul>
-                      <li className="mb-2">status: {driver.status}</li>
+                      <li className="mb-2">status: {driver.user.status}</li>
                       <li className="mb-2">
-                        Total Rides: {driver.total_rides}
+                        Total Rides: {driver.user.totalRide}
                       </li>
                       <li className="mb-2">Ratings: {driver.ratings}</li>
-                      <li className="mb-2">
-                        Joining Date: {driver.joining_date}
-                      </li>
+                      <li className="mb-2">Joining Date: {driver.createdAt}</li>
                     </ul>
                   </div>
                   <hr className="my-6 border-t border-gray-300" />
@@ -92,14 +90,14 @@ export default function DriverInfo() {
                     <ul>
                       <li className="mb-2">
                         Name:{" "}
-                        {`${capitalize(driver.first_name)} ${capitalize(
-                          driver.last_name
+                        {`${capitalize(driver.user.firstName)} ${capitalize(
+                          driver.user.lastName
                         )}`}
                       </li>
-                      <li className="mb-2">Address: {driver.address}</li>
-                      <li className="mb-2">Phone: {driver.phone}</li>
+                      <li className="mb-2">Address: {driver.user.address}</li>
+                      <li className="mb-2">Phone: {driver.user.phoneNumber}</li>
                       <li className="mb-2">
-                        Liscence Number:{driver.liscence_number}
+                        Liscence Number:{driver.liscenceNumber}
                       </li>
                     </ul>
                   </div>
@@ -110,14 +108,14 @@ export default function DriverInfo() {
                     </span>
                     <ul>
                       <li className="mb-2">
-                        Number Plate: {driver.vehicle_number}
+                        Number Plate: {driver.vehicle.numberPlate}
                       </li>
-                      <li className="mb-2">Color: {driver.vehicle_color}</li>
+                      <li className="mb-2">Color: {driver.vehicle.color}</li>
                     </ul>
                   </div>
                   <div
                     className={`${
-                      driver.account_status !== "Verified" ? "flex" : "hidden"
+                      driver.accountVerifyStatus !== true ? "flex" : "hidden"
                     } flex flex-row gap-x-2 mt-4`}
                   >
                     <button
@@ -167,7 +165,7 @@ export default function DriverInfo() {
                         Vehicle Image
                       </h3>
                       <img
-                        src="https://images.unsplash.com/photo-1626149637281-4e227308da18?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        src={driver.vehicle.vehicleImage}
                         alt="Vehicle Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />
@@ -177,7 +175,7 @@ export default function DriverInfo() {
                         Liscence Image
                       </h3>
                       <img
-                        src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*pZdSWb6BcwMFsKLYNn4FGA.jpeg"
+                        src={driver.liscenceImage}
                         alt="Liscence Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />
@@ -187,7 +185,7 @@ export default function DriverInfo() {
                         BillBook Image
                       </h3>
                       <img
-                        src="https://scontent.fktm18-1.fna.fbcdn.net/v/t1.18169-9/14993374_1296023847105320_7049894729626723524_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=c2f564&_nc_ohc=Y4aFH2uSgbkAX99lAGX&_nc_ht=scontent.fktm18-1.fna&oh=00_AfCbLvNo0MpPWeEVcsKFCGRJZgIUDb8KUAr0GwjCavMmtQ&oe=65D9CE44"
+                        src={driver.vehicle.billBookImage}
                         alt="Bill Book Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />
@@ -199,6 +197,13 @@ export default function DriverInfo() {
           </div>
         </div>
       </>
-    )
-  );
+    );
+  } else {
+    console.log(driver);
+    return (
+      <div>
+        <h2>Driver data not found</h2>
+      </div>
+    );
+  }
 }

@@ -59,6 +59,7 @@ export default function UserRegisterform({
 
   const { repo } = useRepository();
   async function handleUserDataSubmit(data: userFormType) {
+    console.log("data", data);
     const formData = new FormData();
     formData.append("userImage", data.userImage[0]);
     formData.append("firstName", data.firstName);
@@ -68,9 +69,11 @@ export default function UserRegisterform({
     formData.append("userImageName", data.userImage[0].name);
     formData.append("password", data.password);
     formData.append("userRole", userRole);
-    // for (const [key, value] of formData) {
-    //   console.log(`${key}: ${value}\n`);
-    // }
+
+    for (const [key, value] of formData) {
+      console.log(`${key}: ${value}\n`);
+    }
+    // console.log("formData:", JSON.stringify(formData));
     try {
       const response = await repo.registerUser(formData);
       console.log(response);

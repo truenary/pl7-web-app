@@ -18,8 +18,9 @@ function OnlineDriverTable() {
         console.error("Error fetching data:", error);
       }
     };
-    const intervalId = setInterval(fetchData, 1000);
-    return () => clearInterval(intervalId);
+    fetchData();
+    // const intervalId = setInterval(fetchData, 1000);
+    // return () => clearInterval(intervalId);
   }, [repo]);
   return (
     <div className="flex-none h-auto w-1/2 border-2 border-cyan-600 mx-2 my-2">

@@ -41,6 +41,7 @@ declare type driverFormType = {
   color: string;
   numberPlate: string;
   liscenceNumber: string;
+  [key: string]: string | FileList;
 };
 declare type RegisterResponse = {
   statusCode: number;
@@ -72,46 +73,59 @@ declare type loginResponse = {
 };
 
 declare type Driver = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  phone: string;
-  address: string;
-  billBook_image: string;
-  billBook_image: string;
-  liscence_number: string;
-  liscence_image: string;
-  liscence_image: string;
-  vehicle_number: string;
-  vehicle_color: string;
-  vehicle_image: string;
-  user: string;
-  account_status: string;
-  status: string;
-  total_rides: number;
+  _id: string;
+  liscenceNumber: string;
+  liscenceImage: string;
+  accountVerifyStatus: boolean;
+  availabilityStatus: boolean;
+  createdAt: string;
+  updatedAt: string;
   ratings: number;
-  joining_date: string;
+  user: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    status: boolean;
+    phoneNumber: string;
+    userImage: string;
+    totalRide: number;
+    userRole: string;
+  };
+  vehicle: {
+    _id: string;
+    numberPlate: string;
+    color: string;
+    vehicleImage: string;
+    billBookImage: string;
+  };
 };
 declare type AllDriver = Driver[];
-declare type Passenger = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  user_image: string;
-  user_image: string;
-  phone: string;
-  address: string;
-  user: string;
-  status: string;
-  total_rides: number;
-  joining_date: string;
-  address: string;
-  user: string;
-  status: string;
-  total_rides: number;
-  joining_date: string;
+declare type DriverVerifyResponse = {
+  _id: string;
+  accountVerifyStatus: boolean;
 };
-declare type AllPassenger = Passenger[];
+declare type Passenger = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  status: boolean;
+  phoneNumber: string;
+  userRole: boolean;
+  userImage: string;
+  totalRide: number;
+  createdAt: string;
+  updatedAt: string;
+};
+declare type Pagination = {
+  totalPage: number;
+  totalItem: number;
+  previousPageNumber: number | null;
+  currentPageNumber: number;
+  nextPageNumber: number | null;
+};
+declare type AllPassenger = { data: Passenger[]; pagination: Pagination };
 declare type ALLRides = [
   {
     id: string;

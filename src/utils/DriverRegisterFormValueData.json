@@ -1,0 +1,70 @@
+{
+  "formValue": [
+    {
+      "labelText": "First Name",
+      "id": "firstName",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Last Name",
+      "id": "lastName",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Password",
+      "id": "password",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Address",
+      "id": "address",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Driver Photo",
+      "id": "userImage",
+      "type": "file",
+      "required": true
+    },
+    {
+      "labelText": "Liscence Number",
+      "id": "liscenceNumber",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Liscence Image",
+      "id": "liscenceImage",
+      "type": "file",
+      "required": true
+    },
+    {
+      "labelText": "BillBook Image",
+      "id": "billBookImage",
+      "type": "file",
+      "required": true
+    },
+    {
+      "labelText": "Vehicle Number",
+      "id": "numberPlate",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Vehicle Image",
+      "id": "vehicleImage",
+      "type": "file",
+      "required": true
+    },
+    {
+      "labelText": "Vehicle Color",
+      "id": "color",
+      "type": "text",
+      "required": true
+    }
+  ]
+}

@@ -32,8 +32,9 @@ function DashboardMap() {
         console.error("Error fetching data:", error);
       }
     };
-    const intervalId = setInterval(fetchData, 1000);
-    return () => clearInterval(intervalId);
+    fetchData();
+    // const intervalId = setInterval(fetchData, 1000);
+    // return () => clearInterval(intervalId);
   }, [repo]);
 
   if (loadError) {

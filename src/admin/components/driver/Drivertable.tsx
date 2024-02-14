@@ -8,7 +8,7 @@ import _ from "lodash";
 function Drivertable({ filterValue }: driverTableProp) {
   console.log(filterValue);
   const { repo } = useRepository();
-  const [drivers, setDrivers] = useState<AllDriver>([]);
+  const [drivers, setDrivers] = useState<AllDriver>();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,14 +32,12 @@ function Drivertable({ filterValue }: driverTableProp) {
         <thead>
           <tr>
             <TableHeading label="SN" />
+            <TableHeading label="Image" />
             <TableHeading label="Name" />
             <TableHeading label="Address" />
             <TableHeading label="Phone" />
-            <TableHeading label="Joining Date" />
             <TableHeading label="Total Rides" />
             <TableHeading label="Ratings" />
-            <TableHeading label="Account Status" />
-            <TableHeading label="Driver Status" />
             <TableHeading label="Account Status" />
             <TableHeading label="Driver Status" />
             <TableHeading label="Action" />
@@ -47,7 +45,7 @@ function Drivertable({ filterValue }: driverTableProp) {
         </thead>
         <tbody>
           {drivers?.map((driver: Driver, index: number) => (
-            <DriverTableRow user={driver} index={index} key={driver.id} />
+            <DriverTableRow user={driver} index={index} key={driver._id} />
           ))}
         </tbody>
       </table>
