@@ -20,6 +20,7 @@ import Login from "./client/pages/Login";
 import Logout from "./admin/pages/Logout";
 import { RepositoryProvider } from "./provider/RepositoryProvider";
 import DriverInfo from "./admin/pages/DriverInfoPage";
+import RidesHistory from "./admin/components/RidesHistory/RidesHistory";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
               <Route path="passengers" element={<Passengers />} />
               <Route path="ratings" element={<Rating />} />
               <Route path="rides" element={<Ride />} />
+              <Route path="rideshistory" element={<RidesHistory />} />
               <Route path="logout" element={<Logout />} />
             </Route>
 

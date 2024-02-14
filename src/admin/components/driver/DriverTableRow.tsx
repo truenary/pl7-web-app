@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { deleteIcon, explore } from "../shared/Icons";
+import { deleteIcon, explore, info } from "../shared/Icons";
 import toast from "react-hot-toast";
 import { DriverTableRowProp } from "@/types/data";
 import _ from "lodash";
 
 export default function DriverTableRow({ user, index }: DriverTableRowProp) {
   const navigate = useNavigate();
+  
   function handleExplore() {
     console.log("driver Id :" + user._id);
     navigate(`${user._id}`);
@@ -15,6 +16,13 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       toast.error("currently deleting feature is not available");
     }
   }
+  function handleHistory()  {
+    navigate('/admin/rideshistory', { state: { userId: user._id } });
+   
+
+    
+  }
+
   return (
     <tr className="bg-white border-b-2 text-center" key={index}>
       <td className="px-4 py-2">{(index + 1).toString()}</td>
@@ -53,6 +61,13 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
         </span>
       </td>
       <td className="px-2 py-4">
+        <button
+          onClick={handleHistory}
+          title="History"
+          className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white  text-base"
+        >
+          {info}
+        </button>
         <button
           onClick={handleDelete}
           title="Delete"
