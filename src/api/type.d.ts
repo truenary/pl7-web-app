@@ -1,5 +1,8 @@
+import { Pagination } from "@/types/data";
+
 export declare type JsonAPIObjectResp<T> = {
   data: T;
+  pagination?: Pagination;
 };
 declare type JsonAPIError = {
   status: string;

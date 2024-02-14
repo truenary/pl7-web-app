@@ -11,6 +11,7 @@ import {
 } from "@/types/data";
 import { IJsonApi, JsonAPIErrorResp, JsonAPIResp } from "@/api/type";
 import { IRepository } from "./types";
+// import { Data } from "@react-google-maps/api";
 
 export class Repository implements IRepository {
   private _api: IJsonApi;

@@ -100,7 +100,7 @@ declare type Driver = {
     billBookImage: string;
   };
 };
-declare type AllDriver = Driver[];
+declare type AllDriver = { list: Driver[]; pagination: Pagination };
 declare type DriverVerifyResponse = {
   _id: string;
   accountVerifyStatus: boolean;
@@ -125,7 +125,7 @@ declare type Pagination = {
   currentPageNumber: number;
   nextPageNumber: number | null;
 };
-declare type AllPassenger = { data: Passenger[]; pagination: Pagination };
+declare type AllPassenger = { list: Passenger[]; pagination: Pagination };
 declare type ALLRides = [
   {
     id: string;
