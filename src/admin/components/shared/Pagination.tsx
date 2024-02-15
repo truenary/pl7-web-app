@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 declare type paginationProp = {
   postPerPage: number;
   totalPost: number;
@@ -17,7 +19,9 @@ export default function Pagination({
   return (
     <nav>
       <ul className="flex items-center -space-x-px h-10 text-base">
-        {pageNumbers.map((number) => (
+        {
+          _.map(pageNumbers,(number)=>(
+            
           <li key={number}>
             <button
               onClick={() => paginate(number)}
@@ -26,7 +30,9 @@ export default function Pagination({
               {number}
             </button>
           </li>
-        ))}
+
+          ))
+        }
       </ul>
     </nav>
   );

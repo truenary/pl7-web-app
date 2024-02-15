@@ -38,7 +38,11 @@ function Ridestable() {
           </tr>
         </thead>
         <tbody>
-          {Rides.map((Rides) => (
+          
+
+          {
+            _.map(Rides,(Rides)=>(
+              
             <tr key={Rides.id}>
               <td className="py-2 px-4 border-b">{Rides.id}</td>
               <td className="py-2 px-4 border-b">{Rides.PickupLocation}</td>
@@ -48,7 +52,8 @@ function Ridestable() {
               <td className="py-2 px-4 border-b">{Rides.NumberOfPassenger}</td>
               <td className="py-2 px-4 border-b">{Rides.Message}</td>
             </tr>
-          ))}
+            ))
+          }
         </tbody>
       </table>
     </div>

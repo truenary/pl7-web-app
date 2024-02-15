@@ -3,6 +3,7 @@ import DriverTableRow from "./DriverTableRow";
 import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
 import { AllDriver, Driver, driverTableProp } from "@/types/data";
+import _ from "lodash";
 
 function Drivertable({ filterValue }: driverTableProp) {
   console.log(filterValue);
@@ -68,7 +69,7 @@ function Drivertable({ filterValue }: driverTableProp) {
             </tr>
           </thead>
           <tbody>
-            {drivers.list.map((driver: Driver, index: number) => (
+            {_.map(drivers.list, (driver: Driver, index: number) => (
               <DriverTableRow user={driver} index={index} key={driver._id} />
             ))}
           </tbody>

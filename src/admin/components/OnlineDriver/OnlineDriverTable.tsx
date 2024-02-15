@@ -33,13 +33,15 @@ function OnlineDriverTable() {
           </tr>
         </thead>
         <tbody>
-          {Onlinedrivers.map((driver) => (
+  {           _.map(Onlinedrivers,(driver)=>(
             <tr key={driver.id}>
               <td className="py-2 px-4 border-b">{driver.name}</td>
               <td className="py-2 px-4 border-b">{driver.Status}</td>
               <td className="py-2 px-4 border-b">{driver.rating}</td>
             </tr>
-          ))}
+
+            ))
+          }
         </tbody>
       </table>
     </div>

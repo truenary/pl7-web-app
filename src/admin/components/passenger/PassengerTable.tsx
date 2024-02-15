@@ -3,6 +3,7 @@ import PassengerTableRow from "./PassengerTableRow";
 import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
 import { AllPassenger, Passenger } from "@/types/data";
+import _ from "lodash";
 
 export default function PassengerTable() {
   const { repo } = useRepository();
@@ -74,13 +75,12 @@ export default function PassengerTable() {
                 <td>The data is undefined</td>
               </tr>
             ) : (
-              passengers.list.map((passenger: Passenger, index: number) => (
-                <PassengerTableRow
+           _.map(passengers,(passenger :Passenger,index:number)=>(
+            <PassengerTableRow
                   user={passenger}
                   index={index}
                   key={passenger._id}
-                />
-              ))
+                />))
             )}
           </tbody>
         </table>

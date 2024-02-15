@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import logo from "../../../../public/logo.jpg";
 import { useRepository } from "../../../hooks/CustomHook";
 import { OnlineDriver } from "@/types/data";
+import _ from "lodash";
 const libraries: ["places"] = ["places"];
 const mapContainerStyle = {
   width: "40vw",
@@ -56,7 +57,7 @@ function DashboardMap() {
           fullscreenControl: false,
         }}
       >
-        {Onlinedrivers.length > 0 &&
+        {/* {Onlinedrivers.length > 0 &&
           Onlinedrivers.map((driver) => (
             <Marker
               key={driver.id}
@@ -66,7 +67,18 @@ function DashboardMap() {
                 scaledSize: new window.google.maps.Size(30, 30),
               }}
             />
-          ))}
+          ))} */} 
+
+          {_.map(Onlinedrivers, (driver) => (
+               <Marker
+              key={driver.id}
+              position={{ lat: driver.lat, lng: driver.lng }}
+              icon={{
+                url: logo,
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+            />
+            ))}
       </GoogleMap>
     </div>
   );
