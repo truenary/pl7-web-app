@@ -6,7 +6,7 @@ import _ from "lodash";
 
 export default function DriverTableRow({ user, index }: DriverTableRowProp) {
   const navigate = useNavigate();
-  
+
   function handleExplore() {
     console.log("driver Id :" + user._id);
     navigate(`${user._id}`);
@@ -16,11 +16,8 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       toast.error("currently deleting feature is not available");
     }
   }
-  function handleHistory()  {
-    navigate('/admin/rideshistory', { state: { userId: user._id } });
-   
-
-    
+  function handleHistory() {
+    navigate("/admin/rideshistory", { state: { userId: user._id } });
   }
 
   return (

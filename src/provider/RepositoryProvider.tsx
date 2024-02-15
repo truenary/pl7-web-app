@@ -13,7 +13,7 @@ declare type props = {
   children: React.ReactNode;
 };
 export function RepositoryProvider({ children }: props) {
-  const base_url: string = "http://localhost:8080/api/v1/";
+  const base_url: string = "http://localhost:8000/api/v1/";
   const storage: IStorageClient = new LocalStorageClient(window.localStorage);
   const api: IJsonApi = new API(base_url, storage);
   const repo: IRepository = new Repository(api);

@@ -3,6 +3,8 @@ import DriverTableRow from "./DriverTableRow";
 import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
 import { AllDriver, Driver, driverTableProp } from "@/types/data";
+import { explore, leftArrow } from "../shared/Icons";
+import _ from "lodash";
 
 function Drivertable({ filterValue }: driverTableProp) {
   console.log(filterValue);
@@ -68,27 +70,31 @@ function Drivertable({ filterValue }: driverTableProp) {
             </tr>
           </thead>
           <tbody>
-            {drivers.list.map((driver: Driver, index: number) => (
+            {_.map(drivers.list, (driver: Driver, index: number) => (
               <DriverTableRow user={driver} index={index} key={driver._id} />
             ))}
           </tbody>
         </table>
       </div>
-      <div>
+      <div className="text-center mt-5">
         <button
+          title="Previous page"
           onClick={handlePrevPage}
           disabled={!drivers.pagination.previousPageNumber}
+          className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed cursor-pointer text-xl"
         >
-          Previous
+          <span className="mr-8">{leftArrow}</span>
         </button>
         <span>
           Page {currentPage} of {drivers.pagination.totalPage}
         </span>
         <button
+          title="Next page"
+          className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed  cursor-pointer text-xl"
           onClick={handleNextPage}
           disabled={!drivers.pagination.nextPageNumber}
         >
-          Next
+          <span className="ml-8">{explore}</span>
         </button>
       </div>
     </>
