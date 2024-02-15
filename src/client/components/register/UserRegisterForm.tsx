@@ -2,47 +2,10 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useRepository } from "@/hooks/CustomHook";
-import { userFormType } from "@/types/data";
+import { formValueData, userFormType } from "@/types/data";
+import formData from "@/utils/RegisterInputFormData.json";
+import _ from "lodash";
 
-type formValueData = {
-  labelText?: string;
-  id: "firstName" | "lastName" | "address" | "password" | "userImage";
-  value?: string | undefined;
-  type: string;
-  required: boolean;
-};
-const formValue: formValueData[] = [
-  {
-    labelText: "First Name",
-    id: "firstName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Last Name",
-    id: "lastName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Password",
-    id: "password",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Address",
-    id: "address",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "User Image",
-    id: "userImage",
-    type: "file",
-    required: true,
-  },
-];
 type userDetailsFormProps = {
   phoneNumber: string;
   // token: string | undefined;
@@ -61,19 +24,29 @@ export default function UserRegisterform({
   async function handleUserDataSubmit(data: userFormType) {
     console.log("data", data);
     const formData = new FormData();
-    formData.append("userImage", data.userImage[0]);
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("address", data.address);
+    const fields = [
+      "firstName",
+      "lastName",
+      "address",
+      "password",
+      "userImage",
+    ];
+    fields.forEach((field) => {
+      if (data[field]) {
+        if (_.isArray(data[field])) {
+          const fileList: FileList = data[field] as FileList;
+          if (fileList.length > 0) {
+            const file: File = fileList[0];
+            formData.append(`${field}`, file);
+            formData.append(`${field}Name`, file.name);
+          }
+        } else {
+          formData.append(`${field}`, data[field] as string);
+        }
+      }
+    });
     formData.append("phoneNumber", phoneNumber);
-    formData.append("userImageName", data.userImage[0].name);
-    formData.append("password", data.password);
     formData.append("userRole", userRole);
-
-    for (const [key, value] of formData) {
-      console.log(`${key}: ${value}\n`);
-    }
-    // console.log("formData:", JSON.stringify(formData));
     try {
       const response = await repo.registerUser(formData);
       console.log(response);
@@ -105,7 +78,7 @@ export default function UserRegisterform({
             <div>
               <div className="flex flex-col">
                 <form onSubmit={handleSubmit(handleUserDataSubmit)}>
-                  {formValue.map((value) => (
+                  {_.map(formData.userFormData, (value: formValueData) => (
                     <div>
                       <label
                         htmlFor={value.id}

@@ -1,5 +1,10 @@
 import { ConfirmationResult } from "firebase/auth";
-
+type formValueData = {
+  labelText: string;
+  id: string;
+  type: string;
+  required: boolean;
+};
 declare type UserRegisterRequest = {
   userImage: File;
   firstName: string;
@@ -28,6 +33,7 @@ declare type userFormType = {
   password: string;
   address: string;
   userImage: FileList;
+  [key: string]: string | FileList;
 };
 declare type driverFormType = {
   firstName: string;
@@ -164,15 +170,6 @@ declare type TokenResponse = {
   access_token: string;
   refresh_token: string;
 };
-// declare type Rides = {
-//   id: string;
-//   PickupLocation: string;
-//   DropLocation: string;
-//   NumberOfPassenger: string;
-//   Price: string;
-//   Message: string;
-//   distance: string;
-// };
 
 declare type PassengerTableRowProp = {
   user: Passenger;

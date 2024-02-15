@@ -2,95 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useRepository } from "@/hooks/CustomHook";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { driverFormType } from "@/types/data";
+import { driverFormType, formValueData } from "@/types/data";
 import _ from "lodash";
-
-type formValueData = {
-  labelText?: string;
-  id:
-    | "numberPlate"
-    | "vehicleImage"
-    | "color"
-    | "firstName"
-    | "lastName"
-    | "password"
-    | "address"
-    | "userImage"
-    | "liscenceNumber"
-    | "liscenceImage"
-    | "billBookImage";
-  value?: string | undefined;
-  type: string;
-  required: boolean;
-};
-const formValue: formValueData[] = [
-  {
-    labelText: "First Name",
-    id: "firstName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Last Name",
-    id: "lastName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Password",
-    id: "password",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Address",
-    id: "address",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Driver Photo",
-    id: "userImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "Liscence Number",
-    id: "liscenceNumber",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Liscence Image",
-    id: "liscenceImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "BillBook Image",
-    id: "billBookImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "Vehicle Number",
-    id: "numberPlate",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Vehicle Image",
-    id: "vehicleImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "Vehicle Color",
-    id: "color",
-    type: "text",
-    required: true,
-  },
-];
+import formData from "@/utils/RegisterInputFormData.json";
 
 type userDetailsFormProps = {
   phoneNumber: string;
@@ -106,7 +20,6 @@ export default function DriverRegisterForm({
   const navigate = useNavigate();
   const { repo } = useRepository();
   async function handleDriverDataSubmit(data: driverFormType) {
-  
     const formData = new FormData();
     const fields = [
       "firstName",
@@ -137,10 +50,7 @@ export default function DriverRegisterForm({
     });
     formData.append("phoneNumber", phoneNumber);
     formData.append("userRole", userRole);
-    console.log("here is the driver data");
-    for (const [key, value] of formData) {
-      console.log(`${key}: ${value}\n`);
-    }
+
     try {
       const response = await repo.registerDriver(formData);
       if (response) {
@@ -170,24 +80,26 @@ export default function DriverRegisterForm({
           <div>
             <div className="flex flex-col"></div>
             <form onSubmit={handleSubmit(handleDriverDataSubmit)}>
-              {formValue.map((value) => (
-                <div>
-                  <label
-                    htmlFor={value.id}
-                    key={`${value.id}_label`}
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-                  >
-                    {value.labelText}
-                  </label>
-                  <input
-                    type={value.type}
-                    key={`${value.id}_input`}
-                    id={value.id}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    {...register(value.id, { required: value.required })}
-                  />
-                </div>
-              ))}
+              {_.map(formData.driverFormData, (value: formValueData) => {
+                return (
+                  <div>
+                    <label
+                      htmlFor={value.id}
+                      key={`${value.id}_label`}
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
+                    >
+                      {value.labelText}
+                    </label>
+                    <input
+                      type={value.type}
+                      key={`${value.id}_input`}
+                      id={value.id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      {...register(value.id, { required: value.required })}
+                    />
+                  </div>
+                );
+              })}
               <div className="flex items-start mb-6 mt-5">
                 <div className="flex items-center h-5">
                   <input

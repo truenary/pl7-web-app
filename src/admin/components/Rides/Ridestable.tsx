@@ -3,19 +3,10 @@ import { useRepository } from "@/hooks/CustomHook";
 import { ALLRides, Ride } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import { useNavigate } from "react-router-dom";
-import ridesData from "@/utils/RideTableData.json";
+import { InitialStateData } from "@/utils/utilities";
 function Ridestable() {
   const { repo } = useRepository();
-  const [rides, setRides] = useState<ALLRides>({
-    list: [],
-    pagination: {
-      totalPage: 0,
-      totalItem: 0,
-      previousPageNumber: null,
-      currentPageNumber: 0,
-      nextPageNumber: null,
-    },
-  });
+  const [rides, setRides] = useState<ALLRides>(InitialStateData);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(
     rides.pagination.currentPageNumber
@@ -49,7 +40,6 @@ function Ridestable() {
 
     fetchData();
   }, [repo]);
-  const data = ridesData.data;
   return (
     <>
       <div className="overflow-x-auto">
@@ -68,34 +58,7 @@ function Ridestable() {
             </tr>
           </thead>
           <tbody>
-            {/* {rides.list.map((ride: Ride, index: number) => (
-            <tr key={ride.rideId}>
-              <td className="py-2 px-4 ">{index + 1}</td>
-              <td className="py-2 px-4 ">{ride.numberOfPassenger}</td>
-              <td className="py-2 px-4 ">
-                {ride.rideType ? "Single" : "Shared"}
-              </td>
-              <td className="py-2 px-4 ">{ride.status}</td>
-              <td className="py-2 px-4 ">{ride.price}</td>
-              <td className="py-2 px-4 ">{`${ride.driver?.user.firstName} ${ride.driver?.user.lastName}`}</td>
-              <td className="py-2 px-4 ">{`${ride.user?.firstName} ${ride.user?.lastName}`}</td>
-              <td className="py-2 px-4 ">{ride.message}</td>
-              <td className="px-2 py-4">
-                <button
-                  onClick={() =>
-                    navigate("/admin/rideInfo", {
-                      state: { rideDetails: ride },
-                    })
-                  }
-                  title="View"
-                  className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-green-600 border-green-600 hover:bg-green-600 hover:text-white  text-base"
-                >
-                  {explore}
-                </button>
-              </td>
-            </tr>
-          ))} */}
-            {data.map((ride, index: number) => (
+            {rides.list.map((ride: Ride, index: number) => (
               <tr key={ride.rideId}>
                 <td className="py-2 px-4 ">{index + 1}</td>
                 <td className="py-2 px-4 ">{ride.numberOfPassenger}</td>
@@ -104,7 +67,7 @@ function Ridestable() {
                 </td>
                 <td className="py-2 px-4 ">{ride.status}</td>
                 <td className="py-2 px-4 ">{ride.price}</td>
-                <td className="py-2 px-4 ">{`${ride.driver.firstName} ${ride.driver.lastName}`}</td>
+                <td className="py-2 px-4 ">{`${ride.driver?.user.firstName} ${ride.driver?.user.lastName}`}</td>
                 <td className="py-2 px-4 ">{`${ride.user?.firstName} ${ride.user?.lastName}`}</td>
                 <td className="py-2 px-4 ">{ride.message}</td>
                 <td className="px-2 py-4">

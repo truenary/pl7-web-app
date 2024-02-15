@@ -5,20 +5,12 @@ import { useEffect, useState } from "react";
 import { AllDriver, Driver, driverTableProp } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
+import { InitialStateData } from "@/utils/utilities";
 
 function Drivertable({ filterValue }: driverTableProp) {
   console.log(filterValue);
   const { repo } = useRepository();
-  const [drivers, setDrivers] = useState<AllDriver>({
-    list: [],
-    pagination: {
-      totalPage: 0,
-      totalItem: 0,
-      previousPageNumber: null,
-      currentPageNumber: 0,
-      nextPageNumber: null,
-    },
-  });
+  const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
   const [currentPage, setCurrentPage] = useState(
     drivers.pagination.currentPageNumber
   );

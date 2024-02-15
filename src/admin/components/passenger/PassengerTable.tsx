@@ -4,19 +4,11 @@ import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
 import { AllPassenger, Passenger } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
+import { InitialStateData } from "@/utils/utilities";
 
 export default function PassengerTable() {
   const { repo } = useRepository();
-  const [passengers, setPassengers] = useState<AllPassenger>({
-    list: [],
-    pagination: {
-      totalPage: 0,
-      totalItem: 0,
-      previousPageNumber: null,
-      currentPageNumber: 0,
-      nextPageNumber: null,
-    },
-  });
+  const [passengers, setPassengers] = useState<AllPassenger>(InitialStateData);
   const [currentPage, setCurrentPage] = useState(
     passengers.pagination.currentPageNumber
   );
