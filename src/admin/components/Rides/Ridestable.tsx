@@ -40,6 +40,7 @@ function Ridestable() {
 
     fetchData();
   }, [repo]);
+  const data = ridesData.data;
   return (
     <>
       <div className="overflow-x-auto">

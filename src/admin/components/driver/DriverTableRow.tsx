@@ -16,6 +16,8 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
     }
   }
   function handleHistory() {
+    navigate("/admin/rideshistory", { state: { userId: user._id } });
+  function handleHistory() {
     navigate("/admin/rideshistory", { state: { userId: user.driverId } });
   }
 
