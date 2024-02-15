@@ -118,7 +118,7 @@ export default function DriverRegisterForm({
       "vehicleImage",
       "billBookImage",
       "liscenceNumber",
-      "color",
+      "color",+
       "numberPlate",
     ];
     fields.forEach((field) => {

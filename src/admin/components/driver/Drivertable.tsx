@@ -36,7 +36,7 @@ function Drivertable({ filterValue }: driverTableProp) {
     const fetchData = async () => {
       try {
         const data = await repo.getAllDriver();
-        // Check if data is an array
+        console.log(data);        // Check if data is an array
         if (data && "list" in data && "pagination" in data) {
           setDrivers(data);
         } else {

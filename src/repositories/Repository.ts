@@ -1,7 +1,9 @@
 import {
   ALLRides,
+  AllBlogPostsResponse,
   AllDriver,
   AllPassenger,
+  BlogPost,
   Driver,
   DriverVerifyResponse,
   OnlineDriverArray,
@@ -116,5 +118,47 @@ export class Repository implements IRepository {
       `driver/onlineDriver/get`
     );
     return this._getResponse(responseData);
+  }
+ async createBlogPost(
+    blogPostData: FormData
+  ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
+    const responseData = await this._api.post<RegisterResponse>(
+      `users/addBlog`,
+      blogPostData,
+      undefined,
+      false
+    );
+    return this._getResponse(responseData);
+  }
+
+  async getAllBlogPosts(): Promise<
+    AllBlogPostsResponse | JsonAPIErrorResp | undefined
+  > {
+    const responseData = await this._api.get<AllBlogPostsResponse>(`blogs/getAll`);
+    return this._getResponse(responseData);
+  }
+
+  async getBlogPostById(
+    id: string
+  ): Promise<BlogPost | JsonAPIErrorResp | undefined> {
+    const responseData = await this._api.get<BlogPost>(`blogs/get/${id}`);
+    return this._getResponse(responseData);
+  }
+
+  async updateBlogPost(
+    id: string,
+    updatedBlogPostData: FormData
+  ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
+    const responseData = await this._api.put<RegisterResponse>(
+      `blogs/update/${id}`,
+      updatedBlogPostData,
+      undefined,
+      false
+    );
+    return this._getResponse(responseData);
+  }
+
+  async deleteBlogPost(id: string): Promise<void> {
+    await this._api.delete(`blogs/delete/${id}`);
   }
 }

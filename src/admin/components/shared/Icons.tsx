@@ -10,6 +10,7 @@ import {
   faTrash,
   faArrowRight,
   faClipboard,
+  faExplosion,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -24,3 +25,4 @@ export const editIcon = <FontAwesomeIcon icon={faPenToSquare} />;
 export const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
 export const explore = <FontAwesomeIcon icon={faArrowRight} />;
 export const info=<FontAwesomeIcon icon={faClipboard} />
+export const blogIcon=<FontAwesomeIcon icon={faExplosion} />

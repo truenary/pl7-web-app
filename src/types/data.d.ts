@@ -205,3 +205,32 @@ declare type FormWithNumberProp = {
   setConfirmed: React.Dispatch<React.SetStateAction<ConfirmationResult | null>>;
   setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
 };
+
+declare type BlogPost = {
+  _id: string;
+  title: string;
+  content: string;
+  photoUrl: string;
+  videoUrl: string;
+  createdAt: string;
+};
+
+type BlogPostFormData = {
+  title: string;
+  content: string;
+  photo?: FileList;
+  video?: FileList;
+};
+
+declare type BlogResponse = {
+  statusCode: number;
+  data: BlogPost;
+  message: string;
+  success: boolean;
+};
+
+declare type AllBlogPostsResponse = {
+  list: BlogPost[];
+  pagination: Pagination;
+};
+
