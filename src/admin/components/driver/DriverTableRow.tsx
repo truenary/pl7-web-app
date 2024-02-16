@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { deleteIcon, explore, info } from "../shared/Icons";
+import { deleteIcon, explore, info } from "../shared/Icons";
 import toast from "react-hot-toast";
 import { DriverTableRowProp } from "@/types/data";
 import _ from "lodash";
@@ -12,7 +13,10 @@ enum AccountStatusStyles {
 export default function DriverTableRow({ user, index }: DriverTableRowProp) {
   const navigate = useNavigate();
 
+
   function handleExplore() {
+    console.log("driver Id :" + user._id);
+    navigate(`${user._id}`);
     console.log("driver Id :" + user._id);
     navigate(`${user._id}`);
   }
@@ -45,6 +49,13 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
         {user.user.status ? "Active" : "Inactive"}
       </td>
       <td className="px-2 py-4">
+        <button
+          onClick={handleHistory}
+          title="History"
+          className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white  text-base"
+        >
+          {info}
+        </button>
         <button
           onClick={handleHistory}
           title="History"

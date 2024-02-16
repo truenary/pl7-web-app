@@ -2,33 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useRepository } from "@/hooks/CustomHook";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { driverFormType } from "@/types/data";
+import { driverFormType, formValueData } from "@/types/data";
 import _ from "lodash";
-import { useEffect, useState } from "react";
-
-
-type formValueData = {
-  labelText?: string;
-  id:
-    | "numberPlate"
-    | "vehicleImage"
-    | "color"
-    | "firstName"
-    | "lastName"
-    | "password"
-    | "address"
-    | "userImage"
-    | "liscenceNumber"
-    | "liscenceImage"
-    | "billBookImage";
-  value?: string | undefined;
-  type: string;
-  required: boolean;
-};
-
+import formData from "@/utils/RegisterInputFormData.json";
 
 type userDetailsFormProps = {
   phoneNumber: string;
+  // token: string | undefined;
   userRole: string;
 };
 
@@ -39,54 +19,42 @@ export default function DriverRegisterForm({
   const { register, handleSubmit } = useForm<driverFormType>();
   const navigate = useNavigate();
   const { repo } = useRepository();
-  const [formValue, setFormValue] = useState<formValueData[]>([]); 
-
-  useEffect(() => {
-    
-    const fetchFormValue = async () => {
-      try {
-        const response = await fetch("../../../utils/DriverRegisterFormValueData.json");
-        if (!response.ok) {
-          throw new Error("Failed to fetch formValue data");
-        }
-        const formData = await response.json();
-        setFormValue(formData.formValue);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchFormValue();
-  }, []);
-
   async function handleDriverDataSubmit(data: driverFormType) {
     const formData = new FormData();
-
-   
-   _.map(data, (value, key) => {
- 
-  if (value && (!Array.isArray(value) || value.length > 0)) {
-    
-    if (Array.isArray(value) && value[0] instanceof File) {
-      const fileList: FileList = value as FileList;
-      formData.append(key, fileList[0]);
-      formData.append(`${key}Name`, fileList[0].name);
-    } else {
-      formData.append(key, value as string);
-    }
-  }
-});
-
-     formData.append("phoneNumber", phoneNumber);
+    const fields = [
+      "firstName",
+      "lastName",
+      "address",
+      "password",
+      "userImage",
+      "liscenceImage",
+      "vehicleImage",
+      "billBookImage",
+      "liscenceNumber",
+      "color",
+      "numberPlate",
+    ];
+    fields.forEach((field) => {
+      if (data[field]) {
+        if (_.isArray(data[field])) {
+          const fileList: FileList = data[field] as FileList;
+          if (fileList.length > 0) {
+            const file: File = fileList[0];
+            formData.append(`${field}`, file);
+            formData.append(`${field}Name`, file.name);
+          }
+        } else {
+          formData.append(`${field}`, data[field] as string);
+        }
+      }
+    });
+    formData.append("phoneNumber", phoneNumber);
     formData.append("userRole", userRole);
-    console.log("form data")
-    for (const [key, value] of formData) {
-      console.log(`${key}: ${value}\n`);
-    }
+
     try {
       const response = await repo.registerDriver(formData);
       if (response) {
-        toast.success("You are registered successfully");
+        toast.success("You are registerd successfully");
         navigate("/download");
       } else {
         toast.error("Could not register");
@@ -112,24 +80,26 @@ export default function DriverRegisterForm({
           <div>
             <div className="flex flex-col"></div>
             <form onSubmit={handleSubmit(handleDriverDataSubmit)}>
-              {formValue.map((value) => (
-                <div key={`${value.id}_wrapper`}>
-                  <label
-                    htmlFor={value.id}
-                    key={`${value.id}_label`}
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-                  >
-                    {value.labelText}
-                  </label>
-                  <input
-                    type={value.type}
-                    key={`${value.id}_input`}
-                    id={value.id}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    {...register(value.id, { required: value.required })}
-                  />
-                </div>
-              ))}
+              {_.map(formData.driverFormData, (value: formValueData) => {
+                return (
+                  <div>
+                    <label
+                      htmlFor={value.id}
+                      key={`${value.id}_label`}
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
+                    >
+                      {value.labelText}
+                    </label>
+                    <input
+                      type={value.type}
+                      key={`${value.id}_input`}
+                      id={value.id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      {...register(value.id, { required: value.required })}
+                    />
+                  </div>
+                );
+              })}
               <div className="flex items-start mb-6 mt-5">
                 <div className="flex items-center h-5">
                   <input

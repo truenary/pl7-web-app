@@ -3,20 +3,13 @@ import PassengerTableRow from "./PassengerTableRow";
 import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
 import { AllPassenger, Passenger } from "@/types/data";
+import { explore, leftArrow } from "../shared/Icons";
+import { InitialStateData } from "@/utils/utilities";
 import _ from "lodash";
 
 export default function PassengerTable() {
   const { repo } = useRepository();
-  const [passengers, setPassengers] = useState<AllPassenger>({
-    list: [],
-    pagination: {
-      totalPage: 0,
-      totalItem: 0,
-      previousPageNumber: null,
-      currentPageNumber: 0,
-      nextPageNumber: null,
-    },
-  });
+  const [passengers, setPassengers] = useState<AllPassenger>(InitialStateData);
   const [currentPage, setCurrentPage] = useState(
     passengers.pagination.currentPageNumber
   );
@@ -37,7 +30,6 @@ export default function PassengerTable() {
       try {
         const data = await repo.getAllPassengers();
         if (data && "list" in data && "pagination" in data) {
-          console.log(data);
           setPassengers(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -49,9 +41,6 @@ export default function PassengerTable() {
 
     fetchData();
   }, [repo]);
-  if (passengers) {
-    console.log(passengers);
-  }
   return (
     <>
       <div className="overflow-x-auto text-center">
@@ -75,7 +64,7 @@ export default function PassengerTable() {
                 <td>The data is undefined</td>
               </tr>
             ) : (
-           _.map(passengers,(passenger :Passenger,index:number)=>(
+                _.map(passengers,(passenger :Passenger,index:number)=>(
             <PassengerTableRow
                   user={passenger}
                   index={index}
@@ -85,21 +74,25 @@ export default function PassengerTable() {
           </tbody>
         </table>
       </div>
-      <div>
+      <div className="text-center mt-5">
         <button
+          title="Previous page"
           onClick={handlePrevPage}
           disabled={!passengers.pagination.previousPageNumber}
+          className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed cursor-pointer text-xl"
         >
-          Previous
+          <span className="mr-8">{leftArrow}</span>
         </button>
         <span>
           Page {currentPage} of {passengers.pagination.totalPage}
         </span>
         <button
+          title="Next page"
+          className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed  cursor-pointer text-xl"
           onClick={handleNextPage}
           disabled={!passengers.pagination.nextPageNumber}
         >
-          Next
+          <span className="ml-8">{explore}</span>
         </button>
       </div>
     </>

@@ -16,4 +16,3 @@ export default function RegisterForm({
     return <UserRegisterform phoneNumber={phoneNumber} userRole={userRole} />;
   }
 }
-

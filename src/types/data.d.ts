@@ -1,5 +1,10 @@
 import { ConfirmationResult } from "firebase/auth";
-
+type formValueData = {
+  labelText: string;
+  id: string;
+  type: string;
+  required: boolean;
+};
 declare type UserRegisterRequest = {
   userImage: File;
   firstName: string;
@@ -28,6 +33,7 @@ declare type userFormType = {
   password: string;
   address: string;
   userImage: FileList;
+  [key: string]: string | FileList;
 };
 declare type driverFormType = {
   firstName: string;
@@ -126,17 +132,27 @@ declare type Pagination = {
   nextPageNumber: number | null;
 };
 declare type AllPassenger = { list: Passenger[]; pagination: Pagination };
-declare type ALLRides = [
-  {
-    id: string;
-    PickupLocation: string;
-    DropLocation: string;
-    NumberOfPassenger: string;
-    Price: string;
-    Message: string;
-    distance: string;
-  }
-];
+declare type Ride = {
+  rideId: number;
+  numberOfPassenger: number;
+  rideType: boolean;
+  price: number;
+  message: string;
+  status: string;
+  channelId: number;
+  driverId: string;
+  driver: Driver | null;
+  userId: string;
+  user: Passenger | null;
+  pickupLocation_latitude: number;
+  pickupLocation_longitude: number;
+  dropLocation_latitude: number;
+  dropLocation_longitude: number;
+};
+declare type ALLRides = {
+  list: Ride[];
+  pagination: Pagination;
+};
 declare type OnlineDriver = {
   id: number;
   name: string;
@@ -153,15 +169,6 @@ declare type RefreshTokenRequest = {
 declare type TokenResponse = {
   access_token: string;
   refresh_token: string;
-};
-declare type Rides = {
-  id: string;
-  PickupLocation: string;
-  DropLocation: string;
-  NumberOfPassenger: string;
-  Price: string;
-  Message: string;
-  distance: string;
 };
 
 declare type PassengerTableRowProp = {

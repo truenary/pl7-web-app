@@ -15,6 +15,7 @@ const center = {
 };
 function DashboardMap() {
   const { repo } = useRepository();
+  const { repo } = useRepository();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyC2hVQsKcF5QA_kMTt9rBiR8YYt2icM3KA",
     libraries,
@@ -33,6 +34,10 @@ function DashboardMap() {
         console.error("Error fetching data:", error);
       }
     };
+    fetchData();
+    // const intervalId = setInterval(fetchData, 1000);
+    // return () => clearInterval(intervalId);
+  }, [repo]);
     fetchData();
     // const intervalId = setInterval(fetchData, 1000);
     // return () => clearInterval(intervalId);

@@ -21,6 +21,7 @@ import Logout from "./admin/pages/Logout";
 import { RepositoryProvider } from "./provider/RepositoryProvider";
 import DriverInfo from "./admin/pages/DriverInfoPage";
 import RidesHistory from "./admin/components/RidesHistory/RidesHistory";
+import { RideInfo } from "./admin/components/Rides/RideInfo";
 import BlogAdmin from "./admin/components/Blog/BlogAdmin";
 
 function App() {
@@ -46,33 +47,35 @@ function App() {
               <Route path="passengers" element={<Passengers />} />
               <Route path="ratings" element={<Rating />} />
               <Route path="rides" element={<Ride />} />
+              <Route path="rideInfo" element={<RideInfo />} />
               <Route path="rideshistory" element={<RidesHistory />} />
                <Route path="Blog" element={<BlogAdmin />} />
               <Route path="logout" element={<Logout />} />
             </Route>
 
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Router>
-        <Toaster
-          position="top-center"
-          gutter={12}
-          toastOptions={{
-            success: {
-              duration: 4000,
-            },
-            error: {
-              duration: 5000,
-            },
-            style: {
-              fontSize: "16px",
-              padding: "16px 24px",
-              maxWidth: "500px",
-              backgroundColor: "blue-100",
-            },
-          }}
-          containerStyle={{ margin: "8px" }}
-        />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Router>
+          <Toaster
+            position="top-center"
+            gutter={12}
+            toastOptions={{
+              success: {
+                duration: 4000,
+              },
+              error: {
+                duration: 5000,
+              },
+              style: {
+                fontSize: "16px",
+                padding: "16px 24px",
+                maxWidth: "500px",
+                backgroundColor: "blue-100",
+              },
+            }}
+            containerStyle={{ margin: "8px" }}
+          />
+        </QueryClientProvider>
       </RepositoryProvider>
     </>
   );
