@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "rideId": 2,
+      "numberOfPassenger": 0,
+      "rideType": true,
+      "price": 0,
+      "message": "string",
+      "status": "Accepted",
+      "channelId": 944131329,
+      "driverId": "3fa85f64-5717-4562-b3fc-2c963f66afa7",
+      "driver": {
+        "firstName": "animesh",
+        "lastName": "dahal",
+        "userImage": "http://res.cloudinary.com/dvpbl8jew/image/upload/v1707460932/ndbwxojffarjqxffzcd3.jpg"
+      },
+      "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "user": {
+        "firstName": "sagar",
+        "lastName": "adhikari",
+        "userImage": "http://res.cloudinary.com/dvpbl8jew/image/upload/v1707118010/pvmnfvaxdk5thb0evhrd.jpg"
+      },
+      "pickupLocation_latitude": 27.429341,
+      "pickupLocation_longitude": 85.027136,
+      "dropLocation_latitude": 27.426872,
+      "dropLocation_longitude": 85.035022
+    }
+  ]
+}

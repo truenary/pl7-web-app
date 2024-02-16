@@ -1,13 +1,5 @@
-import React from 'react'
-
-
 function Rating() {
-    return (
-        <div>
-            Rating
-
-        </div>
-    )
+  return <div>Rating</div>;
 }
 
-export default Rating
+export default Rating;

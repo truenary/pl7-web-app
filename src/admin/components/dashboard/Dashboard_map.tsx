@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import { IOnlineDriver } from "../../../api/type";
-import { OnlineDriverApi } from "../../../api/OnlineDriverApi";
-import { OnlineDriverRepo } from "../../../repositories/OnlineDriverRepo";
-import logo from '../../../../public/logo.jpg';
-interface OnlineDriver {
-  id: number;
-  lat: number;
-  lng: number;
-}
+import logo from "../../../../public/logo.jpg";
+import { useRepository } from "../../../hooks/CustomHook";
+import { OnlineDriver } from "@/types/data";
 const libraries: ["places"] = ["places"];
 const mapContainerStyle = {
   width: "40vw",
@@ -19,6 +13,7 @@ const center = {
   lng: 85.03178229329563,
 };
 function DashboardMap() {
+  const { repo } = useRepository();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyC2hVQsKcF5QA_kMTt9rBiR8YYt2icM3KA",
     libraries,
@@ -27,8 +22,6 @@ function DashboardMap() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const api: IOnlineDriver = new OnlineDriverApi();
-        const repo: IOnlineDriver = new OnlineDriverRepo(api);
         const data = await repo.getAllOnlineDriver();
         if (Array.isArray(data)) {
           setOnlineDrivers(data);
@@ -39,9 +32,10 @@ function DashboardMap() {
         console.error("Error fetching data:", error);
       }
     };
-    const intervalId = setInterval(fetchData, 1000);
-    return () => clearInterval(intervalId);
-  }, []);
+    fetchData();
+    // const intervalId = setInterval(fetchData, 1000);
+    // return () => clearInterval(intervalId);
+  }, [repo]);
 
   if (loadError) {
     return <div>Error loading maps</div>;
@@ -59,10 +53,9 @@ function DashboardMap() {
           zoomControl: false,
           streetViewControl: false,
           mapTypeControl: false,
-          fullscreenControl: false
+          fullscreenControl: false,
         }}
       >
-
         {Onlinedrivers.length > 0 &&
           Onlinedrivers.map((driver) => (
             <Marker

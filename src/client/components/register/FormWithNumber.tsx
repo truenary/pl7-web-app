@@ -1,29 +1,19 @@
-import {
-  ConfirmationResult,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from "firebase/auth";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from "react-phone-input-2";
-import { auth } from "../../../config/firebase.config";
+import { auth } from "@/config/firebase.config";
 import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { useRepository } from "../../../hooks/CustomHook";
-
-declare type formProps = {
-  phone: string;
-  setPhone: React.Dispatch<React.SetStateAction<string>>;
-  setConfirmed: React.Dispatch<React.SetStateAction<ConfirmationResult | null>>;
-  setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
-};
+import { useRepository } from "@/hooks/CustomHook";
+import { FormWithNumberProp } from "@/types/data";
 
 export default function FormWithNumber({
   phone,
   setPhone,
   setConfirmed,
   setCurrentForm,
-}: formProps) {
-  const { userRepo: repo } = useRepository();
+}: FormWithNumberProp) {
+  const { repo } = useRepository();
   const [disabled, setDisabled] = useState<boolean>(false);
 
   //sending otp to the user's phone
@@ -31,38 +21,35 @@ export default function FormWithNumber({
     const regex =
       /977((986)|(985)|(984)|(981)|(982)|(980)|(976)|(975)|(974)|(971)|(972))\d{6}/;
     const isValid = regex.test(phone);
-
+    console.log(phone);
     if (phone && isValid) {
-      //checking either user already exist or not
-      const isExist = await repo.isUserExist(phone);
-      if (typeof isExist !== "string") {
-        if (!isExist) {
-          setDisabled(true);
-          try {
-            const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {
-              size: "invisible",
-            });
+      const response = await repo.isPhoneExist(phone);
+      console.log(response);
+      if (response === null) {
+        // console.log(response);
+        setDisabled(true);
+        try {
+          const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {
+            size: "invisible",
+          });
 
-            const confirmation = await signInWithPhoneNumber(
-              auth,
-              `+${phone}`,
-              recaptcha
-            );
-            setConfirmed(confirmation);
-            setCurrentForm(2);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } catch (err: any) {
-            if (err.code === "auth/invalid-phone-number") {
-              toast.error("Invalid Phone number");
-            } else {
-              toast.error("Error while sending otp, please try again");
-            }
+          const confirmation = await signInWithPhoneNumber(
+            auth,
+            `+${phone}`,
+            recaptcha
+          );
+          setConfirmed(confirmation);
+          setCurrentForm(2);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+          if (err.code === "auth/invalid-phone-number") {
+            toast.error("Invalid Phone number");
+          } else {
+            toast.error("Error while sending otp, please try again");
           }
-        } else {
-          toast.error("This phone number is already exist");
         }
       } else {
-        toast.error(isExist);
+        toast.error("This phone number is already exist");
       }
     } else {
       setPhone("");

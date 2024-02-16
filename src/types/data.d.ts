@@ -1,82 +1,214 @@
-declare type User = {
-  first_name: string;
-  last_name: string;
-  address: string;
-  user_image: string;
-  liscence_number?: string;
-  liscence_image?: string;
-  vehicle_number?: string;
-  vehicle_image?: string;
-  vehicle_color?: string;
-  billBook_image?: string;
-  token: string | undefined;
-  phone: string;
-  user: string;
-  password?: string;
-};
-declare type VUser = User & {
+import { ConfirmationResult } from "firebase/auth";
+type formValueData = {
+  labelText: string;
   id: string;
-  account_status?: string;
-  status: string;
-  total_rides: number;
-  ratings: number;
-  joining_date: string;
+  type: string;
+  required: boolean;
 };
-declare type ViewUser = VUser[];
+declare type UserRegisterRequest = {
+  userImage: File;
+  firstName: string;
+  lastName: string;
+  address: string;
+  phoneNumber: string;
+  userRole: string;
+  password: string;
+  userImageName: string;
+};
+
+declare type DriverRegisterRequest = UserRegisterRequest & {
+  liscenceNumber: string;
+  liscenceImage: File; // file
+  liscenceImageName: string;
+  numberPlate: string;
+  color: string;
+  vehicleImage: File; //file
+  vehicleImageName: string;
+  billBookImage: File; //file
+  billBookImageName: string;
+};
+declare type userFormType = {
+  firstName: string;
+  lastName: string;
+  password: string;
+  address: string;
+  userImage: FileList;
+  [key: string]: string | FileList;
+};
+declare type driverFormType = {
+  firstName: string;
+  lastName: string;
+  password: string;
+  address: string;
+  userImage: FileList;
+  liscenceImage: FileList;
+  billBookImage: FileList;
+  vehicleImage: FileList;
+  color: string;
+  numberPlate: string;
+  liscenceNumber: string;
+  [key: string]: string | FileList;
+};
+declare type RegisterResponse = {
+  statusCode: number;
+  data: {
+    _id: string;
+  };
+  message: string;
+  success: boolean;
+};
+declare type loginRequest = {
+  phoneNumber: string;
+  password: string;
+};
+declare type loginResponse = {
+  user: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    status: boolean;
+    phoneNumber: string;
+    userRole: string;
+    userImage: string;
+    totalRide: number;
+    createdAt: DateTime;
+  };
+  accessToken: string;
+  refreshToken: string;
+};
+
 declare type Driver = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  phone: string;
-  address: string;
-  billBook_image: string;
-  liscence_number: string;
-  liscence_image: string;
-  vehicle_number: string;
-  vehicle_color: string;
-  vehicle_image: string;
-  user: string;
-  account_status;
-  status: string;
-  total_rides: number;
+  _id: string;
+  liscenceNumber: string;
+  liscenceImage: string;
+  accountVerifyStatus: boolean;
+  availabilityStatus: boolean;
+  createdAt: string;
+  updatedAt: string;
   ratings: number;
-  joining_date: string;
+  user: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    status: boolean;
+    phoneNumber: string;
+    userImage: string;
+    totalRide: number;
+    userRole: string;
+  };
+  vehicle: {
+    _id: string;
+    numberPlate: string;
+    color: string;
+    vehicleImage: string;
+    billBookImage: string;
+  };
 };
-declare type AllDriver = Driver[];
+declare type AllDriver = { list: Driver[]; pagination: Pagination };
+declare type DriverVerifyResponse = {
+  _id: string;
+  accountVerifyStatus: boolean;
+};
 declare type Passenger = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  user_image: string;
-  phone: string;
+  _id: string;
+  firstName: string;
+  lastName: string;
   address: string;
-  user: string;
-  status: string;
-  total_rides: number;
-  joining_date: string;
+  status: boolean;
+  phoneNumber: string;
+  userRole: boolean;
+  userImage: string;
+  totalRide: number;
+  createdAt: string;
+  updatedAt: string;
 };
-declare type AllPassenger = Passenger[];
-declare type ALLRides = [
-  {
-    id: string;
-    PickupLocation: string;
-    DropLocation: string;
-    NumberOfPassenger: string;
-    Price: string;
-    Message: string;
-    distance: string;
-  }
-];
-declare type AllOnlineDriver = [
-  {
-    id: number;
-    lat: number;
-    lng: number;
-  }
-];
-declare type OnlineDriver ={
+declare type Pagination = {
+  totalPage: number;
+  totalItem: number;
+  previousPageNumber: number | null;
+  currentPageNumber: number;
+  nextPageNumber: number | null;
+};
+declare type AllPassenger = { list: Passenger[]; pagination: Pagination };
+declare type Ride = {
+  rideId: number;
+  numberOfPassenger: number;
+  rideType: boolean;
+  price: number;
+  message: string;
+  status: string;
+  channelId: number;
+  driverId: string;
+  driver: Driver | null;
+  userId: string;
+  user: Passenger | null;
+  pickupLocation_latitude: number;
+  pickupLocation_longitude: number;
+  dropLocation_latitude: number;
+  dropLocation_longitude: number;
+};
+declare type ALLRides = {
+  list: Ride[];
+  pagination: Pagination;
+};
+declare type OnlineDriver = {
   id: number;
   name: string;
   Status: string;
-  rating:string;
+  rating: string;
+  lat: number;
+  lng: number;
+};
+declare type OnlineDriverArray = OnlineDriver[];
+
+declare type RefreshTokenRequest = {
+  refreshToken: string;
+};
+declare type TokenResponse = {
+  access_token: string;
+  refresh_token: string;
+};
+
+declare type PassengerTableRowProp = {
+  user: Passenger;
+  index: number;
+};
+declare type DriverTableRowProp = {
+  user: Driver;
+  index: number;
+};
+declare type driverTableProp = {
+  filterValue: string;
+};
+declare interface OnlineDriver {
+  id: number;
+  lat: number;
+  lng: number;
 }
+declare type inputProps = {
+  children: string;
+  value: string;
+  backgroundColor: string;
+};
+declare type TotalIncomeInputProps = {
+  children: number;
+  labelText: string;
+};
+
+declare type otpFormProps = {
+  phone: string;
+  confirmed: ConfirmationResult | null;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
+};
+declare type otpFormData = {
+  otp: string;
+};
+declare type FormWithNumberProp = {
+  phone: string;
+  setPhone: React.Dispatch<React.SetStateAction<string>>;
+  setConfirmed: React.Dispatch<React.SetStateAction<ConfirmationResult | null>>;
+  setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
+};
