@@ -5,23 +5,25 @@ import { useEffect, useState } from "react";
 import { AllDriver, Driver, TableProp } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
+import { InitialStateData } from "@/utils/utilities";
 
 function Drivertable({ filterValue }: TableProp) {
   console.log(filterValue);
-
+  const { repo } = useRepository();
+  const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
   const [currentPage, setCurrentPage] = useState(
-    drivers.meta.currentPageNumber
+    drivers.pagination.currentPageNumber
   );
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) =>
-      drivers.meta.nextPageNumber ? prevPage + 1 : prevPage
+      drivers.pagination.nextPageNumber ? prevPage + 1 : prevPage
     );
   };
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) =>
-      drivers.meta.previousPageNumber ? prevPage - 1 : prevPage
+      drivers.pagination.previousPageNumber ? prevPage - 1 : prevPage
     );
   };
   useEffect(() => {
@@ -85,19 +87,19 @@ function Drivertable({ filterValue }: TableProp) {
         <button
           title="Previous page"
           onClick={handlePrevPage}
-          disabled={!drivers.meta.previousPageNumber}
+          disabled={!drivers.pagination.previousPageNumber}
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed cursor-pointer text-xl"
         >
           <span className="mr-8">{leftArrow}</span>
         </button>
         <span>
-          Page {currentPage} of {drivers.meta.totalPage}
+          Page {currentPage} of {drivers.pagination.totalPage}
         </span>
         <button
           title="Next page"
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed  cursor-pointer text-xl"
           onClick={handleNextPage}
-          disabled={!drivers.meta.nextPageNumber}
+          disabled={!drivers.pagination.nextPageNumber}
         >
           <span className="ml-8">{explore}</span>
         </button>

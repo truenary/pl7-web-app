@@ -11,25 +11,25 @@ export default function PassengerTable({ filterValue }: TableProp) {
   const { repo } = useRepository();
   const [passengers, setPassengers] = useState<AllPassenger>(InitialStateData);
   const [currentPage, setCurrentPage] = useState(
-    passengers.meta.currentPageNumber
+    passengers.pagination.currentPageNumber
   );
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) =>
-      passengers.meta.nextPageNumber ? prevPage + 1 : prevPage
+      passengers.pagination.nextPageNumber ? prevPage + 1 : prevPage
     );
   };
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) =>
-      passengers.meta.previousPageNumber ? prevPage - 1 : prevPage
+      passengers.pagination.previousPageNumber ? prevPage - 1 : prevPage
     );
   };
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await repo.getAllPassengers();
-        if (data && "list" in data && "meta" in data) {
+        if (data && "list" in data && "pagination" in data) {
           setPassengers(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -90,19 +90,19 @@ export default function PassengerTable({ filterValue }: TableProp) {
         <button
           title="Previous page"
           onClick={handlePrevPage}
-          disabled={!passengers.meta.previousPageNumber}
+          disabled={!passengers.pagination.previousPageNumber}
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed cursor-pointer text-xl"
         >
           <span className="mr-8">{leftArrow}</span>
         </button>
         <span>
-          Page {currentPage} of {passengers.meta.totalPage}
+          Page {currentPage} of {passengers.pagination.totalPage}
         </span>
         <button
           title="Next page"
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed  cursor-pointer text-xl"
           onClick={handleNextPage}
-          disabled={!passengers.meta.nextPageNumber}
+          disabled={!passengers.pagination.nextPageNumber}
         >
           <span className="ml-8">{explore}</span>
         </button>
