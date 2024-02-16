@@ -75,7 +75,7 @@ function App() {
             }}
             containerStyle={{ margin: "8px" }}
           />
-        </QueryClientProvider>
+       
       </RepositoryProvider>
     </>
   );

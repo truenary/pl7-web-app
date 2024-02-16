@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { deleteIcon, explore, info } from "../shared/Icons";
-import { deleteIcon, explore, info } from "../shared/Icons";
+
 import toast from "react-hot-toast";
 import { DriverTableRowProp } from "@/types/data";
 import _ from "lodash";
