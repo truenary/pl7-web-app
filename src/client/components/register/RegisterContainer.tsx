@@ -3,7 +3,6 @@ import FormWithNumber from "./FormWithNumber";
 import { ConfirmationResult } from "firebase/auth";
 import OtpForm from "./OtpForm";
 import SelectUser from "./SelectUser";
-
 import UserDetailsForm from "./RegisterForm";
 
 export default function RegisterContainer() {

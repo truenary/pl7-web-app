@@ -1,3 +1,14 @@
+import {
+  ALLRides,
+  AllDriver,
+  AllPassenger,
+  Driver,
+  DriverVerifyResponse,
+  OnlineDriverArray,
+  Passenger,
+  RegisterResponse,
+  loginResponse,
+} from "@/types/data";
 import { JsonAPIErrorResp } from "../api/type";
 export interface IRepository {
   registerUser(
@@ -11,10 +22,12 @@ export interface IRepository {
   ): Promise<loginResponse | JsonAPIErrorResp | undefined>;
   isPhoneExist(
     phoneNumber: string
-  ): Promise<RegisterResponse | JsonAPIErrorResp | undefined>;
+  ): Promise<boolean | JsonAPIErrorResp | undefined>;
   getAllDriver(): Promise<AllDriver | JsonAPIErrorResp | undefined>;
   getDriverById(id: string): Promise<Driver | JsonAPIErrorResp | undefined>;
-  verifyDrier(id: string): Promise<Driver | JsonAPIErrorResp | undefined>;
+  verifyDrier(
+    id: string
+  ): Promise<DriverVerifyResponse | JsonAPIErrorResp | undefined>;
   getAllPassengers(): Promise<AllPassenger | JsonAPIErrorResp | undefined>;
   getPassengerById(
     id: string

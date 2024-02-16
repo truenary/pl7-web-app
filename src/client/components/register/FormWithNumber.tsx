@@ -1,42 +1,18 @@
-import {
-  ConfirmationResult,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from "firebase/auth";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import PhoneInput from "react-phone-input-2";
-import { auth } from "../../../config/firebase.config";
+import { auth } from "@/config/firebase.config";
 import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { useRepository } from "../../../hooks/CustomHook";
+import { useRepository } from "@/hooks/CustomHook";
+import { FormWithNumberProp } from "@/types/data";
 
-declare type formProps = {
-  phone: string;
-  setPhone: React.Dispatch<React.SetStateAction<string>>;
-  setConfirmed: React.Dispatch<React.SetStateAction<ConfirmationResult | null>>;
-  setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
-};
-
-// async function getUserByPhone(phone: string): Promise<null | undefined> {
-//   const response = await fetch(
-//     `http://localhost:8000/api/v1/users/checkPhone`,
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ phoneNumber: phone }),
-//     }
-//   );
-//   console.log(response);
-//   return;
-// }
 export default function FormWithNumber({
   phone,
   setPhone,
   setConfirmed,
   setCurrentForm,
-}: formProps) {
+}: FormWithNumberProp) {
   const { repo } = useRepository();
   const [disabled, setDisabled] = useState<boolean>(false);
 

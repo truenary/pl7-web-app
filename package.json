@@ -23,6 +23,7 @@
     "date-fns": "^3.2.0",
     "firebase": "^10.7.1",
     "json-server": "^1.0.0-alpha.21",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.17.20",
+    "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",

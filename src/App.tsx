@@ -20,7 +20,8 @@ import Login from "./client/pages/Login";
 import Logout from "./admin/pages/Logout";
 import { RepositoryProvider } from "./provider/RepositoryProvider";
 import DriverInfo from "./admin/pages/DriverInfoPage";
-import PassengerInfo from "./admin/pages/PassengerInfo";
+import RidesHistory from "./admin/components/RidesHistory/RidesHistory";
+import { RideInfo } from "./admin/components/Rides/RideInfo";
 
 function App() {
   return (
@@ -42,11 +43,11 @@ function App() {
               <Route path="onlinedriver" element={<Onlinedriver />} />
               <Route path="drivers" element={<Driver />} />
               <Route path="drivers/:id" element={<DriverInfo />} />
-              <Route path="drivers/:id" element={<DriverInfo />} />
               <Route path="passengers" element={<Passengers />} />
-              <Route path="passengers/:id" element={<PassengerInfo />} />
               <Route path="ratings" element={<Rating />} />
               <Route path="rides" element={<Ride />} />
+              <Route path="rideInfo" element={<RideInfo />} />
+              <Route path="rideshistory" element={<RidesHistory />} />
               <Route path="logout" element={<Logout />} />
             </Route>
 

@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
-// import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useRepository } from "../../hooks/CustomHook";
 
 type loginForm = {
-  phone: string;
+  phoneNumber: string;
   password: string;
 };
 function Login() {
@@ -14,7 +13,7 @@ function Login() {
   const navigate = useNavigate();
   async function handleLogin(data: loginForm) {
     const formData = new FormData();
-    formData.append("phone", `977${data.phone}`);
+    formData.append("phoneNumber", `977${data.phoneNumber}`);
     formData.append("password", data.password);
     const response = await repo.login(formData);
     if (response) {
@@ -47,9 +46,9 @@ function Login() {
                       <input
                         type="text"
                         key="phone_input"
-                        id="phone"
+                        id="phoneNumber"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        {...register("phone", { required: true })}
+                        {...register("phoneNumber", { required: true })}
                       />
                       <label
                         htmlFor="password"

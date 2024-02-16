@@ -1,5 +1,17 @@
-import { IJsonApi, JsonAPIErrorResp, JsonAPIResp } from "../api/type";
+import {
+  ALLRides,
+  AllDriver,
+  AllPassenger,
+  Driver,
+  DriverVerifyResponse,
+  OnlineDriverArray,
+  Passenger,
+  RegisterResponse,
+  loginResponse,
+} from "@/types/data";
+import { IJsonApi, JsonAPIErrorResp, JsonAPIResp } from "@/api/type";
 import { IRepository } from "./types";
+// import { Data } from "@react-google-maps/api";
 
 export class Repository implements IRepository {
   private _api: IJsonApi;
@@ -17,11 +29,12 @@ export class Repository implements IRepository {
     userDetails: FormData | null
   ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
     const responseData = await this._api.post<RegisterResponse>(
-      `/register/passenger`,
+      `users/register/passenger`,
       userDetails,
       undefined,
       false
     );
+    console.log("at repository ", responseData);
     return this._getResponse(responseData);
   }
 
@@ -29,11 +42,12 @@ export class Repository implements IRepository {
     driverInfo: FormData | null
   ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
     const responseData = await this._api.post<RegisterResponse>(
-      `/register/passenger`,
+      `users/register/driver`,
       driverInfo,
       undefined,
       false
     );
+    console.log("at repository", responseData);
     return this._getResponse(responseData);
   }
   async login(
@@ -49,54 +63,59 @@ export class Repository implements IRepository {
   }
   async isPhoneExist(
     phoneNumber: string
-  ): Promise<RegisterResponse | JsonAPIErrorResp | undefined> {
-    const responseData = await this._api.get<RegisterResponse>(
-      `checkPhone/${phoneNumber}`
+  ): Promise<boolean | JsonAPIErrorResp | undefined> {
+    const responseData = await this._api.get<boolean>(
+      `users/checkPhone/${phoneNumber}`
     );
     return this._getResponse(responseData);
   }
   async getAllDriver(): Promise<JsonAPIErrorResp | AllDriver | undefined> {
-    const responseData = await this._api.get<RegisterResponse>(`checkPhone`);
+    console.log("api", this._api);
+    const responseData = await this._api.get<AllDriver>(`users/driver/get`);
+    console.log(responseData);
     return this._getResponse(responseData);
   }
   async getDriverById(
     id: string
   ): Promise<JsonAPIErrorResp | Driver | undefined> {
-    const responseData = await this._api.get<RegisterResponse>(
-      `getDriver/${id}`
-    );
+    const responseData = await this._api.get<Driver>(`users/driver/${id}`);
+    console.log("getDriverById:", responseData);
     return this._getResponse(responseData);
   }
   async verifyDrier(
     id: string
-  ): Promise<JsonAPIErrorResp | Driver | undefined> {
-    const responseData = await this._api.get<RegisterResponse>(
-      `getDriver/${id}`
+  ): Promise<JsonAPIErrorResp | DriverVerifyResponse | undefined> {
+    const responseData = await this._api.get<DriverVerifyResponse>(
+      `users/verifyDriver/${id}`
     );
     return this._getResponse(responseData);
   }
   async getAllPassengers(): Promise<
     JsonAPIErrorResp | AllPassenger | undefined
   > {
-    const responseData = await this._api.get<RegisterResponse>(`getDriver`);
+    const responseData = await this._api.get<AllPassenger>(
+      `users/passenger/get`
+    );
     return this._getResponse(responseData);
   }
   async getPassengerById(
     id: string
   ): Promise<JsonAPIErrorResp | Passenger | undefined> {
-    const responseData = await this._api.get<RegisterResponse>(
-      `getDriver/${id}`
+    const responseData = await this._api.get<Passenger>(
+      `users/passenger/get/${id}`
     );
     return this._getResponse(responseData);
   }
   async getAllRides(): Promise<JsonAPIErrorResp | ALLRides | undefined> {
-    const responseData = await this._api.get<RegisterResponse>(`getD`);
+    const responseData = await this._api.get<ALLRides>(`rides/getAll`);
     return this._getResponse(responseData);
   }
   async getAllOnlineDriver(): Promise<
     JsonAPIErrorResp | OnlineDriverArray | undefined
   > {
-    const responseData = await this._api.get<RegisterResponse>(`getDriver`);
+    const responseData = await this._api.get<OnlineDriverArray>(
+      `driver/onlineDriver/get`
+    );
     return this._getResponse(responseData);
   }
 }
