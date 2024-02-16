@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { driverFormType } from "@/types/data";
 import _ from "lodash";
+import { useEffect, useState } from "react";
+
 
 type formValueData = {
   labelText?: string;
@@ -23,78 +25,10 @@ type formValueData = {
   type: string;
   required: boolean;
 };
-const formValue: formValueData[] = [
-  {
-    labelText: "First Name",
-    id: "firstName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Last Name",
-    id: "lastName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Password",
-    id: "password",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Address",
-    id: "address",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Driver Photo",
-    id: "userImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "Liscence Number",
-    id: "liscenceNumber",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Liscence Image",
-    id: "liscenceImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "BillBook Image",
-    id: "billBookImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "Vehicle Number",
-    id: "numberPlate",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Vehicle Image",
-    id: "vehicleImage",
-    type: "file",
-    required: true,
-  },
-  {
-    labelText: "Vehicle Color",
-    id: "color",
-    type: "text",
-    required: true,
-  },
-];
+
 
 type userDetailsFormProps = {
   phoneNumber: string;
-  // token: string | undefined;
   userRole: string;
 };
 
@@ -105,46 +39,54 @@ export default function DriverRegisterForm({
   const { register, handleSubmit } = useForm<driverFormType>();
   const navigate = useNavigate();
   const { repo } = useRepository();
-  async function handleDriverDataSubmit(data: driverFormType) {
-  
-    const formData = new FormData();
-    const fields = [
-      "firstName",
-      "lastName",
-      "address",
-      "password",
-      "userImage",
-      "liscenceImage",
-      "vehicleImage",
-      "billBookImage",
-      "liscenceNumber",
-      "color",+
-      "numberPlate",
-    ];
-    fields.forEach((field) => {
-      if (data[field]) {
-        if (_.isArray(data[field])) {
-          const fileList: FileList = data[field] as FileList;
-          if (fileList.length > 0) {
-            const file: File = fileList[0];
-            formData.append(`${field}`, file);
-            formData.append(`${field}Name`, file.name);
-          }
-        } else {
-          formData.append(`${field}`, data[field] as string);
+  const [formValue, setFormValue] = useState<formValueData[]>([]); 
+
+  useEffect(() => {
+    
+    const fetchFormValue = async () => {
+      try {
+        const response = await fetch("../../../utils/DriverRegisterFormValueData.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch formValue data");
         }
+        const formData = await response.json();
+        setFormValue(formData.formValue);
+      } catch (error) {
+        console.error(error);
       }
-    });
-    formData.append("phoneNumber", phoneNumber);
+    };
+
+    fetchFormValue();
+  }, []);
+
+  async function handleDriverDataSubmit(data: driverFormType) {
+    const formData = new FormData();
+
+   
+   _.map(data, (value, key) => {
+ 
+  if (value && (!Array.isArray(value) || value.length > 0)) {
+    
+    if (Array.isArray(value) && value[0] instanceof File) {
+      const fileList: FileList = value as FileList;
+      formData.append(key, fileList[0]);
+      formData.append(`${key}Name`, fileList[0].name);
+    } else {
+      formData.append(key, value as string);
+    }
+  }
+});
+
+     formData.append("phoneNumber", phoneNumber);
     formData.append("userRole", userRole);
-    console.log("here is the driver data");
+    console.log("form data")
     for (const [key, value] of formData) {
       console.log(`${key}: ${value}\n`);
     }
     try {
       const response = await repo.registerDriver(formData);
       if (response) {
-        toast.success("You are registerd successfully");
+        toast.success("You are registered successfully");
         navigate("/download");
       } else {
         toast.error("Could not register");
@@ -171,7 +113,7 @@ export default function DriverRegisterForm({
             <div className="flex flex-col"></div>
             <form onSubmit={handleSubmit(handleDriverDataSubmit)}>
               {formValue.map((value) => (
-                <div>
+                <div key={`${value.id}_wrapper`}>
                   <label
                     htmlFor={value.id}
                     key={`${value.id}_label`}

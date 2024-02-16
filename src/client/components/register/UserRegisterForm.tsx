@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useRepository } from "@/hooks/CustomHook";
 import { userFormType } from "@/types/data";
+import { useEffect, useState } from "react";
 
 type formValueData = {
   labelText?: string;
@@ -11,53 +12,41 @@ type formValueData = {
   type: string;
   required: boolean;
 };
-const formValue: formValueData[] = [
-  {
-    labelText: "First Name",
-    id: "firstName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Last Name",
-    id: "lastName",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Password",
-    id: "password",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "Address",
-    id: "address",
-    type: "text",
-    required: true,
-  },
-  {
-    labelText: "User Image",
-    id: "userImage",
-    type: "file",
-    required: true,
-  },
-];
+
 type userDetailsFormProps = {
   phoneNumber: string;
-  // token: string | undefined;
+  
   userRole: string;
 };
 
 export default function UserRegisterform({
   phoneNumber,
-  // token,
+
   userRole,
 }: userDetailsFormProps) {
   const { register, handleSubmit } = useForm<userFormType>();
   const navigate = useNavigate();
 
   const { repo } = useRepository();
+  const [formValue, setFormValue] = useState<formValueData[]>([]); 
+
+  useEffect(() => {
+    
+    const fetchFormValue = async () => {
+      try {
+        const response = await fetch("../../../utils/UserRegisterFormValueData.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch formValue data");
+        }
+        const formData = await response.json();
+        setFormValue(formData.formValue);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFormValue();
+  }, []);
   async function handleUserDataSubmit(data: userFormType) {
     console.log("data", data);
     const formData = new FormData();
@@ -73,7 +62,7 @@ export default function UserRegisterform({
     for (const [key, value] of formData) {
       console.log(`${key}: ${value}\n`);
     }
-    // console.log("formData:", JSON.stringify(formData));
+  
     try {
       const response = await repo.registerUser(formData);
       console.log(response);
