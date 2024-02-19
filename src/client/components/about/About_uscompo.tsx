@@ -1,8 +1,12 @@
-import aboutUs from "@/utils/aboutus.json";
+
+import HeroAbout from "./HeroAbout";
+import Qa from "./Qa";
+
+// import aboutUs from "@/utils/aboutus.json";
 function About_uscompo() {
   return (
-    <div className=" bg-blue-500">
-      <section className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]  ">
+    <div className=" bg-white">
+      {/* <section className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]  ">
         <div className="container mx-48">
           <div className="flex flex-wrap items-center justify-between -mx-4">
             <div className="w-full px-4 lg:w-6/12">
@@ -29,7 +33,11 @@ function About_uscompo() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+
+      <HeroAbout />
+      <Qa />
     </div>
   );
 }
