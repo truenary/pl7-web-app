@@ -6,14 +6,14 @@ type formValueData = {
   required: boolean;
 };
 declare type UserRegisterRequest = {
-  userImage: File;
+  userImageFile: File;
   firstName: string;
   lastName: string;
-  address: string;
+  // address: string;
   phoneNumber: string;
-  userRole: string;
+  // userRole: string;
   password: string;
-  userImageName: string;
+  userImage: string;
 };
 
 declare type DriverRegisterRequest = UserRegisterRequest & {
@@ -31,7 +31,7 @@ declare type userFormType = {
   firstName: string;
   lastName: string;
   password: string;
-  address: string;
+  // address: string;
   userImage: FileList;
   [key: string]: string | FileList;
 };
@@ -79,50 +79,50 @@ declare type loginResponse = {
 };
 
 declare type Driver = {
-  _id: string;
-  liscenceNumber: string;
-  liscenceImage: string;
+  driverId: string;
+  licenseNumber: string;
+  licenseImage: string;
   accountVerifyStatus: boolean;
   availabilityStatus: boolean;
-  createdAt: string;
-  updatedAt: string;
   ratings: number;
+  totalRides: number;
   user: {
-    _id: string;
+    userId: string;
     firstName: string;
     lastName: string;
     address: string;
     status: boolean;
     phoneNumber: string;
     userImage: string;
-    totalRide: number;
-    userRole: string;
+    createdDate: string;
+    updatedDate: string;
+    role: number;
   };
   vehicle: {
-    _id: string;
-    numberPlate: string;
-    color: string;
+    vehicleId: string;
+    vehicleNumber: string;
+    vehicleColor: string;
     vehicleImage: string;
-    billBookImage: string;
+    bluebookImage: string;
   };
 };
-declare type AllDriver = { list: Driver[]; pagination: Pagination };
+declare type AllDriver = { list: Driver[]; meta: Pagination };
 declare type DriverVerifyResponse = {
   _id: string;
   accountVerifyStatus: boolean;
 };
 declare type Passenger = {
-  _id: string;
+  userId: string;
   firstName: string;
   lastName: string;
   address: string;
   status: boolean;
   phoneNumber: string;
-  userRole: boolean;
+  role: boolean;
   userImage: string;
   totalRide: number;
-  createdAt: string;
-  updatedAt: string;
+  createdDate: string;
+  updatedDate: string;
 };
 declare type Pagination = {
   totalPage: number;
@@ -131,7 +131,7 @@ declare type Pagination = {
   currentPageNumber: number;
   nextPageNumber: number | null;
 };
-declare type AllPassenger = { list: Passenger[]; pagination: Pagination };
+declare type AllPassenger = { list: Passenger[]; meta: Pagination };
 declare type Ride = {
   rideId: number;
   numberOfPassenger: number;
@@ -151,7 +151,7 @@ declare type Ride = {
 };
 declare type ALLRides = {
   list: Ride[];
-  pagination: Pagination;
+  meta: Pagination;
 };
 declare type OnlineDriver = {
   id: number;
@@ -179,7 +179,7 @@ declare type DriverTableRowProp = {
   user: Driver;
   index: number;
 };
-declare type driverTableProp = {
+declare type TableProp = {
   filterValue: string;
 };
 declare interface OnlineDriver {
@@ -212,32 +212,3 @@ declare type FormWithNumberProp = {
   setConfirmed: React.Dispatch<React.SetStateAction<ConfirmationResult | null>>;
   setCurrentForm: React.Dispatch<React.SetStateAction<number>>;
 };
-
-declare type BlogPost = {
-  _id: string;
-  title: string;
-  content: string;
-  photoUrl: string;
-  videoUrl: string;
-  createdAt: string;
-};
-
-type BlogPostFormData = {
-  title: string;
-  content: string;
-  photo?: FileList;
-  video?: FileList;
-};
-
-declare type BlogResponse = {
-  statusCode: number;
-  data: BlogPost;
-  message: string;
-  success: boolean;
-};
-
-declare type AllBlogPostsResponse = {
-  list: BlogPost[];
-  pagination: Pagination;
-};
-

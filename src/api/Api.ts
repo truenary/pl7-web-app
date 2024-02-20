@@ -33,7 +33,7 @@ export class API implements IJsonApi {
     headers: Map<string, string>,
     body?: FormData | null
   ): Promise<JsonAPIResp<T>> {
-    headers.set("Content-Type", "multipart/form-data");
+    // headers.set("Content-Type", "multipart/form-data");
     const _headers = this._buildHeaders(headers);
 
     // Add authorization header if necessary

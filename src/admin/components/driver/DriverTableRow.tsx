@@ -15,10 +15,7 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
 
 
   function handleExplore() {
-    console.log("driver Id :" + user._id);
-    navigate(`${user._id}`);
-    console.log("driver Id :" + user._id);
-    navigate(`${user._id}`);
+    navigate(`/admin/driverInfo`, { state: { driver: user } });
   }
 
   function handleDelete() {
@@ -26,9 +23,8 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       toast.error("Currently deleting feature is not available");
     }
   }
-
   function handleHistory() {
-    navigate('/admin/rideshistory', { state: { userId: user._id } });
+    navigate("/admin/rideshistory", { state: { userId: user.driverId } });
   }
 
   return (
@@ -40,13 +36,29 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       <td className="px-4 py-2">{`${user.user.firstName} ${user.user.lastName}`}</td>
       <td className="px-4 py-2">{user.user.address}</td>
       <td className="px-4 py-2">{user.user.phoneNumber}</td>
-      <td className="px-4 py-2">{user.user.totalRide}</td>
+      <td className="px-4 py-2">{user.totalRides}</td>
       <td className="px-4 py-2">{user.ratings}</td>
-      <td className={`px-4 py-2 ${user.accountVerifyStatus ? AccountStatusStyles.Verified : AccountStatusStyles.NotVerified}`}>
-        {user.accountVerifyStatus ? "Verified" : "Not verified"}
+      <td className={`px-4 py-2 `}>
+        <span
+          className={`${
+            user.accountVerifyStatus === false
+              ? "text-white bg-red-500 py-2 px-4 rounded"
+              : "text-white bg-green-500 py-2 px-4 rounded"
+          }`}
+        >
+          {user.accountVerifyStatus ? "Verified" : "Not verified"}
+        </span>
       </td>
-      <td className={`px-4 py-2 ${user.user.status ? "text-white bg-green-500 py-2 px-4 rounded" : "text-white bg-red-500 py-2 px-4 rounded"}`}>
-        {user.user.status ? "Active" : "Inactive"}
+      <td className={`px-4 py-2 `}>
+        <span
+          className={`${
+            user.user.status === false
+              ? "text-white bg-red-500 py-2 px-4 rounded"
+              : "text-white bg-green-500 py-2 px-4 rounded"
+          }`}
+        >
+          {user.user.status ? "Active" : "Inactive"}
+        </span>
       </td>
       <td className="px-2 py-4">
         <button

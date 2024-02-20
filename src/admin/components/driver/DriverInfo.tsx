@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+// import toast from "react-hot-toast";
+import { useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
 import { capitalize } from "@/utils/utilities";
 import { Driver } from "@/types/data";
@@ -8,8 +11,6 @@ import _ from "lodash";
 export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
-  const [driver, setDriver] = useState<Driver>();
-  const { id } = useParams();
   const { repo } = useRepository();
   function handleSendMessage() {
     if (_.isEqual(confirm("Are you sure!"), true)) {
@@ -17,38 +18,18 @@ export default function DriverInfo() {
       setReport("");
     }
   }
+  const location = useLocation();
+  const driver: Driver = location.state?.driver;
   async function handleVerify() {
     if (confirm("Are you sured to verify the data?") === true) {
-      if (!_.isUndefined(id)) {
-        const driver = await repo.verifyDrier(id);
+      if (!_.isUndefined(driver.driverId)) {
+        const driver = await repo.verifyDrier(driver.driverId);
         if (driver) {
           toast.success("Driver is verified successfully");
         }
       }
     }
   }
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (!_.isUndefined(id)) {
-          const data = await repo.getDriverById(id);
-          console.log(data);
-          if (data) {
-            if ("_id" in data) {
-              setDriver(data);
-            } else {
-              console.log(data);
-            }
-          }
-        } else {
-          console.log("id is undefined");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [repo, id]);
 
   if (driver) {
     return (
@@ -65,7 +46,7 @@ export default function DriverInfo() {
                       className="w-full h-48 bg-gray-300 rounded mb-4 shrink-0"
                     ></img>
                     <h1 className="text-xl font-bold">
-                      Role: {capitalize(driver.user.userRole)}
+                      Role: {driver.user.role}
                     </h1>
                   </div>
                   <hr className="my-6 border-t border-gray-300" />
@@ -75,11 +56,11 @@ export default function DriverInfo() {
                     </span>
                     <ul>
                       <li className="mb-2">status: {driver.user.status}</li>
-                      <li className="mb-2">
-                        Total Rides: {driver.user.totalRide}
-                      </li>
+                      <li className="mb-2">Total Rides: {driver.totalRides}</li>
                       <li className="mb-2">Ratings: {driver.ratings}</li>
-                      <li className="mb-2">Joining Date: {driver.createdAt}</li>
+                      <li className="mb-2">
+                        Joining Date: {driver.user.createdDate}
+                      </li>
                     </ul>
                   </div>
                   <hr className="my-6 border-t border-gray-300" />
@@ -97,7 +78,7 @@ export default function DriverInfo() {
                       <li className="mb-2">Address: {driver.user.address}</li>
                       <li className="mb-2">Phone: {driver.user.phoneNumber}</li>
                       <li className="mb-2">
-                        Liscence Number:{driver.liscenceNumber}
+                        Liscence Number:{driver.licenseNumber}
                       </li>
                     </ul>
                   </div>
@@ -108,9 +89,11 @@ export default function DriverInfo() {
                     </span>
                     <ul>
                       <li className="mb-2">
-                        Number Plate: {driver.vehicle.numberPlate}
+                        Number Plate: {driver.vehicle.vehicleNumber}
                       </li>
-                      <li className="mb-2">Color: {driver.vehicle.color}</li>
+                      <li className="mb-2">
+                        Color: {driver.vehicle.vehicleColor}
+                      </li>
                     </ul>
                   </div>
                   <div
@@ -175,6 +158,7 @@ export default function DriverInfo() {
                         Liscence Image
                       </h3>
                       <img
+                        src={driver.licenseImage}
                         src={driver.liscenceImage}
                         alt="Liscence Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
@@ -185,6 +169,7 @@ export default function DriverInfo() {
                         BillBook Image
                       </h3>
                       <img
+                        src={driver.vehicle.bluebookImage}
                         src={driver.vehicle.billBookImage}
                         alt="Bill Book Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"

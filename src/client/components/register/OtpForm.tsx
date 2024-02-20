@@ -1,23 +1,22 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { otpFormData, otpFormProps } from "@/types/data";
+import { otpFormData } from "@/types/data";
+import { useLocation, useNavigate } from "react-router";
 
-export default function OtpForm({
-  phone,
-  confirmed,
-  setToken,
-  setCurrentForm,
-}: otpFormProps) {
+export default function OtpForm() {
   const { register, handleSubmit } = useForm<otpFormData>();
-
+  const location = useLocation();
+  const confirmed = location.state?.confirmed;
+  const phone = location.state?.phone;
+  const navigate = useNavigate();
   //verifying the otp
   async function verifyOtp(data: otpFormData) {
     try {
       if (confirmed) {
         const response = await confirmed.confirm(data.otp);
         const token = (await response.user.getIdToken()).toString();
-        setToken(token);
-        setCurrentForm(3);
+        navigate("/register", { state: { token: token, phone: phone } });
+        // setCurrentForm(3);
         toast.success("User is verified successfully");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

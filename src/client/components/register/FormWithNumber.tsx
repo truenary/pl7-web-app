@@ -5,17 +5,14 @@ import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
-import { FormWithNumberProp } from "@/types/data";
+// import { FormWithNumberProp } from "@/types/data";
+import { useNavigate } from "react-router";
 
-export default function FormWithNumber({
-  phone,
-  setPhone,
-  setConfirmed,
-  setCurrentForm,
-}: FormWithNumberProp) {
+export default function FormWithNumber() {
   const { repo } = useRepository();
   const [disabled, setDisabled] = useState<boolean>(false);
-
+  const [phone, setPhone] = useState<string>("");
+  const navigate = useNavigate();
   //sending otp to the user's phone
   async function handlePhoneSubmit() {
     const regex =
@@ -25,7 +22,7 @@ export default function FormWithNumber({
     if (phone && isValid) {
       const response = await repo.isPhoneExist(phone);
       console.log(response);
-      if (response === null) {
+      if (response) {
         // console.log(response);
         setDisabled(true);
         try {
@@ -38,8 +35,11 @@ export default function FormWithNumber({
             `+${phone}`,
             recaptcha
           );
-          setConfirmed(confirmation);
-          setCurrentForm(2);
+          // setConfirmed(confirmation);
+          // setCurrentForm(2);
+          navigate("/checkOtp", {
+            state: { confirmed: confirmation, phone: phone },
+          });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
           if (err.code === "auth/invalid-phone-number") {
