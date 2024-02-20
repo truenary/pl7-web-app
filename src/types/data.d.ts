@@ -113,25 +113,29 @@ declare type DriverVerifyResponse = {
 };
 declare type Passenger = {
   userId: string;
+  // _id: string;
+  
   firstName: string;
   lastName: string;
   address: string;
   status: boolean;
   phoneNumber: string;
-  role: boolean;
-  userImage: string;
+  userRole: number;
+  userImage: string| undefined;
   totalRide: number;
-  createdDate: string;
-  updatedDate: string;
+  createddate: string;
+  updateddate: string;
 };
 declare type Pagination = {
-  totalPage: number;
-  totalItem: number;
-  previousPageNumber: number | null;
-  currentPageNumber: number;
-  nextPageNumber: number | null;
+  meta: {
+    totalPage: number;
+    totalItem: number;
+    previousPageNumber: number | null;
+    currentPageNumber: number;
+    nextPageNumber: number | null;
+  };
 };
-declare type AllPassenger = { list: Passenger[]; meta: Pagination };
+declare type AllPassenger = { list: Passenger[]; pagination: Pagination };
 declare type Ride = {
   rideId: number;
   numberOfPassenger: number;

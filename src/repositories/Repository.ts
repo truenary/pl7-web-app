@@ -72,7 +72,7 @@ export class Repository implements IRepository {
   }
   async getAllDriver(): Promise<JsonAPIErrorResp | AllDriver | undefined> {
     console.log("api", this._api);
-    const responseData = await this._api.get<AllDriver>(`getalldriver/`);
+    const responseData = await this._api.get<AllDriver>(`driverlist/`);
     console.log(responseData);
     return this._getResponse(responseData);
   }
@@ -94,7 +94,9 @@ export class Repository implements IRepository {
   async getAllPassengers(): Promise<
     JsonAPIErrorResp | AllPassenger | undefined
   > {
-    const responseData = await this._api.get<AllPassenger>(`passengers/`);
+    const responseData = await this._api.get<AllPassenger>(
+      `passengers/`
+    );console.log(responseData)
     return this._getResponse(responseData);
   }
   async getPassengerById(

@@ -10,6 +10,7 @@ import {
   loginResponse,
 } from "@/types/data";
 import { JsonAPIErrorResp } from "../api/type";
+
 export interface IRepository {
   registerUser(
     userDetails: FormData | null
