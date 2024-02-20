@@ -36,22 +36,22 @@ export interface IRepository {
   getAllOnlineDriver(): Promise<
     OnlineDriverArray | JsonAPIErrorResp | undefined
   >;
- createBlogPost(
-    blogPostData: FormData
-  ): Promise<BlogPost | JsonAPIErrorResp | undefined>;
+//  createBlogPost(
+//     blogPostData: FormData
+//   ): Promise<BlogPost | JsonAPIErrorResp | undefined>;
 
-  getAllBlogPosts(): Promise<
-    AllBlogPostsResponse | JsonAPIErrorResp | undefined
-  >;
+//   getAllBlogPosts(): Promise<
+//     AllBlogPostsResponse | JsonAPIErrorResp | undefined
+//   >;
 
-  getBlogPostById(
-    id: string
-  ): Promise<BlogPost | JsonAPIErrorResp | undefined>;
+//   getBlogPostById(
+//     id: string
+//   ): Promise<BlogPost | JsonAPIErrorResp | undefined>;
 
-  updateBlogPost(
-    id: string,
-    updatedBlogPostData: FormData
-  ): Promise<RegisterResponse | JsonAPIErrorResp | undefined>;
+//   updateBlogPost(
+//     id: string,
+//     updatedBlogPostData: FormData
+//   ): Promise<RegisterResponse | JsonAPIErrorResp | undefined>;
 
-  deleteBlogPost(id: string): Promise<void>;
-}
+//   deleteBlogPost(id: string): Promise<void>;
+// }
