@@ -2,28 +2,28 @@ import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
 import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
-import { AllDriver, Driver, driverTableProp } from "@/types/data";
+import { AllDriver, Driver, TableProp } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
 import { InitialStateData } from "@/utils/utilities";
 
-function Drivertable({ filterValue }: driverTableProp) {
+function Drivertable({ filterValue }: TableProp) {
   console.log(filterValue);
   const { repo } = useRepository();
   const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
   const [currentPage, setCurrentPage] = useState(
-    drivers.pagination.currentPageNumber
+    drivers.meta.currentPageNumber
   );
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) =>
-      drivers.pagination.nextPageNumber ? prevPage + 1 : prevPage
+      drivers.meta.nextPageNumber ? prevPage + 1 : prevPage
     );
   };
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) =>
-      drivers.pagination.previousPageNumber ? prevPage - 1 : prevPage
+      drivers.meta.previousPageNumber ? prevPage - 1 : prevPage
     );
   };
   useEffect(() => {
@@ -31,7 +31,7 @@ function Drivertable({ filterValue }: driverTableProp) {
       try {
         const data = await repo.getAllDriver();
         // Check if data is an array
-        if (data && "list" in data && "pagination" in data) {
+        if (data && "list" in data && "meta" in data) {
           setDrivers(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -43,6 +43,17 @@ function Drivertable({ filterValue }: driverTableProp) {
 
     fetchData();
   }, [repo]);
+  let filteredDrivers;
+  if (filterValue === "all") {
+    // No filtering required, all drivers are included
+    filteredDrivers = drivers.list;
+  } else {
+    // Filter based on the accountVerifyStatus attribute
+    const isVerified = filterValue === "verified";
+    filteredDrivers = drivers.list.filter(
+      (driver) => driver.accountVerifyStatus === isVerified
+    );
+  }
   return (
     <>
       <div className="overflow-x-auto text-center">
@@ -62,8 +73,12 @@ function Drivertable({ filterValue }: driverTableProp) {
             </tr>
           </thead>
           <tbody>
-            {_.map(drivers.list, (driver: Driver, index: number) => (
-              <DriverTableRow user={driver} index={index} key={driver._id} />
+            {_.map(filteredDrivers, (driver: Driver, index: number) => (
+              <DriverTableRow
+                user={driver}
+                index={index}
+                key={driver.driverId}
+              />
             ))}
           </tbody>
         </table>
@@ -72,19 +87,19 @@ function Drivertable({ filterValue }: driverTableProp) {
         <button
           title="Previous page"
           onClick={handlePrevPage}
-          disabled={!drivers.pagination.previousPageNumber}
+          disabled={!drivers.meta.previousPageNumber}
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed cursor-pointer text-xl"
         >
           <span className="mr-8">{leftArrow}</span>
         </button>
         <span>
-          Page {currentPage} of {drivers.pagination.totalPage}
+          Page {currentPage} of {drivers.meta.totalPage}
         </span>
         <button
           title="Next page"
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed  cursor-pointer text-xl"
           onClick={handleNextPage}
-          disabled={!drivers.pagination.nextPageNumber}
+          disabled={!drivers.meta.nextPageNumber}
         >
           <span className="ml-8">{explore}</span>
         </button>

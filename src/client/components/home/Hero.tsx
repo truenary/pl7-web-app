@@ -18,13 +18,15 @@ export default function Hero() {
             </p>
           </div>
           <div className="flex flex-col space-y-5 mx:5">
-            <Button action={() => navigate("/register")}
+            <Button
+              action={() => navigate("/registerPhone")}
               label={"Earn with Dhoka"}
               style={
                 "p-2 md:p-3 bg-orange-500 text-white text-base font-normal rounded w-full text-center lg:w-64 lg:text-lg md:w-56"
               }
             />
-            <Button action={() => navigate("/download")}
+            <Button
+              action={() => navigate("/download")}
               label={"Download App"}
               style={
                 "p-2 md:p-3 bg-white text-black text-base font-normal rounded w-full text-center lg:w-64 border border-1 border-black  md:w-56"

@@ -87,12 +87,6 @@
       "required": true
     },
     {
-      "labelText": "Address",
-      "id": "address",
-      "type": "text",
-      "required": true
-    },
-    {
       "labelText": "User Image",
       "id": "userImage",
       "type": "file",

@@ -21,7 +21,7 @@ export default function PassengerTableRow({
       <td className="px-4 py-2">{`${user.firstName} ${user.lastName}`}</td>
       <td className="px-4 py-2">{user.address}</td>
       <td className="px-4 py-2">{user.phoneNumber}</td>
-      <td className="px-4 py-2">{user.createdAt}</td>
+      <td className="px-4 py-2">{user.createdDate}</td>
       <td className="px-4 py-2">{user.totalRide}</td>
       <td className="px-4 py-2">
         <span

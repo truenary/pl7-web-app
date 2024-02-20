@@ -8,8 +8,7 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
   const navigate = useNavigate();
 
   function handleExplore() {
-    console.log("driver Id :" + user._id);
-    navigate(`${user._id}`);
+    navigate(`/admin/driverInfo`, { state: { driver: user } });
   }
   function handleDelete() {
     if (_.isEqual(confirm("Are you sure you want to delete!"), true)) {
@@ -17,7 +16,7 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
     }
   }
   function handleHistory() {
-    navigate("/admin/rideshistory", { state: { userId: user._id } });
+    navigate("/admin/rideshistory", { state: { userId: user.driverId } });
   }
 
   return (
@@ -33,15 +32,10 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       <td className="px-4 py-2">{`${user.user.firstName} ${user.user.lastName}`}</td>
       <td className="px-4 py-2">{user.user.address}</td>
       <td className="px-4 py-2">{user.user.phoneNumber}</td>
-      <td className="px-4 py-2">{user.user.totalRide}</td>
+      <td className="px-4 py-2">{user.totalRides}</td>
       <td className="px-4 py-2">{user.ratings}</td>
       <td className={`px-4 py-2 `}>
         <span
-          className={`${
-            user.account_status === ("Not Verified" || "not verified")
-              ? "text-white bg-red-500 py-2 px-4 rounded"
-              : "text-white bg-green-500 py-2 px-4 rounded"
-          }`}
           className={`${
             user.accountVerifyStatus === false
               ? "text-white bg-red-500 py-2 px-4 rounded"
@@ -53,11 +47,6 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       </td>
       <td className={`px-4 py-2 `}>
         <span
-          className={`${
-            user.status === ("Inactive" || "Deactive")
-              ? "text-white bg-red-500 py-2 px-4 rounded"
-              : "text-white bg-green-500 py-2 px-4 rounded"
-          }`}
           className={`${
             user.user.status === false
               ? "text-white bg-red-500 py-2 px-4 rounded"
