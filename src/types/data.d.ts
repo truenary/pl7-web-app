@@ -127,15 +127,18 @@ declare type Passenger = {
   updateddate: string;
 };
 declare type Pagination = {
-  meta: {
+  
     totalPage: number;
     totalItem: number;
     previousPageNumber: number | null;
     currentPageNumber: number;
     nextPageNumber: number | null;
-  };
+  
 };
-declare type AllPassenger = { list: Passenger[]; pagination: Pagination };
+declare type AllPassenger = {
+
+  list: Passenger[]; meta: Pagination 
+};
 declare type Ride = {
   rideId: number;
   numberOfPassenger: number;

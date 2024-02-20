@@ -1,35 +1,40 @@
-import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-// import toast from "react-hot-toast";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useRepository } from "@/hooks/CustomHook";
 import { capitalize } from "@/utils/utilities";
 import { Driver } from "@/types/data";
 import _ from "lodash";
+
 export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
   const { repo } = useRepository();
+  const location = useLocation();
+  let driver: Driver | undefined = undefined; // Define driver variable
+
+  if (location.state) {
+    driver = location.state.driver; // Assign value to driver if it exists in location state
+  }
+
   function handleSendMessage() {
     if (_.isEqual(confirm("Are you sure!"), true)) {
       console.log(report);
       setReport("");
     }
   }
-  const location = useLocation();
-  const driver: Driver = location.state?.driver;
+
   async function handleVerify() {
-    if (confirm("Are you sured to verify the data?") === true) {
-      if (!_.isUndefined(driver.driverId)) {
-        const driver = await repo.verifyDrier(driver.driverId);
-        if (driver) {
+    if (confirm("Are you sure to verify the data?")) {
+      if (!_.isUndefined(driver?.driverId)) {
+        const verifiedDriver = await repo.verifyDrier(driver!.driverId);
+        if (verifiedDriver) {
           toast.success("Driver is verified successfully");
         }
       }
     }
   }
+
 
   if (driver) {
     return (
@@ -159,7 +164,7 @@ export default function DriverInfo() {
                       </h3>
                       <img
                         src={driver.licenseImage}
-                        src={driver.liscenceImage}
+                       
                         alt="Liscence Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />
@@ -170,7 +175,7 @@ export default function DriverInfo() {
                       </h3>
                       <img
                         src={driver.vehicle.bluebookImage}
-                        src={driver.vehicle.billBookImage}
+                       
                         alt="Bill Book Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />

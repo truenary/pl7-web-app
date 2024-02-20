@@ -25,6 +25,7 @@ import { RideInfo } from "./admin/components/Rides/RideInfo";
 import FormWithNumber from "./client/components/register/FormWithNumber";
 import OtpForm from "./client/components/register/OtpForm";
 import UserRegisterform from "./client/components/register/UserRegisterForm";
+import BlogAdmin from "./admin/components/Blog/BlogAdmin";
 
 function App() {
   return (
