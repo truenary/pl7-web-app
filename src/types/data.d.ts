@@ -62,18 +62,6 @@ declare type loginRequest = {
   password: string;
 };
 declare type loginResponse = {
-  user: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    address: string;
-    status: boolean;
-    phoneNumber: string;
-    userRole: string;
-    userImage: string;
-    totalRide: number;
-    createdAt: DateTime;
-  };
   accessToken: string;
   refreshToken: string;
 };

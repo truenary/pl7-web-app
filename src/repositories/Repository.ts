@@ -79,7 +79,11 @@ export class Repository implements IRepository {
   async getDriverById(
     id: string
   ): Promise<JsonAPIErrorResp | Driver | undefined> {
-    const responseData = await this._api.get<Driver>(`users/driver/${id}`);
+    const responseData = await this._api.get<Driver>(
+      `users/driver/${id}`,
+      undefined,
+      true
+    );
     console.log("getDriverById:", responseData);
     return this._getResponse(responseData);
   }

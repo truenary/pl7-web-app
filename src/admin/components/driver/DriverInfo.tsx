@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
 import { capitalize } from "@/utils/utilities";
@@ -20,7 +20,7 @@ export default function DriverInfo() {
   async function handleVerify() {
     if (confirm("Are you sured to verify the data?") === true) {
       if (!_.isUndefined(driver.driverId)) {
-        const driver = await repo.verifyDrier(driver.driverId);
+        const driver = await repo.verifyDrier("");
         if (driver) {
           toast.success("Driver is verified successfully");
         }

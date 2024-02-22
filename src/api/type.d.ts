@@ -20,7 +20,7 @@ declare interface IJsonApi {
   get<T>(
     path: string,
     headers: Map<string, string> = new Map(),
-    isAuthorized: boolean = true
+    isAuthorized: boolean = false
   ): Promise<JsonAPIResp<T>>;
 
   post<T>(

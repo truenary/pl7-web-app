@@ -31,7 +31,14 @@ import RidesHistory from "./admin/components/RidesHistory/RidesHistory";
 import { RideInfo } from "./admin/components/Rides/RideInfo";
 import FormWithNumber from "./client/components/register/FormWithNumber";
 import OtpForm from "./client/components/register/OtpForm";
-import UserRegisterform from "./client/components/register/UserRegisterForm";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import enTranslations from "./i18n/locales/en/translation.json";
+import npTranslations from "./i18n/locales/np/translation.json";
+import { useState } from "react";
+
+import DriverEditForm from "./admin/components/driver/DriverEdit";
+import Register from "./client/pages/Register";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,6 +75,27 @@ const router = createBrowserRouter(
   )
 );
 function App() {
+  const [isNp, setIsNp] = useState<boolean>(false);
+  try {
+    i18n.use(initReactI18next).init({
+      fallbackLng: "en",
+      lng: `${isNp ? "np" : "en"}`,
+      resources: {
+        en: {
+          translations: enTranslations,
+        },
+        np: {
+          translations: npTranslations,
+        },
+      },
+      ns: ["translations"],
+      defaultNS: "translations",
+    });
+
+    i18n.languages = ["en", "np"];
+  } catch (error) {
+    console.error("Error initializing i18n:", error);
+  }
   return (
     <>
       <RepositoryProvider>
