@@ -25,7 +25,7 @@ import { RideInfo } from "./admin/components/Rides/RideInfo";
 import FormWithNumber from "./client/components/register/FormWithNumber";
 import OtpForm from "./client/components/register/OtpForm";
 import UserRegisterform from "./client/components/register/UserRegisterForm";
-import BlogAdmin from "./admin/components/Blog/BlogAdmin";
+// import BlogAdmin from "./admin/components/Blog/BlogAdmin";
 
 function App() {
   return (
@@ -54,7 +54,6 @@ function App() {
               <Route path="rides" element={<Ride />} />
               <Route path="rideInfo" element={<RideInfo />} />
               <Route path="rideshistory" element={<RidesHistory />} />
-               <Route path="Blog" element={<BlogAdmin />} />
               <Route path="logout" element={<Logout />} />
             </Route>
 

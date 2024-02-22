@@ -6,14 +6,21 @@ export default function OnlineDriverTable() {
   const { repo } = useRepository();
   const [onlinedrivers, setOnlineDrivers] = useState<OnlineDriver[]>([]);
   useEffect(() => {
-    const fetchDataAndSetState = async () => {
-      const data = await fetchData();
-      setOnlineDrivers(data);
+    const fetchData = async () => {
+      try {
+        const data = await repo.getAllOnlineDriver();
+        if (_.isArray(data)) {
+          setOnlineDrivers(data);
+        } else {
+          console.error("Data is not in the expected format:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
     const intervalId = setInterval(fetchData, 1000);
     return () => clearInterval(intervalId);
   }, []);
-
   return (
     <>
       <div className="flex-none h-auto w-1/2 border-2 border-cyan-600 mx-2 my-2">

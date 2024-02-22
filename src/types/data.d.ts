@@ -61,22 +61,29 @@ declare type loginRequest = {
   phoneNumber: string;
   password: string;
 };
-declare type loginResponse = {
-  user: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    address: string;
-    status: boolean;
-    phoneNumber: string;
-    userRole: string;
-    userImage: string;
-    totalRide: number;
-    createdAt: DateTime;
+declare type  loginResponse= {
+  statusCode: number;
+  data: {
+    user: {
+      _id: string;
+      firstName: string;
+      lastName: string;
+      address: string;
+      status: boolean;
+      phoneNumber: string;
+      userRole: string;
+      userImage: string;
+      totalRide: number;
+      createdAt: string;
+      updatedAt: string;
+      __v: number;
+    };
+    accessToken: string;
+    refreshToken: string;
   };
-  accessToken: string;
-  refreshToken: string;
-};
+  message: string;
+  success: boolean;
+}
 
 declare type Driver = {
   driverId: string;

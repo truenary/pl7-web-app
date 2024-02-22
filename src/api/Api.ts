@@ -1,5 +1,6 @@
 import { IStorageClient } from "@/storage/types";
 import { IJsonApi, JsonAPIResp } from "./type";
+import { loginRequest } from "@/types/data";
 
 export class API implements IJsonApi {
   private BASE_URL: string;
@@ -20,6 +21,7 @@ export class API implements IJsonApi {
 
   private async _parseResponse<T>(response: Response): Promise<JsonAPIResp<T>> {
     const json = await response.json();
+    console.log(json);
     if (!response.ok) {
       throw new Error(json.message || "Failed to fetch data");
     }
@@ -31,26 +33,34 @@ export class API implements IJsonApi {
     method: string,
     isAuthorized: boolean,
     headers: Map<string, string>,
-    body?: FormData | null
+    body?: loginRequest |null
   ): Promise<JsonAPIResp<T>> {
-    // headers.set("Content-Type", "multipart/form-data");
+    
     const _headers = this._buildHeaders(headers);
 
     if (isAuthorized) {
       const accessToken = await this._localStorageClient.getAccessToken();
       _headers.append("Authorization", `Bearer ${accessToken}`);
     }
-
+    // if(body){
+    //   console.log("at api body data: ");
+    //   for (const [key, value] of body) {
+    //     console.log(`${key}: ${value}\n`);
+    //   }
+    // }
     const requestOptions: RequestInit = {
       method: method,
       headers: _headers,
-      body: body,
+      body: JSON.stringify(body),
     };
 
     const url = `${this.BASE_URL}${path}`;
     const response = await fetch(url, requestOptions);
+    console.log(response);
 
-    return this._parseResponse<T>(response);
+   const res= this._parseResponse<T>(response);
+   console.log("at api " +res);
+   return res;
   }
 
   async get<T>(
@@ -63,7 +73,7 @@ export class API implements IJsonApi {
 
   async post<T>(
     path: string,
-    body?: FormData | null,
+    body?:loginRequest|  null,
     headers: Map<string, string> = new Map(),
     isAuthorized: boolean = true
   ): Promise<JsonAPIResp<T>> {
@@ -72,7 +82,7 @@ export class API implements IJsonApi {
 
   async put<T>(
     path: string,
-    body?: FormData | null,
+    body?: loginRequest| null,
     headers: Map<string, string> = new Map(),
     isAuthorized: boolean = true
   ): Promise<JsonAPIResp<T>> {

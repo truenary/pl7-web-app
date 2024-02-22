@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { deleteIcon, explore, info } from "../shared/Icons";
-
 import toast from "react-hot-toast";
 import { DriverTableRowProp } from "@/types/data";
 import _ from "lodash";
@@ -13,7 +12,6 @@ enum AccountStatusStyles {
 export default function DriverTableRow({ user, index }: DriverTableRowProp) {
   const navigate = useNavigate();
 
-
   function handleExplore() {
     navigate(`/admin/driverInfo`, { state: { driver: user } });
   }
@@ -23,6 +21,7 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       toast.error("Currently deleting feature is not available");
     }
   }
+
   function handleHistory() {
     navigate("/admin/rideshistory", { state: { userId: user.driverId } });
   }
@@ -42,8 +41,8 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
         <span
           className={`${
             user.accountVerifyStatus === false
-              ? "text-white bg-red-500 py-2 px-4 rounded"
-              : "text-white bg-green-500 py-2 px-4 rounded"
+              ? AccountStatusStyles.NotVerified
+              : AccountStatusStyles.Verified
           }`}
         >
           {user.accountVerifyStatus ? "Verified" : "Not verified"}

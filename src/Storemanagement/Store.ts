@@ -1,21 +1,14 @@
-import { AllPassenger } from '@/types/data';
+
 import{ create} from 'zustand';
 
+
+
 interface PaginationState {
-  passengers: AllPassenger | null;
   currentPage: number;
-  totalPages: number;
-  setPage: (page: number) => void;
-  setPaginationData: (data: AllPassenger) => void;
+  setCurrentPage: (page: number) => void;
 }
 
-const usePaginationStore = create<PaginationState>((set) => ({
-  passengers: null,
+export const usePaginationStore = create<PaginationState>((set) => ({
   currentPage: 1,
-  totalPages: 4,
-  setPage: (page) => set({ currentPage: page }),
-  setPaginationData: (data) =>
-    set({ passengers: data, totalPages: data.pagination.meta.totalPage }),
+  setCurrentPage: (page) => set({ currentPage: page }),
 }));
-
-export default usePaginationStore;
