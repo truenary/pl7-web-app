@@ -5,12 +5,14 @@ import { useRepository } from "@/hooks/CustomHook";
 import { formValueData, userFormType } from "@/types/data";
 import formData from "@/utils/RegisterInputFormData.json";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 export default function UserRegisterform() {
   const { register, handleSubmit } = useForm<userFormType>();
   const navigate = useNavigate();
   const { repo } = useRepository();
   const location = useLocation();
+  const { t } = useTranslation();
   const phoneNumber = location.state?.phone;
   const token = location.state?.token;
   async function handleUserDataSubmit(data: userFormType) {
@@ -54,7 +56,7 @@ export default function UserRegisterform() {
           <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
             <div className="flex flex-col items-center justify-center text-center space-y-2">
               <div className="font-semibold text-3xl">
-                <p>Add your credentials</p>
+                <p>{t("Add your credentials")}</p>
               </div>
             </div>
 
@@ -107,7 +109,7 @@ export default function UserRegisterform() {
                     type="submit"
                     className="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    Resiter User
+                    {t("Register User")}
                   </button>
                 </form>
               </div>

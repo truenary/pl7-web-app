@@ -31,7 +31,7 @@ function Drivertable({ filterValue }: TableProp) {
       try {
         const data = await repo.getAllDriver();
         // Check if data is an array
-        if (data && "list" in data && "meta" in data) {
+        if (data && "list" in data && "pagination" in data) {
           setDrivers(data);
         } else {
           console.error("Data is not in the expected format:", data);

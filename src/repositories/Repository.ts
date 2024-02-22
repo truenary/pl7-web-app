@@ -71,8 +71,8 @@ export class Repository implements IRepository {
     return this._getResponse(responseData);
   }
   async getAllDriver(): Promise<JsonAPIErrorResp | AllDriver | undefined> {
-    console.log("api", this._api);
-    const responseData = await this._api.get<AllDriver>(`getalldriver/`);
+    // console.log("api", this._api);
+    const responseData = await this._api.get<AllDriver>(`users/driver/get`);
     console.log(responseData);
     return this._getResponse(responseData);
   }
