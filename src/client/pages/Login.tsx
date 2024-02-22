@@ -11,6 +11,8 @@ type LoginForm = {
 function Login() {
   const { register, handleSubmit } = useForm<LoginForm>();
   const navigate = useNavigate();
+ const base_url: string = import.meta.env.VITE_REACT_APP_LOGIN_ENDPOINT
+
 
   async function handleLogin(data: LoginForm) {
     const loginInfo = {
@@ -20,7 +22,7 @@ function Login() {
     };
 
     try {
-      const response = await fetch("http://192.168.1.64:5152/api/Authentication/login", {
+      const response = await fetch(base_url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
