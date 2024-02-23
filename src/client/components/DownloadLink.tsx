@@ -1,7 +1,15 @@
+import { Helmet } from "react-helmet";
 
 
 function DownloadLink() {
   return (
+    <>
+     <Helmet>
+        <title>Download Link | Dhoka</title>
+       <meta name="description" content="Download the Dhoka app now and avail our services. Book autos anytime, anywhere." />
+    <meta name="keywords" content="Dhoka app, auto booking app, download Dhoka, book autos, auto services app" />
+  
+      </Helmet>
     <div className="bg-stone-50 my-10 md:my-20">
       <div className="mx-4 md:mx-8 lg:mx-48">
         <div className="flex flex-col md:flex-row md:space-x-8 lg:space-x-16 items-center md:min-h-[750px]">
@@ -58,6 +66,7 @@ function DownloadLink() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

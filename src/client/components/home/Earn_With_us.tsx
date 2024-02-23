@@ -1,8 +1,15 @@
+import { Helmet } from "react-helmet";
 import Button from "../shared/Button";
 
 function Earn_With_us() {
   return (
     <section>
+      <Helmet>
+        <title>Earn With Us | Dhoka</title>
+       <meta name="description" content="Drive with Dhoka and earn. Drive at any time and on any day of the week. Scope to earn more with Dhoka." />
+    <meta name="keywords" content="earn with Dhoka, drive for Dhoka, auto drivers, earn money with auto" />
+  
+      </Helmet>
       <div className="mt-10 h-[500px] bg-white md:flex md:items-center flex-col space-y-5 sm:space-y-reverse md:flex-row px-5">
         <div className="md:w-1/2 lg:mx-20 md:mx-10">
           <img

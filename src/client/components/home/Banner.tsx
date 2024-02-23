@@ -1,7 +1,15 @@
+import { Helmet } from "react-helmet";
 
 
 function Banner() {
   return (
+    <>
+     <Helmet>
+        <title>Banner | Dhoka</title>
+          <meta name="description" content="Welcome to Dhoka - Your platform for auto services. Book autos hassle-free with Dhoka." />
+    <meta name="keywords" content="auto services, online booking, Dhoka" />
+ 
+      </Helmet>
     <div className="bg-white my-9">
       <div className="relative overflow-hidden">
        
@@ -15,6 +23,7 @@ function Banner() {
         />
       </div>
     </div>
+    </>
   );
 }
 

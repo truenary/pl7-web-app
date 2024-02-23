@@ -1,11 +1,21 @@
 import { useNavigate } from "react-router";
 import Button from "../shared/Button";
+import { Helmet } from "react-helmet";
 
 export default function Hero() {
   const navigate = useNavigate();
   
   return (
+    <>
+
+    <Helmet>
+        <title>Hero | Dhoka</title>
+      <meta name="description" content="Discover Dhoka - your platform for all auto services. One app, all services at your fingertips." />
+    <meta name="keywords" content="auto services, platform, online booking, Dhoka" />
+  
+      </Helmet>
     <section className="">
+       
       <div className="h-[500px] bg-white md:flex md:items-center flex-col space-y-5 md:flex-row px-5">
         <div className="flex flex-col gap-10 md:w-1/2 lg:mx-20 md:mx-10">
           <div className="flex flex-col space-y-2 text-left md:space-y-4">
@@ -20,7 +30,7 @@ export default function Hero() {
             <Button
               action={() => navigate("/registerPhone")}
               label={"Earn with Dhoka"}
-              style="p-2 md:p-3 bg-orange-500 text-white text-base font-normal rounded w-full text-center lg:w-64 lg:text-lg md:w-56 "
+              style="p-2 md:p-3 bg-orange-500 text-white text-base font-normal rounded w-full text-center lg:w-64 lg:text-lg md:w-56"
             />
             <Button
               action={() => navigate("/download")}
@@ -29,8 +39,7 @@ export default function Hero() {
             />
           </div>
         </div>
-        <div className="md:w-1/2 md:me-10  hidden md:block">
-          
+        <div className="md:w-1/2 md:me-10">
           <img
             src="auto_illustrator.jpg"
             alt="Illustration of a Rickshaw"
@@ -42,5 +51,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </>
   );
 }
