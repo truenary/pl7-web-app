@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AppLayout from "./client/pages/AppLayout";
 import Home from "./client/pages/Home";
 import Contact from "./client/pages/Contact";
-import Register from "./client/pages/Register";
+// import Register from "./client/pages/Register";
 import Blog from "./client/pages/Blog";
 import About from "./client/pages/About";
 import Download from "./client/pages/Download";
@@ -22,6 +22,10 @@ import { RepositoryProvider } from "./provider/RepositoryProvider";
 import DriverInfo from "./admin/pages/DriverInfoPage";
 import RidesHistory from "./admin/components/RidesHistory/RidesHistory";
 import { RideInfo } from "./admin/components/Rides/RideInfo";
+import FormWithNumber from "./client/components/register/FormWithNumber";
+import OtpForm from "./client/components/register/OtpForm";
+import UserRegisterform from "./client/components/register/UserRegisterForm";
+// import BlogAdmin from "./admin/components/Blog/BlogAdmin";
 
 function App() {
   return (
@@ -32,7 +36,9 @@ function App() {
             <Route path="/*" element={<AppLayout />}>
               <Route index element={<Home />} />
               <Route path="contact" element={<Contact />} />
-              <Route path="register" element={<Register />} />
+              <Route path="registerPhone" element={<FormWithNumber />} />
+              <Route path="checkOtp" element={<OtpForm />} />
+              <Route path="register" element={<UserRegisterform />} />
               <Route path="blog" element={<Blog />} />
               <Route path="about" element={<About />} />
               <Route path="login" element={<Login />} />
@@ -42,7 +48,7 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="onlinedriver" element={<Onlinedriver />} />
               <Route path="drivers" element={<Driver />} />
-              <Route path="drivers/:id" element={<DriverInfo />} />
+              <Route path="driverInfo" element={<DriverInfo />} />
               <Route path="passengers" element={<Passengers />} />
               <Route path="ratings" element={<Rating />} />
               <Route path="rides" element={<Ride />} />
@@ -51,28 +57,29 @@ function App() {
               <Route path="logout" element={<Logout />} />
             </Route>
 
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Router>
-        <Toaster
-          position="top-center"
-          gutter={12}
-          toastOptions={{
-            success: {
-              duration: 4000,
-            },
-            error: {
-              duration: 5000,
-            },
-            style: {
-              fontSize: "16px",
-              padding: "16px 24px",
-              maxWidth: "500px",
-              backgroundColor: "blue-100",
-            },
-          }}
-          containerStyle={{ margin: "8px" }}
-        />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Router>
+          <Toaster
+            position="top-center"
+            gutter={12}
+            toastOptions={{
+              success: {
+                duration: 4000,
+              },
+              error: {
+                duration: 5000,
+              },
+              style: {
+                fontSize: "16px",
+                padding: "16px 24px",
+                maxWidth: "500px",
+                backgroundColor: "blue-100",
+              },
+            }}
+            containerStyle={{ margin: "8px" }}
+          />
+       
       </RepositoryProvider>
     </>
   );

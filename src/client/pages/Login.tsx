@@ -1,26 +1,50 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { useRepository } from "../../hooks/CustomHook";
 
-type loginForm = {
+import { useNavigate } from "react-router";
+
+
+type LoginForm = {
   phoneNumber: string;
   password: string;
 };
-function Login() {
-  const { repo } = useRepository();
-  const { register, handleSubmit } = useForm<loginForm>();
 
+function Login() {
+  const { register, handleSubmit } = useForm<LoginForm>();
   const navigate = useNavigate();
-  async function handleLogin(data: loginForm) {
-    const formData = new FormData();
-    formData.append("phoneNumber", `977${data.phoneNumber}`);
-    formData.append("password", data.password);
-    const response = await repo.login(formData);
-    if (response) {
-      console.log(response);
-      navigate("");
+ const base_url: string = import.meta.env.VITE_REACT_APP_LOGIN_ENDPOINT
+
+
+  async function handleLogin(data: LoginForm) {
+    const loginInfo = {
+      phoneNumber: `+977${data.phoneNumber}`,
+      password: data.password,
+      deviceToken: "abc",
+    };
+
+    try {
+      const response = await fetch(base_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginInfo),
+      });
+
+      if (response.ok) {
+      const responseData = await response.json();
+      if (responseData.token) {
+        localStorage.setItem("accessToken", responseData.token);
+        navigate("/admin");
+      } else {
+        console.error("Login failed:", responseData);
+      }
+    } else {
+      console.error("Login failed:", response.statusText);
     }
+  } catch (error) {
+    console.error("Login error:", error);
   }
+}
   return (
     <>
       <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
@@ -39,7 +63,7 @@ function Login() {
                       <label
                         htmlFor="phone"
                         key="phone_label"
-                        className="block text-base font-normal text-gray-900 dark:text-white"
+                        className="block text-base font-normal text-gray-900 "
                       >
                         Phone Number
                       </label>
@@ -53,7 +77,7 @@ function Login() {
                       <label
                         htmlFor="password"
                         key="password_label"
-                        className="text-base font-normal text-gray-900 dark:text-white"
+                        className="text-base font-normal text-gray-900 "
                       >
                         Password
                       </label>

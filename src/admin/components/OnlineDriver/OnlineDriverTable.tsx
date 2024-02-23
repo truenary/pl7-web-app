@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
 import { OnlineDriver } from "@/types/data";
 import _ from "lodash";
-function OnlineDriverTable() {
+export default function OnlineDriverTable() {
   const { repo } = useRepository();
-  const [Onlinedrivers, setOnlineDrivers] = useState<OnlineDriver[]>([]);
+  const [onlinedrivers, setOnlineDrivers] = useState<OnlineDriver[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,31 +18,31 @@ function OnlineDriverTable() {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
-    // const intervalId = setInterval(fetchData, 1000);
-    // return () => clearInterval(intervalId);
-  }, [repo]);
+    const intervalId = setInterval(fetchData, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
   return (
-    <div className="flex-none h-auto w-1/2 border-2 border-cyan-600 mx-2 my-2">
-      <table className="min-w-full text-center">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b">Name</th>
-            <th className="py-2 px-4 border-b">Status</th>
-            <th className="py-2 px-4 border-b">rating</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Onlinedrivers.map((driver) => (
-            <tr key={driver.id}>
-              <td className="py-2 px-4 border-b">{driver.name}</td>
-              <td className="py-2 px-4 border-b">{driver.Status}</td>
-              <td className="py-2 px-4 border-b">{driver.rating}</td>
+    <>
+      <div className="flex-none h-auto w-1/2 border-2 border-cyan-600 mx-2 my-2">
+        <table className="min-w-full  text-center">
+          <thead>
+            <tr className="">
+              <th className="py-2 px-4 border-b">Name</th>
+              <th className="py-2 px-4 border-b">Status</th>
+              <th className="py-2 px-4 border-b">rating</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {onlinedrivers.map((driver) => (
+              <tr key={driver.id}>
+                <td className="py-2 px-4 border-b">{driver.name}</td>
+                <td className="py-2 px-4 border-b">{driver.Status}</td>
+                <td className="py-2 px-4 border-b">{driver.rating}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
-export default OnlineDriverTable;
