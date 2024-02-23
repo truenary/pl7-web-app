@@ -1,0 +1,631 @@
+[33mcommit 2b3182956853a364dfb72f154524151196c99c69[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat/admin/login[m[33m, [m[1;31mwebapp/feat/admin/login[m[33m, [m[1;32mmainOne[m[33m)[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Thu Feb 22 12:54:08 2024 +0545
+
+    fixed : login-task Completed
+
+[33mcommit a99694f334512986ac7e4f7e93e48d33e4b54e30[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Thu Feb 22 12:23:29 2024 +0545
+
+    fixed : login
+
+[33mcommit 2f6f5a9bf0c227b923f2422b4422e7119a12f94a[m[33m ([m[1;32mmain[m[33m, [m[1;32mfeat/client/ui[m[33m)[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Tue Feb 20 17:58:39 2024 +0545
+
+    fixed : error with passengertable
+
+[33mcommit 7986a16896d0c0f381a08230cdfef8eac6582b1a[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Tue Feb 20 16:40:09 2024 +0545
+
+    passenger list fetch
+
+[33mcommit d3a407dc4834faf54e8a4672e3be0a5856c73142[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Mon Feb 19 12:39:39 2024 +0545
+
+    fixed :footer
+
+[33mcommit 00bdfc5838eb975412d4b137bfed6b8972c8a7f3[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Mon Feb 19 12:05:18 2024 +0545
+
+    Enhanced About Us section: new design, refined content
+
+[33mcommit 6b23fc1a5f3d32124aae8ea3ca570dec6d0c8dfc[m[33m ([m[1;32mfeat/admin/ui[m[33m)[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Tue Feb 20 17:05:29 2024 +0545
+
+    fixed :design
+
+[33mcommit 436258ff0ca7426db166ff8484a6d4c9aaaee59e[m
+Merge: e8953b2 6b8f325
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Tue Feb 20 16:59:50 2024 +0545
+
+    Merge branch 'main' of https://github.com/sagaradhi19/autoapp_testing
+
+[33mcommit 6b8f3257eab7c7b40a59d44b793db4bbc1d3ff01[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Tue Feb 20 16:37:59 2024 +0545
+
+    updated api
+
+[33mcommit e8953b266a8352959787592e29d0f00e39ec8d6b[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Fri Feb 16 15:54:56 2024 +0545
+
+    fix:merge confilts fixed
+
+[33mcommit 79cf3df6ef3f61492019db2594e786e4df223296[m
+Merge: 175ef01 f23d1a5
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Fri Feb 16 12:45:09 2024 +0545
+
+    Merge branch 'main' of github.com:truenary/pl7-web-app
+
+[33mcommit a2c5361602836dbdcc2923527aa9afafb3c60d8c[m
+Merge: 5fff332 f23d1a5
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 16 12:24:53 2024 +0545
+
+    Merge branch 'main' of github.com:truenary/pl7-web-app
+
+[33mcommit 175ef01fd463ae4ef9b9fbd31d95dabceb1ebefb[m[33m ([m[1;32mfeat/admin/blog[m[33m)[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Fri Feb 16 11:47:11 2024 +0545
+
+    Fixed : comment
+
+[33mcommit f23d1a57e5e9cacb84bf14d7760cb8e37d53c558[m[33m ([m[1;31mwebapp/main[m[33m)[m
+Author: Someone-rahul <156889487+Someone-rahul@users.noreply.github.com>
+Date:   Fri Feb 16 09:54:13 2024 +0545
+
+    Refactor/api/generic (#13)
+    
+    * chore:added dependencies
+    
+    * modified: app.tsx and main.tsx
+    
+    * added: driver type data (#1)
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * Master (#2)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * Master (#3)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * feat:user registration with custom json for testing
+    
+    * fixed: user registration
+    
+    * feat: added a custom json for testing
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * fixed:registration and added a login feature
+    
+    * Feat/admin/passenger (#6)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * map_integrated
+    
+    * fixed:registration and added a login feature
+    
+    * table created
+    
+    * driver_api_created
+    
+    * fixed : driver_table _fixed
+    
+    * added some changes in admin side UI
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * table created
+    
+    * added some changes in admin side UI
+    
+    * feat:added a repository context to access all repos objects
+    
+    * feat:managed driver info
+    
+    * some changes added
+    
+    * added a map feature from sagar
+    
+    * refactor: removed passenger info
+    
+    * fixed:bug in dashboard_map
+    
+    * fixed:bugs at passenger info
+    
+    * refactor:added a generic api and repositories
+    
+    * refactor: deleted other repo and apis
+    
+    * refactor: completed
+    
+    * fixed: comments
+    
+    * chore: added pagination logic
+    
+    * feat: pagination added in driver and passenger table
+    
+    * feat: added ride history
+    
+    * feat: added rideInfo page
+    
+    * feat: added pagination on ride table
+    
+    * refactor:moved static data to json files in utils
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+
+[33mcommit 6e2148ea9b66e6e11336415c245d2b0ede6a88e0[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Thu Feb 15 15:47:36 2024 +0545
+
+    feat :commentfixed : lodash implemented
+
+[33mcommit 37cf5641e5f994d6e1375cfa32c1ba233345dc11[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Thu Feb 15 15:21:04 2024 +0545
+
+    feat : Blog feature added
+
+[33mcommit fcdea22acc2c3ce1298e120bcdea1376e905c9dc[m[33m ([m[1;31morigin/refactor/api/generic[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mrefactor/api/generic[m[33m, [m[1;32mfeat/changes[m[33m)[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Wed Feb 14 14:10:36 2024 +0545
+
+    feat: added ride history
+
+[33mcommit ff8b12eb7255ceb233ef322f50b67061a23fd505[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Wed Feb 14 14:06:59 2024 +0545
+
+    feat: pagination added in driver and passenger table
+
+[33mcommit a06bba32395c4294cc134ae823f2a3f2dd4deaeb[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Wed Feb 14 10:57:57 2024 +0545
+
+    chore: added pagination logic
+
+[33mcommit 37bdaca60b89af1cb37e299e425aff7b82c3fbb4[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Mon Feb 12 18:24:54 2024 +0545
+
+    fixed: comments
+
+[33mcommit 5fff33231ebc469eb6498af4d469f0eda422a019[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 9 17:18:40 2024 +0545
+
+    refactor: completed
+
+[33mcommit 6b9a9ca12be6d96c684105aa83553164dd4e9c9f[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 9 16:44:11 2024 +0545
+
+    refactor: deleted other repo and apis
+
+[33mcommit 75491cc04429017395e66990537ed16b3e5785b7[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 9 16:02:41 2024 +0545
+
+    refactor:added a generic api and repositories
+
+[33mcommit 2af06a1fa67b081c3859a7c03bf59ebcb10f2cec[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 2 14:04:29 2024 +0545
+
+    fixed:bugs at passenger info
+
+[33mcommit baf43dde9d73a176e34e7eb2c7ad2816f8d4477b[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 2 13:40:51 2024 +0545
+
+    fixed:bug in dashboard_map
+
+[33mcommit 18d9bc1868c61e35717ac215e022f4ef7b128781[m
+Merge: 1df1e1c 0e131aa
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 2 13:39:52 2024 +0545
+
+    Merge branch 'main' of github.com:truenary/pl7-web-app
+
+[33mcommit 1df1e1c6ea4b86a3c8bd4ea4d6b8b2b80d2d426f[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Fri Feb 2 13:08:41 2024 +0545
+
+    refactor: removed passenger info
+
+[33mcommit 0e131aad001504ed0b18fe945ac956d4a5196cab[m
+Author: sagaradhi19 <156889442+sagaradhi19@users.noreply.github.com>
+Date:   Thu Feb 1 17:57:43 2024 +0545
+
+    Feat/onlinedriver (#11)
+    
+    * chore:added dependencies
+    
+    * Master (#2)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * Master (#3)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * feat:user registration with custom json for testing
+    
+    * fixed: user registration
+    
+    * feat: added a custom json for testing
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * fixed:registration and added a login feature
+    
+    * Feat/admin/passenger (#6)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * map_integrated
+    
+    * fixed:registration and added a login feature
+    
+    * table created
+    
+    * driver_api_created
+    
+    * fixed : driver_table _fixed
+    
+    * added some changes in admin side UI
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * table created
+    
+    * added some changes in admin side UI
+    
+    * feat:added a repository context to access all repos objects
+    
+    * feat:managed driver info
+    
+    * some changes added
+    
+    * added a map feature from sagar
+    
+    * feat/charts
+    
+    * feat/charts- perf
+    
+    * feat/onlinedriver map fixed
+    
+    * fixed: online driver part
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    Co-authored-by: Someone-rahul <156889487+Someone-rahul@users.noreply.github.com>
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+
+[33mcommit 1da9193560b959bc2e098658193b6890e56a742d[m
+Author: Someone-rahul <156889487+Someone-rahul@users.noreply.github.com>
+Date:   Mon Jan 29 18:24:51 2024 +0545
+
+    Feat/manage driver  (#9)
+    
+    * chore:added dependencies
+    
+    * modified: app.tsx and main.tsx
+    
+    * added: driver type data (#1)
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * Master (#2)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * Master (#3)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * feat:user registration with custom json for testing
+    
+    * fixed: user registration
+    
+    * feat: added a custom json for testing
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * fixed:registration and added a login feature
+    
+    * Feat/admin/passenger (#6)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * map_integrated
+    
+    * fixed:registration and added a login feature
+    
+    * table created
+    
+    * driver_api_created
+    
+    * fixed : driver_table _fixed
+    
+    * added some changes in admin side UI
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * table created
+    
+    * added some changes in admin side UI
+    
+    * feat:added a repository context to access all repos objects
+    
+    * feat:managed driver info
+    
+    * some changes added
+    
+    * added a map feature from sagar
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+
+[33mcommit 7bb85a9138e53acd1766e634ec02aee33beb53af[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Mon Jan 29 12:52:43 2024 +0545
+
+    added a map feature from sagar
+
+[33mcommit c51eeb87f3e1d641cc1c02929230066c985c5ede[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Mon Jan 29 11:43:17 2024 +0545
+
+    some changes added
+
+[33mcommit 92007ecd193ac4aa9b9d27555dfcef74741738b2[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Thu Jan 25 18:07:59 2024 +0545
+
+    feat:managed driver info
+
+[33mcommit 0530bbd7908a5e5e0a910dd3a3db6bffde2e264d[m
+Merge: e57defa 582236f
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Thu Jan 25 11:43:35 2024 +0545
+
+    Merge branch 'main' of github.com:truenary/pl7-web-app
+
+[33mcommit 582236f39495fdc39e29283341dd2d29c81d81e9[m
+Author: Someone-rahul <156889487+Someone-rahul@users.noreply.github.com>
+Date:   Thu Jan 25 11:08:50 2024 +0545
+
+    feat: first preview (#8)
+    
+    * chore:added dependencies
+    
+    * modified: app.tsx and main.tsx
+    
+    * added: driver type data (#1)
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * Master (#2)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * Master (#3)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    
+    * feat:user registration with custom json for testing
+    
+    * fixed: user registration
+    
+    * feat: added a custom json for testing
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * fixed:registration and added a login feature
+    
+    * Feat/admin/passenger (#6)
+    
+    * added: driver type data
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * map_integrated
+    
+    * fixed:registration and added a login feature
+    
+    * table created
+    
+    * driver_api_created
+    
+    * fixed : driver_table _fixed
+    
+    * added some changes in admin side UI
+    
+    ---------
+    
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    
+    * feat: added client side pages and components
+    
+    * admin-dashboard-updated
+    
+    * jsondb_updated
+    
+    * table created
+    
+    * added some changes in admin side UI
+    
+    * feat:added a repository context to access all repos objects
+    
+    ---------
+    
+    Co-authored-by: Rahul Mijar <rahul.mijar@trunary.com>
+    Co-authored-by: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+
+[33mcommit e57defacf674009b746c2ea0458f6791622a3065[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Wed Jan 24 12:03:52 2024 +0545
+
+    feat:added a repository context to access all repos objects
+
+[33mcommit 28098201eaad60a07d58d2131b6d6653a616a8c3[m
+Author: Rahul Mijar <rahul.mijar@trunary.com>
+Date:   Tue Jan 23 21:38:28 2024 +0545
+
+    added some changes in admin side UI
+
+[33mcommit 4180ce0de1478135b7cc77b5acbe9961c78a53e9[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Mon Jan 22 12:11:23 2024 +0545
+
+    table created
+
+[33mcommit ef671b6492ec84b8a97ce5966f126e437dd95123[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Fri Jan 19 13:21:00 2024 +0545
+
+    jsondb_updated
+
+[33mcommit 0ce3a8bbede8eb7de908e0fe927166a19462d7a8[m
+Author: Sagar Adhikari <sagarjungadhikari19@gmail.com>
+Date:   Fri Jan 19 11:58:12 2024 +0545
+
+    admin-dashboard-updated
+
+[

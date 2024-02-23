@@ -1,16 +1,13 @@
-
 import Button from "../shared/Button";
 
 function Earn_With_us() {
   return (
-    <section className="">
+    <section>
       <div className="mt-10 h-[500px] bg-white md:flex md:items-center flex-col space-y-5 sm:space-y-reverse md:flex-row px-5">
         <div className="md:w-1/2 lg:mx-20 md:mx-10">
-        
           <img
-          
             src="auto_illustrator.jpg"
-            alt="Rickshaw"
+            alt="Illustration of an Auto Rickshaw"
             className="rounded-lg"
             width="500"
             height="300"

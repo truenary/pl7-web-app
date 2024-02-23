@@ -13,14 +13,14 @@ export default function Hero() {
               Platform for all auto services
             </h1>
             <p className="text-lg md:text-xl">
-              One app, all services at your fingertips
+              One app, all services at your fingertips. Book autos hassle-free with Dhoka.
             </p>
           </div>
           <div className="flex flex-col space-y-5 mx:5">
             <Button
               action={() => navigate("/registerPhone")}
               label={"Earn with Dhoka"}
-              style="p-2 md:p-3 bg-orange-500 text-white text-base font-normal rounded w-full text-center lg:w-64 lg:text-lg md:w-56"
+              style="p-2 md:p-3 bg-orange-500 text-white text-base font-normal rounded w-full text-center lg:w-64 lg:text-lg md:w-56 "
             />
             <Button
               action={() => navigate("/download")}
@@ -29,11 +29,11 @@ export default function Hero() {
             />
           </div>
         </div>
-        <div className="md:w-1/2 md:me-10">
-          {/* Optimize hero image by specifying dimensions and loading it lazily */}
+        <div className="md:w-1/2 md:me-10  hidden md:block">
+          
           <img
             src="auto_illustrator.jpg"
-            alt="Rickshaw"
+            alt="Illustration of a Rickshaw"
             className="rounded-lg"
             width="500"
             height="300"

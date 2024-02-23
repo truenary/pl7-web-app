@@ -6,10 +6,12 @@ import Hero from "../components/home/Hero";
 function Home() {
   return (
     <>
+     
       <Hero />
       <Earn_With_us />
       <Banner />
       <DownloadLink />
+
     </>
   );
 }
