@@ -5,18 +5,15 @@ import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
-import { FormWithNumberProp } from "@/types/data";
 
-export default function FormWithNumber({
-  phone,
-  setPhone,
-  setConfirmed,
-  setCurrentForm,
-}: FormWithNumberProp) {
+import { useNavigate } from "react-router";
+
+export default function FormWithNumber() {
   const { repo } = useRepository();
   const [disabled, setDisabled] = useState<boolean>(false);
-
-  //sending otp to the user's phone
+  const [phone, setPhone] = useState<string>("");
+  const navigate = useNavigate();
+ 
   async function handlePhoneSubmit() {
     const regex =
       /977((986)|(985)|(984)|(981)|(982)|(980)|(976)|(975)|(974)|(971)|(972))\d{6}/;
@@ -25,7 +22,7 @@ export default function FormWithNumber({
     if (phone && isValid) {
       const response = await repo.isPhoneExist(phone);
       console.log(response);
-      if (response === null) {
+      if (response) {
         // console.log(response);
         setDisabled(true);
         try {
@@ -38,8 +35,10 @@ export default function FormWithNumber({
             `+${phone}`,
             recaptcha
           );
-          setConfirmed(confirmation);
-          setCurrentForm(2);
+         
+          navigate("/checkOtp", {
+            state: { confirmed: confirmation, phone: phone },
+          });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
           if (err.code === "auth/invalid-phone-number") {

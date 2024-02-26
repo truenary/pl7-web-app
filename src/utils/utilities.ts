@@ -4,7 +4,7 @@ export function capitalize(word: string) {
 }
 export const InitialStateData = {
   list: [],
-  pagination: {
+  meta: {
     totalPage: 0,
     totalItem: 0,
     previousPageNumber: null,

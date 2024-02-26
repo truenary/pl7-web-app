@@ -1,44 +1,30 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRepository } from "@/hooks/CustomHook";
 import { formValueData, userFormType } from "@/types/data";
 import formData from "@/utils/RegisterInputFormData.json";
 import _ from "lodash";
 
-type userDetailsFormProps = {
-  phoneNumber: string;
-  // token: string | undefined;
-  userRole: string;
-};
-
-export default function UserRegisterform({
-  phoneNumber,
-  // token,
-  userRole,
-}: userDetailsFormProps) {
+export default function UserRegisterform() {
   const { register, handleSubmit } = useForm<userFormType>();
   const navigate = useNavigate();
-
   const { repo } = useRepository();
+  const location = useLocation();
+  const phoneNumber = location.state?.phone;
+  const token = location.state?.token;
   async function handleUserDataSubmit(data: userFormType) {
     console.log("data", data);
     const formData = new FormData();
-    const fields = [
-      "firstName",
-      "lastName",
-      "address",
-      "password",
-      "userImage",
-    ];
+    const fields = ["firstName", "lastName", "password", "userImage"];
     fields.forEach((field) => {
       if (data[field]) {
         if (_.isArray(data[field])) {
           const fileList: FileList = data[field] as FileList;
           if (fileList.length > 0) {
             const file: File = fileList[0];
-            formData.append(`${field}`, file);
-            formData.append(`${field}Name`, file.name);
+            formData.append(`${field}File`, file);
+            formData.append(`${field}`, file.name);
           }
         } else {
           formData.append(`${field}`, data[field] as string);
@@ -46,7 +32,7 @@ export default function UserRegisterform({
       }
     });
     formData.append("phoneNumber", phoneNumber);
-    formData.append("userRole", userRole);
+    formData.append("firebaseToken", token);
     try {
       const response = await repo.registerUser(formData);
       console.log(response);
@@ -69,9 +55,6 @@ export default function UserRegisterform({
             <div className="flex flex-col items-center justify-center text-center space-y-2">
               <div className="font-semibold text-3xl">
                 <p>Add your credentials</p>
-              </div>
-              <div className="flex flex-row text-base font-medium text-gray-400">
-                <p>as a {userRole}</p>
               </div>
             </div>
 

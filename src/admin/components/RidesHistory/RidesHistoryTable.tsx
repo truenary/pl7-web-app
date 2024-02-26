@@ -1,12 +1,6 @@
-
 import TableHeading from '../shared/TableHeading'
-
-
 function RidesHistoryTable({  userId }: {  userId: string }) {
     console.log(userId);
-
-    
-   
   return (
      <div className="overflow-x-auto ">
         

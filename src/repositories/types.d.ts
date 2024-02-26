@@ -6,20 +6,23 @@ import {
   DriverVerifyResponse,
   OnlineDriverArray,
   Passenger,
-  RegisterResponse,
+  // loginRequest,
+  // RegisterResponse,
   loginResponse,
 } from "@/types/data";
 import { JsonAPIErrorResp } from "../api/type";
+
 export interface IRepository {
-  registerUser(
-    userDetails: FormData | null
-  ): Promise<RegisterResponse | JsonAPIErrorResp | undefined>;
-  registerDriver(
-    driverInfo: FormData | null
-  ): Promise<RegisterResponse | JsonAPIErrorResp | undefined>;
-  login(
-    loginInfo: FormData
-  ): Promise<loginResponse | JsonAPIErrorResp | undefined>;
+  // registerUser(
+  //   userDetails: FormData | null
+  // ): Promise<RegisterResponse | JsonAPIErrorResp | undefined>;
+  // registerDriver(
+  //   driverInfo: FormData | null
+  // ): Promise<RegisterResponse | JsonAPIErrorResp | undefined>;
+ 
+   login(
+    loginInfo: loginRequest 
+  ): Promise<JsonAPIErrorResp | loginResponse | undefined>;
   isPhoneExist(
     phoneNumber: string
   ): Promise<boolean | JsonAPIErrorResp | undefined>;

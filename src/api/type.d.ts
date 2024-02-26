@@ -1,4 +1,4 @@
-import { Pagination } from "@/types/data";
+import { Pagination, loginRequest  } from "@/types/data";
 
 export declare type JsonAPIObjectResp<T> = {
   data: T;
@@ -7,7 +7,7 @@ export declare type JsonAPIObjectResp<T> = {
 declare type JsonAPIError = {
   status: string;
   title: string;
-  detail: string?;
+  detail?: string?;
 };
 export declare type JsonAPIErrorResp = {
   errors?: JsonAPIError[];
@@ -24,15 +24,15 @@ declare interface IJsonApi {
   ): Promise<JsonAPIResp<T>>;
 
   post<T>(
-    path: string,
-    body: FormData | null,
+      path: string,
+    body: loginRequest | null,
     headers: Map<string, string> = new Map(),
     isAuthorized: boolean = true
   ): Promise<JsonAPIResp<T>>;
 
   put<T>(
-    path: string,
-    body?: FormData | null,
+     path: string,
+    body?: loginRequest  | null,
     headers: Map<string, string> = new Map(),
     isAuthorized: boolean = true
   ): Promise<JsonAPIResp<T>>;

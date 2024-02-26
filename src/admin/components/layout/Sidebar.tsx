@@ -1,4 +1,5 @@
 import {
+  blogIcon,
   driverIcon,
   homeIcon,
   logoutIcon,
@@ -18,6 +19,7 @@ export default function SideBar() {
         <NavItem to="passengers" text="Passengers" icon={passengerIcon} />
         <NavItem to="ratings" text="Ratings" icon={ratingIcon} />
         <NavItem to="rides" text="Rides" icon={rideIcon} />
+        <NavItem to="blog" text="blog" icon={blogIcon} />
         <NavItem to="logout" text="Logout" icon={logoutIcon} />
       </nav>
     </div>

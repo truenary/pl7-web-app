@@ -36,7 +36,6 @@ function DashboardMap() {
     // const intervalId = setInterval(fetchData, 1000);
     // return () => clearInterval(intervalId);
   }, [repo]);
-
   if (loadError) {
     return <div>Error loading maps</div>;
   }
