@@ -31,49 +31,15 @@ import RidesHistory from "./admin/components/RidesHistory/RidesHistory";
 import { RideInfo } from "./admin/components/Rides/RideInfo";
 import FormWithNumber from "./client/components/register/FormWithNumber";
 import OtpForm from "./client/components/register/OtpForm";
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+
 import enTranslations from "./i18n/locales/en/translation.json";
 import npTranslations from "./i18n/locales/np/translation.json";
 import { useState } from "react";
 
 import DriverEditForm from "./admin/components/driver/DriverEdit";
 import Register from "./client/pages/Register";
+import i18n from "./i18n/config";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <RepositoryProvider>
-        <Router>
-          <Routes>
-            <Route path="/*" element={<AppLayout />}>
-              <Route index element={<Home />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="registerPhone" element={<FormWithNumber />} />
-              <Route path="checkOtp" element={<OtpForm />} />
-              <Route path="register" element={<UserRegisterform />} />
-              <Route path="blog" element={<Blog />} />
-              <Route path="about" element={<About />} />
-              <Route path="login" element={<Login />} />
-              <Route path="download" element={<Download />} />
-            </Route>
-            <Route path="/admin/*" element={<Admin_Layout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="onlinedriver" element={<Onlinedriver />} />
-              <Route path="drivers" element={<Driver />} />
-              <Route path="driverInfo" element={<DriverInfo />} />
-              <Route path="passengers" element={<Passengers />} />
-              <Route path="ratings" element={<Rating />} />
-              <Route path="rides" element={<Ride />} />
-              <Route path="rideInfo" element={<RideInfo />} />
-              <Route path="rideshistory" element={<RidesHistory />} />
-              <Route path="logout" element={<Logout />} />
-            </Route>
-
-      <Route path="*" element={<PageNotFound />} />
-    </>
-  )
-);
 function App() {
   const [isNp, setIsNp] = useState<boolean>(false);
   try {
@@ -96,6 +62,38 @@ function App() {
   } catch (error) {
     console.error("Error initializing i18n:", error);
   }
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path="/*" element={<AppLayout setIsNp={setIsNp} isNp={isNp} />}>
+          <Route index element={<Home />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="registerPhone" element={<FormWithNumber />} />
+          <Route path="checkOtp" element={<OtpForm />} />
+          <Route path="register" element={<Register />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="download" element={<Download />} />
+        </Route>
+        <Route path="/admin/*" element={<Admin_Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="onlinedriver" element={<Onlinedriver />} />
+          <Route path="drivers" element={<Driver />} />
+          <Route path="drivers/:id" element={<DriverInfo />} />
+          <Route path="driverEdit" element={<DriverEditForm />}></Route>
+          <Route path="passengers" element={<Passengers />} />
+          <Route path="ratings" element={<Rating />} />
+          <Route path="rides" element={<Ride />} />
+          <Route path="rideInfo" element={<RideInfo />} />
+          <Route path="rideshistory" element={<RidesHistory />} />
+          <Route path="logout" element={<Logout />} />
+        </Route>
+
+        <Route path="*" element={<PageNotFound />} />
+      </>
+    )
+  );
   return (
     <>
       <RepositoryProvider>
