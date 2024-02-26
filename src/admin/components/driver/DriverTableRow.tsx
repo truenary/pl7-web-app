@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { deleteIcon, explore, info } from "../shared/Icons";
+import { deleteIcon, explore, info, editIcon } from "../shared/Icons";
 import toast from "react-hot-toast";
 import { DriverTableRowProp } from "@/types/data";
 import _ from "lodash";
@@ -19,6 +19,9 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
     navigate("/admin/rideshistory", { state: { userId: user._id } });
   function handleHistory() {
     navigate("/admin/rideshistory", { state: { userId: user.driverId } });
+  }
+  function handleEdit() {
+    navigate("/admin/driverEdit", { state: { user: user } });
   }
 
   return (
@@ -65,6 +68,13 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
           className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white  text-base"
         >
           {info}
+        </button>
+        <button
+          onClick={handleEdit}
+          title="Edit"
+          className="bg-transparent border-1  rounded-md py-1 px-2 font-normal text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white  text-base"
+        >
+          {editIcon}
         </button>
         <button
           onClick={handleDelete}

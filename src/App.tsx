@@ -1,4 +1,11 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  // BrowserRouter as Router,
+  Route,
+  // Routes,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 import AppLayout from "./client/pages/AppLayout";
 import Home from "./client/pages/Home";
 import Contact from "./client/pages/Contact";
@@ -26,8 +33,8 @@ import FormWithNumber from "./client/components/register/FormWithNumber";
 import OtpForm from "./client/components/register/OtpForm";
 import UserRegisterform from "./client/components/register/UserRegisterForm";
 
-function App() {
-  return (
+const router = createBrowserRouter(
+  createRoutesFromElements(
     <>
       <RepositoryProvider>
         <Router>
@@ -56,9 +63,15 @@ function App() {
               <Route path="logout" element={<Logout />} />
             </Route>
 
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </Router>
+      <Route path="*" element={<PageNotFound />} />
+    </>
+  )
+);
+function App() {
+  return (
+    <>
+      <RepositoryProvider>
+        <RouterProvider router={router} />
         <Toaster
           position="top-center"
           gutter={12}

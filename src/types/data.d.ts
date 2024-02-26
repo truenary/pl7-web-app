@@ -181,6 +181,7 @@ declare type DriverTableRowProp = {
 };
 declare type TableProp = {
   filterValue: string;
+  drivers: AllDriver;
 };
 declare interface OnlineDriver {
   id: number;

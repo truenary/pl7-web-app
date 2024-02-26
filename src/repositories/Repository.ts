@@ -117,4 +117,16 @@ export class Repository implements IRepository {
     );
     return this._getResponse(responseData);
   }
+  async updateDriverInfo(
+    userDetails: FormData | null
+  ): Promise<Driver | JsonAPIErrorResp | undefined> {
+    const responseData = await this._api.put<RegisterResponse>(
+      `path`,
+      userDetails,
+      undefined,
+      false
+    );
+    console.log("at repository ", responseData);
+    return this._getResponse(responseData);
+  }
 }

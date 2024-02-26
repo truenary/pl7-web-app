@@ -5,12 +5,10 @@ import { useEffect, useState } from "react";
 import { AllDriver, Driver, TableProp } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
-import { InitialStateData } from "@/utils/utilities";
 
 function Drivertable({ filterValue }: TableProp) {
   console.log(filterValue);
-  const { repo } = useRepository();
-  const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
+
   const [currentPage, setCurrentPage] = useState(
     drivers.meta.currentPageNumber
   );

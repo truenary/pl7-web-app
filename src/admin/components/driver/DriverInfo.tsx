@@ -111,6 +111,14 @@ export default function DriverInfo() {
                       {open ? "Hide Report" : "Report"}
                     </button>
                   </div>
+                  <button
+                    onClick={handleUnVerify}
+                    className={`${
+                      driver.accountVerifyStatus === true ? "flex" : "hidden"
+                    }  text-center bg-red-500 mt-5 py-2 px-4 rounded text-white text-base hover:bg-red-600 w-1/2`}
+                  >
+                    UnVerify
+                  </button>
                   <hr className="my-6 border-t border-gray-300" />
 
                   <div className={`${open ? "flex" : "hidden"} flex-col mt-5`}>

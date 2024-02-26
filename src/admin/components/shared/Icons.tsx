@@ -11,6 +11,8 @@ import {
   faArrowRight,
   faClipboard,
   faArrowLeft,
+  faMagnifyingGlass,
+  faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -26,3 +28,5 @@ export const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
 export const explore = <FontAwesomeIcon icon={faArrowRight} />;
 export const info = <FontAwesomeIcon icon={faClipboard} />;
 export const leftArrow = <FontAwesomeIcon icon={faArrowLeft} />;
+export const searchIcon = <FontAwesomeIcon icon={faMagnifyingGlass} />;
+export const notificationIcon = <FontAwesomeIcon icon={faBell} size="lg" />;

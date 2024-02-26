@@ -36,4 +36,7 @@ export interface IRepository {
   getAllOnlineDriver(): Promise<
     OnlineDriverArray | JsonAPIErrorResp | undefined
   >;
+  updateDriverInfo(
+    userDetails: FormData | null
+  ): Promise<Driver | JsonAPIErrorResp | undefined>;
 }
