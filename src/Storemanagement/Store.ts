@@ -1,8 +1,4 @@
-
 import{ create} from 'zustand';
-
-
-
 interface PaginationState {
   currentPage: number;
   setCurrentPage: (page: number) => void;

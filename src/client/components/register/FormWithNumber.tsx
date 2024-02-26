@@ -5,7 +5,7 @@ import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
-// import { FormWithNumberProp } from "@/types/data";
+
 import { useNavigate } from "react-router";
 
 export default function FormWithNumber() {
@@ -13,7 +13,7 @@ export default function FormWithNumber() {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>("");
   const navigate = useNavigate();
-  //sending otp to the user's phone
+ 
   async function handlePhoneSubmit() {
     const regex =
       /977((986)|(985)|(984)|(981)|(982)|(980)|(976)|(975)|(974)|(971)|(972))\d{6}/;
@@ -35,8 +35,7 @@ export default function FormWithNumber() {
             `+${phone}`,
             recaptcha
           );
-          // setConfirmed(confirmation);
-          // setCurrentForm(2);
+         
           navigate("/checkOtp", {
             state: { confirmed: confirmation, phone: phone },
           });

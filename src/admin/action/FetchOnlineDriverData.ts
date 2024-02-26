@@ -1,22 +1,29 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useRepository } from "@/hooks/CustomHook";
-import { OnlineDriver } from "@/types/data";
-import _ from "lodash";
+import { useEffect, useState } from 'react';
+import { OnlineDriver } from '@/types/data';
+import _ from 'lodash';
+import { Repository } from '@/repositories/Repository';
 
-export async function fetchData(): Promise<OnlineDriver[]> {
-  const { repo } = useRepository();
-  try {
-    const data = await repo.getAllOnlineDriver();
-    if (_.isArray(data)) {
-      return data;
-    } else {
-      console.error("Data is not in the expected format:", data);
-      return [];
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return [];
-  }
+export function useOnlineDrivers(repo: Repository): OnlineDriver[] | null {
+  const [onlineDrivers, setOnlineDrivers] = useState<OnlineDriver[] | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await repo.getAllOnlineDriver();
+        if (_.isArray(data)) {
+          setOnlineDrivers(data);
+        } else {
+          console.error('Data is not in the expected format:', data);
+          setOnlineDrivers(null);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setOnlineDrivers(null);
+      }
+    };
+
+    fetchData();
+  }, [repo]);
+
+  return onlineDrivers;
 }
-
-

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 
 function RidesHistory() {
-    //   const [filterValue, setFilterValue] = useState("all");
+    
     const location = useLocation();
     const userId = location.state?.userId;
     
@@ -14,7 +14,7 @@ function RidesHistory() {
         <h1 className="text-lg font-medium">Rides History</h1>
         <select
           className="text-lg absolute right-24 font-medium px-4 py-2 rounded"
-        //   onChange={(e) => setFilterValue(e.target.value)}
+        
         >
           <option value="all">All</option>
           <option value="verified">recent Rides </option>
@@ -25,7 +25,7 @@ function RidesHistory() {
         </button>
       </div>
       <div className="mt-5 mb-5">
-        {/* <Drivertable filterValue={filterValue} /> */}
+       
          <RidesHistoryTable userId={userId} />
       </div>
     </div>
