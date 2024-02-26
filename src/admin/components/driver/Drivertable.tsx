@@ -1,16 +1,18 @@
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
-import { useRepository } from "@/hooks/CustomHook";
-import { useEffect, useState } from "react";
-import { AllDriver, Driver, TableProp } from "@/types/data";
+
+import { useState } from "react";
+import { AllDriver, Driver } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
-import { InitialStateData } from "@/utils/utilities";
 
-function Drivertable({ filterValue }: TableProp) {
+declare type TableProp = {
+  filterValue: string;
+  drivers: AllDriver;
+};
+function Drivertable({ filterValue, drivers }: TableProp) {
   console.log(filterValue);
-  const { repo } = useRepository();
-  const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
+
   const [currentPage, setCurrentPage] = useState(
     drivers.meta.currentPageNumber
   );
@@ -26,23 +28,6 @@ function Drivertable({ filterValue }: TableProp) {
       drivers.meta.previousPageNumber ? prevPage - 1 : prevPage
     );
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await repo.getAllDriver();
-        // Check if data is an array
-        if (data && "list" in data && "pagination" in data) {
-          setDrivers(data);
-        } else {
-          console.error("Data is not in the expected format:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [repo]);
   let filteredDrivers;
   if (filterValue === "all") {
     // No filtering required, all drivers are included
@@ -56,14 +41,13 @@ function Drivertable({ filterValue }: TableProp) {
   }
   return (
     <>
-      <div className="overflow-x-auto text-center">
+      <div className="text-center">
         <table className='min-w-full bg-white border border-gray-300"'>
           <thead>
             <tr>
               <TableHeading label="SN" />
               <TableHeading label="Image" />
               <TableHeading label="Name" />
-              <TableHeading label="Address" />
               <TableHeading label="Phone" />
               <TableHeading label="Total Rides" />
               <TableHeading label="Ratings" />

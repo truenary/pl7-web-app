@@ -1,3 +1,4 @@
+import { Ride } from "@/types/data";
 import {
   GoogleMap,
   MarkerF,
@@ -6,19 +7,20 @@ import {
 } from "@react-google-maps/api";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import _ from "lodash";
 
 export const RideInfo = () => {
   const location = useLocation();
   const libraries: ["places"] = ["places"];
-  const rideInfo = location.state?.rideDetails;
+  const rideInfo: Ride = location.state?.rideDetails;
   console.log(rideInfo);
   const mapContainerStyle = {
     width: "100%",
     height: "100%",
   };
   const center = {
-    lat: rideInfo.pickupLocation_latitude,
-    lng: rideInfo.pickupLocation_longitude,
+    lat: rideInfo.pickupLocationLatitude,
+    lng: rideInfo.pickupLocationLongitude,
   };
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyC2hVQsKcF5QA_kMTt9rBiR8YYt2icM3KA",
@@ -34,12 +36,12 @@ export const RideInfo = () => {
     directionsService.route(
       {
         origin: {
-          lat: rideInfo.pickupLocation_latitude,
-          lng: rideInfo.pickupLocation_longitude,
+          lat: rideInfo.pickupLocationLatitude,
+          lng: rideInfo.pickupLocationLongitude,
         },
         destination: {
-          lat: rideInfo.dropLocation_latitude,
-          lng: rideInfo.dropLocation_longitude,
+          lat: rideInfo.dropLocationLatitude,
+          lng: rideInfo.dropLocationLongitude,
         },
         travelMode: google.maps.TravelMode.DRIVING,
       },
@@ -95,17 +97,13 @@ export const RideInfo = () => {
                 </li>
                 <li className="mb-2">
                   Driver Name:{" "}
-                  <span className="font-semibold">{`${rideInfo.driver.firstName} ${rideInfo.driver.lastName}`}</span>
+                  <span className="font-semibold">{`${rideInfo.driver?.firstName} ${rideInfo.driver?.lastName}`}</span>
                 </li>
                 <li className="mb-2">
                   Booked By:{" "}
                   <span className="font-semibold">
-                    {`${rideInfo.user.firstName} ${rideInfo.user.lastName}`}
+                    {`${rideInfo.user?.firstName} ${rideInfo.user?.lastName}`}
                   </span>
-                </li>
-                <li className="mb-2">
-                  Channel Id:{" "}
-                  <span className="font-semibold">{rideInfo.channelId}</span>
                 </li>
               </ul>
               <div className="flex flex-col">
@@ -114,8 +112,13 @@ export const RideInfo = () => {
                 </span>
                 <hr className="my-2" />
                 <img
-                  src={rideInfo.driver.userImage}
-                  alt="Vehicle Image"
+                  src={
+                    rideInfo.driver?.userImage &&
+                    !_.isUndefined(rideInfo.driver?.userImage)
+                      ? rideInfo.driver.userImage
+                      : ""
+                  }
+                  alt="Driver Image"
                   className="h-72 w-72 bg-gray-300 rounded mb-4 shrink-0"
                 />
               </div>
@@ -125,8 +128,13 @@ export const RideInfo = () => {
                 </span>
                 <hr className="my-2" />
                 <img
-                  src={rideInfo.user.userImage}
-                  alt="Liscence Image"
+                  src={
+                    rideInfo.user?.userImage &&
+                    !_.isUndefined(rideInfo.user?.userImage)
+                      ? rideInfo.user.userImage
+                      : ""
+                  }
+                  alt="Passenger Image"
                   className="h-72 w-72 bg-gray-300 rounded mb-4 shrink-0"
                 />
               </div>
@@ -147,15 +155,15 @@ export const RideInfo = () => {
             >
               <MarkerF
                 position={{
-                  lat: rideInfo.pickupLocation_latitude,
-                  lng: rideInfo.pickupLocation_longitude,
+                  lat: rideInfo.pickupLocationLatitude,
+                  lng: rideInfo.pickupLocationLongitude,
                 }}
                 title="PickUp Location"
               />
               <MarkerF
                 position={{
-                  lat: rideInfo.dropLocation_latitude,
-                  lng: rideInfo.dropLocation_longitude,
+                  lat: rideInfo.dropLocationLatitude,
+                  lng: rideInfo.dropLocationLongitude,
                 }}
                 title="Drop Location"
               />

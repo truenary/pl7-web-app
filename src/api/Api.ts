@@ -38,7 +38,9 @@ export class API implements IJsonApi {
 
     // Add authorization header if necessary
     if (isAuthorized) {
-      const accessToken = await this._localStorageClient.getAccessToken();
+      // const accessToken = await this._localStorageClient.getAccessToken();
+      const accessToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwianRpIjoiOTUwNDYxYzItNDYxOS00MjRiLTgyNDItODU3MzkzNDEwYTk3IiwiVXNlcklkIjoiM2ZhODVmNjQtNTcxNy00NTYyLWIzZmMtMmM5NjNmNjZhZmE2IiwiUm9sZSI6IkRyaXZlciIsImV4cCI6MTcwOTAxNTk2MCwiaXNzIjoiQXV0b0Jvb2tpbmciLCJhdWQiOiJBdXRvQm9va2luZyJ9.aX6RZV5we8FUS8h4VWP04wR7Wm-g1gKTH6H9HHC5tOQ";
       _headers.append("Authorization", `Bearer ${accessToken}`);
     }
     // Configure options for the request

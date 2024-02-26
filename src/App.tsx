@@ -39,6 +39,7 @@ import { useState } from "react";
 import DriverEditForm from "./admin/components/driver/DriverEdit";
 import Register from "./client/pages/Register";
 import i18n from "./i18n/config";
+import { initReactI18next } from "react-i18next";
 
 function App() {
   const [isNp, setIsNp] = useState<boolean>(false);
@@ -80,7 +81,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="onlinedriver" element={<Onlinedriver />} />
           <Route path="drivers" element={<Driver />} />
-          <Route path="drivers/:id" element={<DriverInfo />} />
+          <Route path="driverInfo" element={<DriverInfo />} />
           <Route path="driverEdit" element={<DriverEditForm />}></Route>
           <Route path="passengers" element={<Passengers />} />
           <Route path="ratings" element={<Rating />} />

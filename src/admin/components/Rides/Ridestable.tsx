@@ -8,19 +8,17 @@ function Ridestable() {
   const { repo } = useRepository();
   const [rides, setRides] = useState<ALLRides>(InitialStateData);
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(
-    rides.pagination.currentPageNumber
-  );
+  const [currentPage, setCurrentPage] = useState(rides.meta.currentPageNumber);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) =>
-      rides.pagination.nextPageNumber ? prevPage + 1 : prevPage
+      rides.meta.nextPageNumber ? prevPage + 1 : prevPage
     );
   };
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) =>
-      rides.pagination.previousPageNumber ? prevPage - 1 : prevPage
+      rides.meta.previousPageNumber ? prevPage - 1 : prevPage
     );
   };
   useEffect(() => {
@@ -28,7 +26,7 @@ function Ridestable() {
       try {
         const data = await repo.getAllRides();
         // Check if data is an array
-        if (data && "list" in data && "pagination" in data) {
+        if (data && "list" in data && "meta" in data) {
           setRides(data);
         } else {
           console.error("Data is not in the expected format:", data);
@@ -67,7 +65,7 @@ function Ridestable() {
                 </td>
                 <td className="py-2 px-4 ">{ride.status}</td>
                 <td className="py-2 px-4 ">{ride.price}</td>
-                <td className="py-2 px-4 ">{`${ride.driver?.user.firstName} ${ride.driver?.user.lastName}`}</td>
+                <td className="py-2 px-4 ">{`${ride.driver?.firstName} ${ride.driver?.lastName}`}</td>
                 <td className="py-2 px-4 ">{`${ride.user?.firstName} ${ride.user?.lastName}`}</td>
                 <td className="py-2 px-4 ">{ride.message}</td>
                 <td className="px-2 py-4">
@@ -92,19 +90,19 @@ function Ridestable() {
         <button
           title="Previous page"
           onClick={handlePrevPage}
-          disabled={!rides.pagination.previousPageNumber}
+          disabled={!rides.meta.previousPageNumber}
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed cursor-pointer text-xl"
         >
           <span className="mr-8">{leftArrow}</span>
         </button>
         <span>
-          Page {currentPage} of {rides.pagination.totalPage}
+          Page {currentPage} of {rides.meta.totalPage}
         </span>
         <button
           title="Next page"
           className="bg-transparent border-1  rounded-md py-1 px-1 font-normal text-green-600 disabled:text-gray-800 disabled:cursor-not-allowed  cursor-pointer text-xl"
           onClick={handleNextPage}
-          disabled={!rides.pagination.nextPageNumber}
+          disabled={!rides.meta.nextPageNumber}
         >
           <span className="ml-8">{explore}</span>
         </button>

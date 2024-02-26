@@ -50,7 +50,7 @@ export default function DriverEditForm() {
         }
       }
     });
-    formData.append("driverId", userData._id);
+    formData.append("driverId", userData.driverId);
     try {
       const response = await repo.updateDriverInfo(formData);
       if (response) {
@@ -147,7 +147,7 @@ export default function DriverEditForm() {
               <input
                 type="text"
                 id="liscenceNumber"
-                defaultValue={userData.liscenceNumber}
+                defaultValue={userData.licenseNumber}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register("liscenceNumber")}
               />
@@ -189,7 +189,7 @@ export default function DriverEditForm() {
                 {...register("liscenceImage")}
               />
               <img
-                src={userData.liscenceImage}
+                src={userData.licenseImage}
                 alt=""
                 className="h-10 w-10 my-2 mx-4 rounded-lg"
               />
@@ -210,7 +210,7 @@ export default function DriverEditForm() {
                 {...register("billBookImage")}
               />
               <img
-                src={userData.vehicle.billBookImage}
+                src={userData.vehicle.bluebookImage}
                 alt=""
                 className="h-10 w-10 my-2 mx-4 rounded-lg"
               />
@@ -246,7 +246,7 @@ export default function DriverEditForm() {
               <input
                 type="text"
                 id="numberPlate"
-                defaultValue={userData.vehicle.numberPlate}
+                defaultValue={userData.vehicle.vehicleNumber}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register("numberPlate")}
               />
@@ -262,7 +262,7 @@ export default function DriverEditForm() {
               <input
                 type="text"
                 id="color"
-                defaultValue={userData.vehicle.color}
+                defaultValue={userData.vehicle.vehicleColor}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 {...register("color")}
               />

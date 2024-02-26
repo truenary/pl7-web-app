@@ -48,9 +48,9 @@ function Driver() {
   console.log(filterValue);
   return (
     <div className="mb-4">
-      <div className="flex flex-row items-center mt-5 align-middle gap-x-[790px]">
+      <div className="flex flex-row items-center mt-5 align-middle gap-48">
         <h1 className="text-lg font-medium">All Drivers</h1>
-        <div className="relative left-24 ">
+        <div className="relative left-16 ">
           <input
             type="text"
             onChange={(e) => setSearchQuery(e.target.value)}

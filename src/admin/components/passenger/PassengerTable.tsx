@@ -2,11 +2,14 @@ import TableRow from "../shared/TableHeading";
 import PassengerTableRow from "./PassengerTableRow";
 import { useRepository } from "@/hooks/CustomHook";
 import { useEffect, useState } from "react";
-import { AllPassenger, Passenger, TableProp } from "@/types/data";
+import { AllPassenger, Passenger } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import { InitialStateData } from "@/utils/utilities";
 import _ from "lodash";
-
+declare type TableProp = {
+  filterValue: string;
+  passengers?: AllPassenger;
+};
 export default function PassengerTable({ filterValue }: TableProp) {
   const { repo } = useRepository();
   const [passengers, setPassengers] = useState<AllPassenger>(InitialStateData);
@@ -45,12 +48,12 @@ export default function PassengerTable({ filterValue }: TableProp) {
   if (filterValue === "all") {
     // No filtering required, all drivers are included
     filterPassengers = passengers.list;
-  } else {
-    // Filter based on the accountVerifyStatus attribute
-    const isActive = filterValue === "active";
-    filterPassengers = passengers.list.filter(
-      (passenger) => passenger.status === isActive
-    );
+    // } else {
+    //   // Filter based on the accountVerifyStatus attribute
+    //   const isActive = filterValue === "active";
+    //   filterPassengers = passengers.list.filter(
+    //     (passenger) => passenger. === isActive
+    //   );
   }
   return (
     <>

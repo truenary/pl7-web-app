@@ -29,16 +29,19 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       <td className="px-4 py-2">{(index + 1).toString()}</td>
       <td className="px-4 py-2">
         <img
-          src={user.user.userImage}
+          src={
+            user.user.userImage && !_.isUndefined(user.user.userImage)
+              ? user.user.userImage
+              : ""
+          }
           alt="user image"
           className="h-10 rounded"
         />
       </td>
       <td className="px-4 py-2">{`${user.user.firstName} ${user.user.lastName}`}</td>
-      <td className="px-4 py-2">{user.user.address}</td>
       <td className="px-4 py-2">{user.user.phoneNumber}</td>
       <td className="px-4 py-2">{user.totalRides}</td>
-      <td className="px-4 py-2">{user.ratings}</td>
+      <td className="px-4 py-2">Not Given</td>
       <td className={`px-4 py-2 `}>
         <span
           className={`${
@@ -53,12 +56,12 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       <td className={`px-4 py-2 `}>
         <span
           className={`${
-            user.user.status === false
+            user.availabilityStatus === false
               ? "text-white bg-red-500 py-2 px-4 rounded"
               : "text-white bg-green-500 py-2 px-4 rounded"
           }`}
         >
-          {user.user.status ? "Active" : "Inactive"}
+          {user.availabilityStatus ? "Active" : "Inactive"}
         </span>
       </td>
       <td className="px-2 py-4">
