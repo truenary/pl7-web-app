@@ -1,46 +1,55 @@
-import { useEffect, useState } from "react";
-import { useRepository } from "@/hooks/CustomHook";
 import { ALLRides, Ride } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import { useNavigate } from "react-router-dom";
-import { InitialStateData } from "@/utils/utilities";
-function Ridestable() {
-  const { repo } = useRepository();
-  const [rides, setRides] = useState<ALLRides>(InitialStateData);
+declare type TableProp = {
+  filterByRideType: string;
+  filterByStatus: string;
+  rides: ALLRides;
+  currentPage: number;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
+};
+function Ridestable({
+  filterByRideType,
+  filterByStatus,
+  rides,
+  currentPage,
+  handleNextPage,
+  handlePrevPage,
+}: TableProp) {
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(rides.meta.currentPageNumber);
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) =>
-      rides.meta.nextPageNumber ? prevPage + 1 : prevPage
-    );
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) =>
-      rides.meta.previousPageNumber ? prevPage - 1 : prevPage
-    );
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await repo.getAllRides();
-        // Check if data is an array
-        if (data && "list" in data && "meta" in data) {
-          setRides(data);
-        } else {
-          console.error("Data is not in the expected format:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [repo]);
+  let filteredRides;
+  if (filterByRideType === "all") {
+    // No filtering required, all drivers are included
+    filteredRides = rides.list;
+  } else {
+    // Filter based on the accountVerifyStatus attribute
+    const isActive = filterByRideType === "single";
+    filteredRides = rides.list.filter((ride) => ride.rideType === isActive);
+  }
+  if (filterByStatus !== "all") {
+    if (filterByStatus === "Accepted") {
+      filteredRides = filteredRides.filter(
+        (ride) => ride.status === "Accepted"
+      );
+    }
+    if (filterByStatus === "Rejected") {
+      filteredRides = filteredRides.filter(
+        (ride) => ride.status === "Rejected"
+      );
+    }
+    if (filterByStatus === "Cancelled") {
+      filteredRides = filteredRides.filter(
+        (ride) => ride.status === "Cancelled"
+      );
+    }
+    if (filterByStatus === "Pending") {
+      filteredRides = filteredRides.filter((ride) => ride.status === "Pending");
+    }
+  }
   return (
     <>
-      <div className="overflow-x-auto">
+      <div>
         <table className="min-w-full  text-center">
           <thead>
             <tr className="">
@@ -56,7 +65,7 @@ function Ridestable() {
             </tr>
           </thead>
           <tbody>
-            {rides.list.map((ride: Ride, index: number) => (
+            {filteredRides.map((ride: Ride, index: number) => (
               <tr key={ride.rideId}>
                 <td className="py-2 px-4 ">{index + 1}</td>
                 <td className="py-2 px-4 ">{ride.numberOfPassenger}</td>

@@ -102,6 +102,7 @@ declare type Passenger = {
   phoneNumber: string;
   isVerified: boolean;
   role: number;
+  status: boolean;
 };
 declare type Pagination = {
   totalPage: number;

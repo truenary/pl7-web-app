@@ -5,8 +5,8 @@ import { useRepository } from "../../../hooks/CustomHook";
 import { OnlineDriver } from "@/types/data";
 const libraries: ["places"] = ["places"];
 const mapContainerStyle = {
-  width: "40vw",
-  height: "70vh",
+  width: "94vh",
+  height: "68vh",
 };
 const center = {
   lat: 27.431353305174838,
@@ -44,7 +44,7 @@ function DashboardMap() {
     return <div>Loading maps...</div>;
   }
   return (
-    <div className="my-4">
+    <div className="w-full">
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={13}

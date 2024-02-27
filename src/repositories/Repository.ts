@@ -70,9 +70,13 @@ export class Repository implements IRepository {
 
     return this._getResponse(responseData);
   }
-  async getAllDriver(): Promise<JsonAPIErrorResp | AllDriver | undefined> {
+  async getAllDriver(
+    pageNumber: number
+  ): Promise<JsonAPIErrorResp | AllDriver | undefined> {
     // console.log("api", this._api);
-    const responseData = await this._api.get<AllDriver>(`driver/`);
+    const responseData = await this._api.get<AllDriver>(
+      `driver?page=${pageNumber}`
+    );
     console.log(responseData);
     return this._getResponse(responseData);
   }
@@ -95,10 +99,13 @@ export class Repository implements IRepository {
     );
     return this._getResponse(responseData);
   }
-  async getAllPassengers(): Promise<
-    JsonAPIErrorResp | AllPassenger | undefined
-  > {
-    const responseData = await this._api.get<AllPassenger>(`user/`);
+  async getAllPassengers(
+    pageNumber: number
+  ): Promise<JsonAPIErrorResp | AllPassenger | undefined> {
+    const responseData = await this._api.get<AllPassenger>(
+      `user?page=${pageNumber}`
+    );
+    console.log("at repository", responseData);
     return this._getResponse(responseData);
   }
   async getPassengerById(
@@ -109,9 +116,11 @@ export class Repository implements IRepository {
     );
     return this._getResponse(responseData);
   }
-  async getAllRides(): Promise<JsonAPIErrorResp | ALLRides | undefined> {
+  async getAllRides(
+    pageNumber: number
+  ): Promise<JsonAPIErrorResp | ALLRides | undefined> {
     const responseData = await this._api.get<ALLRides>(
-      "ride/",
+      `ride?page=${pageNumber}`,
       undefined,
       true
     );

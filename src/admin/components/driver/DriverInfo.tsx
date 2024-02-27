@@ -9,17 +9,16 @@ export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
   const { repo } = useRepository();
+
   const location = useLocation();
-  const driver: Driver = location.state.driver;
-  console.log(driver);
+  const driver: Driver = location.state?.driver;
   function handleSendMessage() {
     if (_.isEqual(confirm("Are you sure!"), true)) {
       console.log(report);
       setReport("");
     }
   }
-  const location = useLocation();
-  const driver: Driver = location.state?.driver;
+
   async function handleVerify() {
     if (confirm("Are you sured to verify the data?") === true) {
       if (!_.isUndefined(driver.driverId)) {
@@ -30,6 +29,7 @@ export default function DriverInfo() {
       }
     }
   }
+  function handleUnVerify() {}
 
   if (driver) {
     return (

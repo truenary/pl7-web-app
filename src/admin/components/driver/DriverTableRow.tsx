@@ -15,8 +15,7 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
       toast.error("currently deleting feature is not available");
     }
   }
-  function handleHistory() {
-    navigate("/admin/rideshistory", { state: { userId: user._id } });
+
   function handleHistory() {
     navigate("/admin/rideshistory", { state: { userId: user.driverId } });
   }
@@ -25,7 +24,7 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
   }
 
   return (
-    <tr className="bg-white border-b-2 text-center" key={index}>
+    <tr className=" border-b-2 text-center" key={index}>
       <td className="px-4 py-2">{(index + 1).toString()}</td>
       <td className="px-4 py-2">
         <img
@@ -61,7 +60,7 @@ export default function DriverTableRow({ user, index }: DriverTableRowProp) {
               : "text-white bg-green-500 py-2 px-4 rounded"
           }`}
         >
-          {user.availabilityStatus ? "Active" : "Inactive"}
+          {user.availabilityStatus ? "Online" : "Offline"}
         </span>
       </td>
       <td className="px-2 py-4">

@@ -20,10 +20,10 @@ export default function OnlineDriverTable() {
     };
     const intervalId = setInterval(fetchData, 1000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [repo]);
 
   return (
-    <div className="flex-none h-auto w-1/2 border-2 border-cyan-600 mx-2 my-2">
+    <div className="flex-none h-auto w-full px-4">
       <table className="min-w-full text-center">
         <thead>
           <tr>

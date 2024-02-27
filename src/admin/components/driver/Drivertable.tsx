@@ -1,48 +1,46 @@
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
-
-import { useState } from "react";
 import { AllDriver, Driver } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
 
 declare type TableProp = {
-  filterValue: string;
+  filterByVerification: string;
+  filterByOnline: string;
   drivers: AllDriver;
+  currentPage: number;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
 };
-function Drivertable({ filterValue, drivers }: TableProp) {
-  console.log(filterValue);
-
-  const [currentPage, setCurrentPage] = useState(
-    drivers.meta.currentPageNumber
-  );
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) =>
-      drivers.meta.nextPageNumber ? prevPage + 1 : prevPage
-    );
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) =>
-      drivers.meta.previousPageNumber ? prevPage - 1 : prevPage
-    );
-  };
+function Drivertable({
+  filterByVerification,
+  drivers,
+  handleNextPage,
+  handlePrevPage,
+  currentPage,
+  filterByOnline,
+}: TableProp) {
   let filteredDrivers;
-  if (filterValue === "all") {
+  if (filterByVerification === "all") {
     // No filtering required, all drivers are included
     filteredDrivers = drivers.list;
   } else {
     // Filter based on the accountVerifyStatus attribute
-    const isVerified = filterValue === "verified";
+    const isVerified = filterByVerification === "verified";
     filteredDrivers = drivers.list.filter(
       (driver) => driver.accountVerifyStatus === isVerified
+    );
+  }
+  if (filterByOnline !== "all") {
+    const isOnline = filterByOnline === "online";
+    filteredDrivers = filteredDrivers.filter(
+      (driver) => driver.availabilityStatus === isOnline
     );
   }
   return (
     <>
       <div className="text-center">
-        <table className='min-w-full bg-white border border-gray-300"'>
+        <table className="min-w-full">
           <thead>
             <tr>
               <TableHeading label="SN" />

@@ -66,10 +66,10 @@ export const RideInfo = () => {
   }
   return (
     <div className="mb-20">
-      <div className="container mx-auto py-2">
+      <div className="container mx-auto">
         <div className="flex flex-col gap-y-4">
           <div className="w-full">
-            <div className="bg-white shadow rounded-lg p-6 flex flex-row gap-x-16">
+            <div className="bg-white shadow p-6 flex flex-row gap-x-16">
               <ul>
                 <span className="text-gray-700 uppercase font-bold tracking-wider mb-2">
                   Ride Details
@@ -140,7 +140,7 @@ export const RideInfo = () => {
               </div>
             </div>
           </div>
-          <div className="w-full h-[500px] bg-white rounded-lg">
+          <div className="w-full h-[500px] px-4">
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
               zoom={15}

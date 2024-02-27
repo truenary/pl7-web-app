@@ -1,64 +1,37 @@
 import TableRow from "../shared/TableHeading";
 import PassengerTableRow from "./PassengerTableRow";
-import { useRepository } from "@/hooks/CustomHook";
-import { useEffect, useState } from "react";
 import { AllPassenger, Passenger } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
-import { InitialStateData } from "@/utils/utilities";
 import _ from "lodash";
 declare type TableProp = {
   filterValue: string;
-  passengers?: AllPassenger;
+  passengers: AllPassenger;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
+  currentPage: number;
 };
-export default function PassengerTable({ filterValue }: TableProp) {
-  const { repo } = useRepository();
-  const [passengers, setPassengers] = useState<AllPassenger>(InitialStateData);
-  const [currentPage, setCurrentPage] = useState(
-    passengers.meta.currentPageNumber
-  );
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) =>
-      passengers.meta.nextPageNumber ? prevPage + 1 : prevPage
-    );
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) =>
-      passengers.meta.previousPageNumber ? prevPage - 1 : prevPage
-    );
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await repo.getAllPassengers();
-        if (data && "list" in data && "meta" in data) {
-          setPassengers(data);
-        } else {
-          console.error("Data is not in the expected format:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [repo]);
+export default function PassengerTable({
+  filterValue,
+  passengers,
+  handleNextPage,
+  handlePrevPage,
+  currentPage,
+}: TableProp) {
   let filterPassengers;
   if (filterValue === "all") {
     // No filtering required, all drivers are included
     filterPassengers = passengers.list;
-    // } else {
-    //   // Filter based on the accountVerifyStatus attribute
-    //   const isActive = filterValue === "active";
-    //   filterPassengers = passengers.list.filter(
-    //     (passenger) => passenger. === isActive
-    //   );
+  } else {
+    // Filter based on the accountVerifyStatus attribute
+    const isActive = filterValue === "online";
+    filterPassengers = passengers.list.filter(
+      (passenger) => passenger.status === isActive
+    );
   }
   return (
     <>
-      <div className="overflow-x-auto text-center">
-        <table className='min-w-full bg-white border border-gray-300"'>
+      <div className="text-center">
+        <table className="min-w-full">
           <thead>
             <tr>
               <TableRow label="SN" />

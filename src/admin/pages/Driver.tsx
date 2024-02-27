@@ -6,11 +6,26 @@ import { InitialStateData } from "@/utils/utilities";
 import { useRepository } from "@/hooks/CustomHook";
 
 function Driver() {
-  const [filterValue, setFilterValue] = useState("all");
+  const [filterByAccountVerification, setFilterByAccountVerification] =
+    useState("all");
+  const [filterByOnline, setFilterByOnline] = useState("all");
   const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
 
   const { repo } = useRepository();
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleNextPage = () => {
+    if (drivers.meta.nextPageNumber) {
+      setCurrentPage(drivers.meta.nextPageNumber);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (drivers.meta.previousPageNumber) {
+      setCurrentPage(drivers.meta.previousPageNumber);
+    }
+  };
 
   // Derived state. These are the posts that will actually be displayed
   let searchedDrivers;
@@ -28,9 +43,9 @@ function Driver() {
     searchedDrivers = drivers;
   }
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (pageNumber: number) => {
       try {
-        const data = await repo.getAllDriver();
+        const data = await repo.getAllDriver(pageNumber);
         // Check if data is an array
         if (data && "list" in data && "meta" in data) {
           console.log("at driver table: ", data);
@@ -43,35 +58,60 @@ function Driver() {
       }
     };
 
-    fetchData();
-  }, [repo]);
-  console.log(filterValue);
+    fetchData(currentPage);
+  }, [repo, currentPage]);
   return (
-    <div className="mb-4">
-      <div className="flex flex-row items-center mt-5 align-middle gap-48">
+    <div className="mb-28 align-middle">
+      <div className="flex flex-row items-center align-middle gap-4 sticky top-0 bg-white py-4  px-4">
         <h1 className="text-lg font-medium">All Drivers</h1>
-        <div className="relative left-16 ">
+        <div className="relative">
           <input
             type="text"
+            id="search"
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search Here"
+            placeholder="Search by name or phone number"
             className="bg-white h-10 px-10 rounded-md w-96 border focus:outline-none focus:border-green-700"
           />
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             {searchIcon}
           </div>
         </div>
-        <select
-          className="text-lg font-medium px-4 py-2 rounded "
-          onChange={(e) => setFilterValue(e.target.value)}
-        >
-          <option value="all">All</option>
-          <option value="verified">Verified</option>
-          <option value="notVerified">Not Verified</option>
-        </select>
+        <div className="flex flex-row gap-2 align-middle items-center">
+          <label htmlFor="accountVerify" className="text-base font-medium">
+            By Account Verification :
+          </label>
+          <select
+            id="accountVerify"
+            className="text-base font-medium p-2 rounded border focus:border-green-700"
+            onChange={(e) => setFilterByAccountVerification(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="verified">Verified</option>
+            <option value="notVerified">Not Verified</option>
+          </select>
+          <label htmlFor="online" className="text-base font-medium">
+            By Online or Offline :
+          </label>
+          <select
+            id="online"
+            className="text-base font-medium p-2 rounded border focus:border-green-700"
+            onChange={(e) => setFilterByOnline(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="online">Online</option>
+            <option value="offline">Offline</option>
+          </select>
+        </div>
       </div>
       <div className="mt-5 mb-5">
-        <Drivertable filterValue={filterValue} drivers={searchedDrivers} />
+        <Drivertable
+          filterByVerification={filterByAccountVerification}
+          filterByOnline={filterByOnline}
+          drivers={searchedDrivers}
+          currentPage={currentPage}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+        />
       </div>
     </div>
   );

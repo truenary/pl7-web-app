@@ -14,7 +14,7 @@ export default function PassengerTableRow({
   }
   console.log(user);
   return (
-    <tr className="bg-white border-b-2 text-center">
+    <tr className=" border-b-2 text-center">
       <td className="px-4 py-2">{(index + 1).toString()}</td>
       <td className="px-4 py-2">
         <img
@@ -33,16 +33,15 @@ export default function PassengerTableRow({
       <td className="px-4 py-2">Not Given</td>
       <td className="px-4 py-2">Not Given</td>
       <td className="px-4 py-2">
-        {/* <span
+        <span
           className={`${
             user.status === false
               ? "text-white bg-red-500 py-2 px-4 rounded"
               : "text-white bg-green-500 py-2 px-4 rounded"
           }`}
         >
-          {user.status ? "Active" : "Not Active"}
-        </span> */}
-        Not Given
+          {user.status ? "Online" : "Offline"}
+        </span>
       </td>
       <td className="px-2 py-4">
         <button

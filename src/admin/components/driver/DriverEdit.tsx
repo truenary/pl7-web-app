@@ -2,52 +2,39 @@ import { useBlocker, useLocation, useNavigate } from "react-router-dom";
 import { useRepository } from "@/hooks/CustomHook";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { Driver, driverFormType } from "@/types/data";
+import { Driver, driverFormType, formValueData } from "@/types/data";
 import _ from "lodash";
-import { useState } from "react";
+import formData from "@/utils/RegisterInputFormData.json";
 import Modal from "@/shared/Modal";
 
 export default function DriverEditForm() {
-  const { register, handleSubmit } = useForm<driverFormType>();
+  const location = useLocation();
+  const userData: Driver = location.state.user;
+  const { register, handleSubmit, formState } = useForm<driverFormType>({
+    defaultValues: {
+      firstName: userData.user.firstName,
+      lastName: userData.user.lastName,
+      liscenceNumber: userData.licenseNumber,
+      numberPlate: userData.vehicle.vehicleNumber,
+    },
+  });
+  console.log("isDirty:", formState.isDirty);
   const navigate = useNavigate();
   const { repo } = useRepository();
-  const location = useLocation();
-  const [isDataChanged, setIsDataChanged] = useState<boolean>(false);
-  // const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const userData: Driver = location.state.user;
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      isDataChanged && currentLocation.pathname !== nextLocation.pathname
-  );
+  const blocker = useBlocker(formState.isDirty);
   async function handleDriverDataSubmit(data: driverFormType) {
-    console.log(data["userImage"]);
     const formData = new FormData();
     const fields = [
       "firstName",
       "lastName",
       "address",
-      "password",
-      "userImage",
-      "liscenceImage",
-      "vehicleImage",
-      "billBookImage",
       "liscenceNumber",
-      "color",
       "numberPlate",
     ];
 
     fields.forEach((field) => {
       if (data[field]) {
-        if (_.isArray(data[field])) {
-          const fileList: FileList = data[field] as FileList;
-          if (fileList.length > 0) {
-            const file: File = fileList[0];
-            formData.append(`${field}`, file);
-            formData.append(`${field}Name`, file.name);
-          }
-        } else {
-          formData.append(`${field}`, data[field] as string);
-        }
+        formData.append(`${field}`, data[field] as string);
       }
     });
     formData.append("driverId", userData.driverId);
@@ -62,7 +49,6 @@ export default function DriverEditForm() {
     } catch (err) {
       toast.error("Failed to update, please try again");
     }
-    setIsDataChanged(false);
   }
   function handleConfirm() {
     if (blocker && !_.isUndefined(blocker.proceed)) {
@@ -83,190 +69,26 @@ export default function DriverEditForm() {
       </div>
 
       <div>
-        <form
-          onSubmit={handleSubmit(handleDriverDataSubmit)}
-          onChange={() => setIsDataChanged(true)}
-        >
+        <form onSubmit={handleSubmit(handleDriverDataSubmit)}>
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="firstName"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                First Name
-              </label>
-
-              <input
-                type="text"
-                id="firstName"
-                defaultValue={userData.user.firstName}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("firstName")}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="lastName"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Last Name
-              </label>
-
-              <input
-                type="text"
-                id="lastName"
-                defaultValue={userData.user.lastName}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("lastName")}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="address"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Address
-              </label>
-
-              <input
-                type="text"
-                id="address"
-                defaultValue={userData.user.address}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("address")}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="liscenceNumber"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Liscence Number
-              </label>
-
-              <input
-                type="text"
-                id="liscenceNumber"
-                defaultValue={userData.licenseNumber}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("liscenceNumber")}
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="userImage"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                User Image
-              </label>
-
-              <input
-                type="file"
-                id="userImage"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("userImage")}
-              />
-              <img
-                src={userData.user.userImage}
-                alt=""
-                className="h-10 w-10 my-2 mx-4 rounded-lg"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="liscenceImage"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Liscence Image
-              </label>
-
-              <input
-                type="file"
-                id="liscenceImage"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("liscenceImage")}
-              />
-              <img
-                src={userData.licenseImage}
-                alt=""
-                className="h-10 w-10 my-2 mx-4 rounded-lg"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="billBookImage"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Billbook Image
-              </label>
-
-              <input
-                type="file"
-                id="billBookImage"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("billBookImage")}
-              />
-              <img
-                src={userData.vehicle.bluebookImage}
-                alt=""
-                className="h-10 w-10 my-2 mx-4 rounded-lg"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="vehicleImage"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Vehicle Image
-              </label>
-
-              <input
-                type="file"
-                id="vehicleImage"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("vehicleImage")}
-              />
-              <img
-                src={userData.vehicle.vehicleImage}
-                alt=""
-                className="h-10 w-10 my-2 mx-4 rounded-lg"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="numberPlate"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Number Plate
-              </label>
-
-              <input
-                type="text"
-                id="numberPlate"
-                defaultValue={userData.vehicle.vehicleNumber}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("numberPlate")}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="color"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
-              >
-                Vehicle Color
-              </label>
-
-              <input
-                type="text"
-                id="color"
-                defaultValue={userData.vehicle.vehicleColor}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                {...register("color")}
-              />
-            </div>
+            {_.map(formData.driverEditFormData, (value: formValueData) => (
+              <div>
+                <label
+                  htmlFor={value.id}
+                  key={`${value.id}_label`}
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5"
+                >
+                  {value.labelText}
+                </label>
+                <input
+                  type={value.type}
+                  key={`${value.id}_input`}
+                  id={value.id}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  {...register(value.id, { required: value.required })}
+                />
+              </div>
+            ))}
           </div>
           <button
             type="submit"
