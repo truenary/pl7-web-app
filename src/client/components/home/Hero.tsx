@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router";
 import Button from "../shared/Button";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     //hero section
@@ -11,21 +13,23 @@ export default function Hero() {
         <div className="flex flex-col gap-10 md:w-1/2 lg:mx-20 md:mx-10">
           <div className="flex flex-col space-y-2 text-left md:space-y-4">
             <h1 className="lg:text-6xl md:text-5xl font-bold  text-3xl mt-10 ">
-              Platform for all auto services
+              {t("Platform for all auto services")}
             </h1>
             <p className="text-lg md:text-xl">
-              One app, all services at your finger
+              {t("One app, all services at your finger")}
             </p>
           </div>
           <div className="flex flex-col space-y-5 mx:5">
-            <Button action={() => navigate("/register")}
-              label={"Earn with Dhoka"}
+            <Button
+              action={() => navigate("/registerPhone")}
+              label={t("Earn with Dhoka")}
               style={
                 "p-2 md:p-3 bg-orange-500 text-white text-base font-normal rounded w-full text-center lg:w-64 lg:text-lg md:w-56"
               }
             />
-            <Button action={() => navigate("/download")}
-              label={"Download App"}
+            <Button
+              action={() => navigate("/download")}
+              label={t("Download App")}
               style={
                 "p-2 md:p-3 bg-white text-black text-base font-normal rounded w-full text-center lg:w-64 border border-1 border-black  md:w-56"
               }

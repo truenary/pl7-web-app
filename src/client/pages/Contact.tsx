@@ -1,16 +1,19 @@
+import { useTranslation } from "react-i18next";
+
 function Contact() {
+  const { t } = useTranslation();
   return (
     <>
       <section className="text-gray-700 body-font relative">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-              Contact Us
+              {t("Contact")}
             </h1>
             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-              We want your input: questions, bug reports, complaints, praise,
-              feature requests — every little bit helps. Let us know what we can
-              do to improve Dhoka.
+              {t(
+                "We want your questions, bug reports, complaints, praise,feature requests every little bit helps. Let us know what we can do to improve Dhoka."
+              )}
             </p>
           </div>
           <div className="lg:w-1/2 md:w-2/3 mx-auto">
@@ -21,7 +24,7 @@ function Contact() {
                     htmlFor="name"
                     className="leading-7 text-sm text-gray-600"
                   >
-                    Name
+                    {t("Name")}
                   </label>
                   <input
                     type="text"
@@ -37,7 +40,7 @@ function Contact() {
                     htmlFor="email"
                     className="leading-7 text-sm text-gray-600"
                   >
-                    Email
+                    {t("Email")}
                   </label>
                   <input
                     type="email"
@@ -53,7 +56,7 @@ function Contact() {
                     htmlFor="message"
                     className="leading-7 text-sm text-gray-600"
                   >
-                    Message
+                    {t("Message")}
                   </label>
                   <textarea
                     id="message"
@@ -64,7 +67,7 @@ function Contact() {
               </div>
               <div className="p-2 w-full">
                 <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                  Send
+                  {t("Send")}
                 </button>
               </div>
               <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">

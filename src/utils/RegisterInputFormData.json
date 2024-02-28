@@ -13,12 +13,6 @@
       "required": true
     },
     {
-      "labelText": "Password",
-      "id": "password",
-      "type": "text",
-      "required": true
-    },
-    {
       "labelText": "Address",
       "id": "address",
       "type": "text",
@@ -87,15 +81,42 @@
       "required": true
     },
     {
+      "labelText": "User Image",
+      "id": "userImage",
+      "type": "file",
+      "required": true
+    }
+  ],
+  "driverEditFormData": [
+    {
+      "labelText": "First Name",
+      "id": "firstName",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Last Name",
+      "id": "lastName",
+      "type": "text",
+      "required": true
+    },
+    {
       "labelText": "Address",
       "id": "address",
       "type": "text",
       "required": true
     },
+
     {
-      "labelText": "User Image",
-      "id": "userImage",
-      "type": "file",
+      "labelText": "Liscence Number",
+      "id": "liscenceNumber",
+      "type": "text",
+      "required": true
+    },
+    {
+      "labelText": "Vehicle Number",
+      "id": "numberPlate",
+      "type": "text",
       "required": true
     }
   ]

@@ -23,17 +23,26 @@ export interface IRepository {
   isPhoneExist(
     phoneNumber: string
   ): Promise<boolean | JsonAPIErrorResp | undefined>;
-  getAllDriver(): Promise<AllDriver | JsonAPIErrorResp | undefined>;
+  getAllDriver(
+    pageNumber: number
+  ): Promise<AllDriver | JsonAPIErrorResp | undefined>;
   getDriverById(id: string): Promise<Driver | JsonAPIErrorResp | undefined>;
   verifyDrier(
     id: string
   ): Promise<DriverVerifyResponse | JsonAPIErrorResp | undefined>;
-  getAllPassengers(): Promise<AllPassenger | JsonAPIErrorResp | undefined>;
+  getAllPassengers(
+    pageNumber: number
+  ): Promise<AllPassenger | JsonAPIErrorResp | undefined>;
   getPassengerById(
     id: string
   ): Promise<Passenger | JsonAPIErrorResp | undefined>;
-  getAllRides(): Promise<ALLRides | JsonAPIErrorResp | undefined>;
+  getAllRides(
+    pageNumber: number
+  ): Promise<ALLRides | JsonAPIErrorResp | undefined>;
   getAllOnlineDriver(): Promise<
     OnlineDriverArray | JsonAPIErrorResp | undefined
   >;
+  updateDriverInfo(
+    userDetails: FormData | null
+  ): Promise<Driver | JsonAPIErrorResp | undefined>;
 }

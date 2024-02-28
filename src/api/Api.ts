@@ -33,13 +33,19 @@ export class API implements IJsonApi {
     headers: Map<string, string>,
     body?: FormData | null
   ): Promise<JsonAPIResp<T>> {
-    headers.set("Content-Type", "multipart/form-data");
+    // headers.set("Content-Type", "multipart/form-data");
     const _headers = this._buildHeaders(headers);
 
     // Add authorization header if necessary
     if (isAuthorized) {
-      const accessToken = await this._localStorageClient.getAccessToken();
+      const ac = await this._localStorageClient.getAccessToken();
+      //adding access token manually only for testing
+      const accessToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwianRpIjoiZmU5NWY4NTAtMDNhMS00NThiLWJjZTItZjk4MTFmYmIwMWMzIiwiVXNlcklkIjoiM2ZhODVmNjQtNTcxNy00NTYyLWIzZmMtMmM5NjNmNjZhZmE2IiwiUm9sZSI6IkRyaXZlciIsImV4cCI6MTcwOTEwMjM1MCwiaXNzIjoiQXV0b0Jvb2tpbmciLCJhdWQiOiJBdXRvQm9va2luZyJ9.pCD3p0qe0Fsk--w_3LPUq0EhkGBlvxEv7XozrYc7tE8";
       _headers.append("Authorization", `Bearer ${accessToken}`);
+      if (ac) {
+        _headers.append("token", ac);
+      }
     }
     // Configure options for the request
     const requestOption: RequestInit = {

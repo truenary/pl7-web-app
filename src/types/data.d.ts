@@ -6,14 +6,14 @@ type formValueData = {
   required: boolean;
 };
 declare type UserRegisterRequest = {
-  userImage: File;
+  userImageFile: File;
   firstName: string;
   lastName: string;
-  address: string;
+  // address: string;
   phoneNumber: string;
-  userRole: string;
+  // userRole: string;
   password: string;
-  userImageName: string;
+  userImage: string;
 };
 
 declare type DriverRegisterRequest = UserRegisterRequest & {
@@ -31,7 +31,7 @@ declare type userFormType = {
   firstName: string;
   lastName: string;
   password: string;
-  address: string;
+  // address: string;
   userImage: FileList;
   [key: string]: string | FileList;
 };
@@ -62,67 +62,47 @@ declare type loginRequest = {
   password: string;
 };
 declare type loginResponse = {
-  user: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    address: string;
-    status: boolean;
-    phoneNumber: string;
-    userRole: string;
-    userImage: string;
-    totalRide: number;
-    createdAt: DateTime;
-  };
   accessToken: string;
   refreshToken: string;
 };
 
 declare type Driver = {
-  _id: string;
-  liscenceNumber: string;
-  liscenceImage: string;
-  accountVerifyStatus: boolean;
-  availabilityStatus: boolean;
-  createdAt: string;
-  updatedAt: string;
-  ratings: number;
   user: {
-    _id: string;
+    userId: string;
     firstName: string;
     lastName: string;
-    address: string;
-    status: boolean;
+    userImage: string | null;
     phoneNumber: string;
-    userImage: string;
-    totalRide: number;
-    userRole: string;
+    isVerified: boolean;
+    role: number;
   };
+  driverId: string;
+  licenseNumber: string;
+  licenseImage: string | null;
+  availabilityStatus: boolean;
+  totalRides: number;
+  accountVerifyStatus: boolean;
   vehicle: {
-    _id: string;
-    numberPlate: string;
-    color: string;
-    vehicleImage: string;
-    billBookImage: string;
+    vehicleId: string;
+    bluebookImage: string | null;
+    vehicleNumber: string;
+    vehicleImage: string | null;
   };
 };
-declare type AllDriver = { list: Driver[]; pagination: Pagination };
+declare type AllDriver = { list: Driver[]; meta: Pagination };
 declare type DriverVerifyResponse = {
   _id: string;
   accountVerifyStatus: boolean;
 };
 declare type Passenger = {
-  _id: string;
+  userId: string;
   firstName: string;
   lastName: string;
-  address: string;
-  status: boolean;
+  userImage: string | null;
   phoneNumber: string;
-  userRole: boolean;
-  userImage: string;
-  totalRide: number;
-  createdAt: string;
-  updatedAt: string;
+  isVerified: boolean;
+  role: number;
+  status: boolean;
 };
 declare type Pagination = {
   totalPage: number;
@@ -131,7 +111,7 @@ declare type Pagination = {
   currentPageNumber: number;
   nextPageNumber: number | null;
 };
-declare type AllPassenger = { list: Passenger[]; pagination: Pagination };
+declare type AllPassenger = { list: Passenger[]; meta: Pagination };
 declare type Ride = {
   rideId: number;
   numberOfPassenger: number;
@@ -139,19 +119,33 @@ declare type Ride = {
   price: number;
   message: string;
   status: string;
-  channelId: number;
-  driverId: string;
-  driver: Driver | null;
+  driver: {
+    userId: string;
+    firstName: string;
+    lastName: string;
+    userImage: string | null;
+    phoneNumber: string;
+    isVerified: boolean;
+    role: number;
+  } | null;
   userId: string;
-  user: Passenger | null;
-  pickupLocation_latitude: number;
-  pickupLocation_longitude: number;
-  dropLocation_latitude: number;
-  dropLocation_longitude: number;
+  user: {
+    userId: string;
+    firstName: string;
+    lastName: string;
+    userImage: string | null;
+    phoneNumber: string;
+    isVerified: boolean;
+    role: number;
+  } | null;
+  pickupLocationLatitude: number;
+  pickupLocationLongitude: number;
+  dropLocationLatitude: number;
+  dropLocationLongitude: number;
 };
 declare type ALLRides = {
   list: Ride[];
-  pagination: Pagination;
+  meta: Pagination;
 };
 declare type OnlineDriver = {
   id: number;
@@ -179,9 +173,7 @@ declare type DriverTableRowProp = {
   user: Driver;
   index: number;
 };
-declare type driverTableProp = {
-  filterValue: string;
-};
+
 declare interface OnlineDriver {
   id: number;
   lat: number;
