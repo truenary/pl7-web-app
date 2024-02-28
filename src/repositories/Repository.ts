@@ -70,16 +70,24 @@ export class Repository implements IRepository {
 
     return this._getResponse(responseData);
   }
-  async getAllDriver(): Promise<JsonAPIErrorResp | AllDriver | undefined> {
-    console.log("api", this._api);
-    const responseData = await this._api.get<AllDriver>(`getalldriver/`);
+  async getAllDriver(
+    pageNumber: number
+  ): Promise<JsonAPIErrorResp | AllDriver | undefined> {
+    // console.log("api", this._api);
+    const responseData = await this._api.get<AllDriver>(
+      `driver?page=${pageNumber}`
+    );
     console.log(responseData);
     return this._getResponse(responseData);
   }
   async getDriverById(
     id: string
   ): Promise<JsonAPIErrorResp | Driver | undefined> {
-    const responseData = await this._api.get<Driver>(`users/driver/${id}`);
+    const responseData = await this._api.get<Driver>(
+      `users/driver/${id}`,
+      undefined,
+      true
+    );
     console.log("getDriverById:", responseData);
     return this._getResponse(responseData);
   }
@@ -91,10 +99,13 @@ export class Repository implements IRepository {
     );
     return this._getResponse(responseData);
   }
-  async getAllPassengers(): Promise<
-    JsonAPIErrorResp | AllPassenger | undefined
-  > {
-    const responseData = await this._api.get<AllPassenger>(`passengers/`);
+  async getAllPassengers(
+    pageNumber: number
+  ): Promise<JsonAPIErrorResp | AllPassenger | undefined> {
+    const responseData = await this._api.get<AllPassenger>(
+      `user?page=${pageNumber}`
+    );
+    console.log("at repository", responseData);
     return this._getResponse(responseData);
   }
   async getPassengerById(
@@ -105,8 +116,14 @@ export class Repository implements IRepository {
     );
     return this._getResponse(responseData);
   }
-  async getAllRides(): Promise<JsonAPIErrorResp | ALLRides | undefined> {
-    const responseData = await this._api.get<ALLRides>(`rides/getAll`);
+  async getAllRides(
+    pageNumber: number
+  ): Promise<JsonAPIErrorResp | ALLRides | undefined> {
+    const responseData = await this._api.get<ALLRides>(
+      `ride?page=${pageNumber}`,
+      undefined,
+      true
+    );
     return this._getResponse(responseData);
   }
   async getAllOnlineDriver(): Promise<
@@ -115,6 +132,18 @@ export class Repository implements IRepository {
     const responseData = await this._api.get<OnlineDriverArray>(
       `driver/onlineDriver/get`
     );
+    return this._getResponse(responseData);
+  }
+  async updateDriverInfo(
+    userDetails: FormData | null
+  ): Promise<Driver | JsonAPIErrorResp | undefined> {
+    const responseData = await this._api.put<RegisterResponse>(
+      `path`,
+      userDetails,
+      undefined,
+      false
+    );
+    console.log("at repository ", responseData);
     return this._getResponse(responseData);
   }
 }

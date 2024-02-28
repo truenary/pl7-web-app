@@ -1,69 +1,51 @@
 import TableHeading from "../shared/TableHeading";
 import DriverTableRow from "./DriverTableRow";
-import { useRepository } from "@/hooks/CustomHook";
-import { useEffect, useState } from "react";
-import { AllDriver, Driver, TableProp } from "@/types/data";
+import { AllDriver, Driver } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
-import { InitialStateData } from "@/utils/utilities";
 
-function Drivertable({ filterValue }: TableProp) {
-  console.log(filterValue);
-  const { repo } = useRepository();
-  const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
-  const [currentPage, setCurrentPage] = useState(
-    drivers.meta.currentPageNumber
-  );
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) =>
-      drivers.meta.nextPageNumber ? prevPage + 1 : prevPage
-    );
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) =>
-      drivers.meta.previousPageNumber ? prevPage - 1 : prevPage
-    );
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await repo.getAllDriver();
-        // Check if data is an array
-        if (data && "list" in data && "meta" in data) {
-          setDrivers(data);
-        } else {
-          console.error("Data is not in the expected format:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [repo]);
+declare type TableProp = {
+  filterByVerification: string;
+  filterByOnline: string;
+  drivers: AllDriver;
+  currentPage: number;
+  handleNextPage: () => void;
+  handlePrevPage: () => void;
+};
+function Drivertable({
+  filterByVerification,
+  drivers,
+  handleNextPage,
+  handlePrevPage,
+  currentPage,
+  filterByOnline,
+}: TableProp) {
   let filteredDrivers;
-  if (filterValue === "all") {
+  if (filterByVerification === "all") {
     // No filtering required, all drivers are included
     filteredDrivers = drivers.list;
   } else {
     // Filter based on the accountVerifyStatus attribute
-    const isVerified = filterValue === "verified";
+    const isVerified = filterByVerification === "verified";
     filteredDrivers = drivers.list.filter(
       (driver) => driver.accountVerifyStatus === isVerified
     );
   }
+  if (filterByOnline !== "all") {
+    const isOnline = filterByOnline === "online";
+    filteredDrivers = filteredDrivers.filter(
+      (driver) => driver.availabilityStatus === isOnline
+    );
+  }
   return (
     <>
-      <div className="overflow-x-auto text-center">
-        <table className='min-w-full bg-white border border-gray-300"'>
+      <div className="text-center">
+        <table className="min-w-full">
           <thead>
             <tr>
               <TableHeading label="SN" />
               <TableHeading label="Image" />
               <TableHeading label="Name" />
-              <TableHeading label="Address" />
               <TableHeading label="Phone" />
               <TableHeading label="Total Rides" />
               <TableHeading label="Ratings" />

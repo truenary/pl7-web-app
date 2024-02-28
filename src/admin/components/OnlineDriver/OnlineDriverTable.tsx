@@ -20,30 +20,28 @@ export default function OnlineDriverTable() {
     };
     const intervalId = setInterval(fetchData, 1000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [repo]);
 
   return (
-    <>
-      <div className="flex-none h-auto w-1/2 border-2 border-cyan-600 mx-2 my-2">
-        <table className="min-w-full  text-center">
-          <thead>
-            <tr className="">
-              <th className="py-2 px-4 border-b">Name</th>
-              <th className="py-2 px-4 border-b">Status</th>
-              <th className="py-2 px-4 border-b">rating</th>
+    <div className="flex-none h-auto w-full px-4">
+      <table className="min-w-full text-center">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 border-b">Name</th>
+            <th className="py-2 px-4 border-b">Status</th>
+            <th className="py-2 px-4 border-b">rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {onlinedrivers.map((driver) => (
+            <tr key={driver.id}>
+              <td className="py-2 px-4 border-b">{driver.name}</td>
+              <td className="py-2 px-4 border-b">{driver.Status}</td>
+              <td className="py-2 px-4 border-b">{driver.rating}</td>
             </tr>
-          </thead>
-          <tbody>
-            {onlinedrivers.map((driver) => (
-              <tr key={driver.id}>
-                <td className="py-2 px-4 border-b">{driver.name}</td>
-                <td className="py-2 px-4 border-b">{driver.Status}</td>
-                <td className="py-2 px-4 border-b">{driver.rating}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -1,17 +1,11 @@
+import TableHeading from "../shared/TableHeading";
 
-import TableHeading from '../shared/TableHeading'
+function RidesHistoryTable({ userId }: { userId: string }) {
+  console.log(userId);
 
-
-function RidesHistoryTable({  userId }: {  userId: string }) {
-    console.log(userId);
-
-    
-   
   return (
-     <div className="overflow-x-auto ">
-        
-     for {userId}
-        
+    <div className="overflow-x-auto ">
+      for {userId}
       <table className='min-w-full bg-white border border-gray-300 text-center "'>
         <thead>
           <tr>
@@ -21,9 +15,7 @@ function RidesHistoryTable({  userId }: {  userId: string }) {
             <TableHeading label="message" />
             <TableHeading label="status " />
             <TableHeading label="pickupLocation " />
-            <TableHeading label="dropLocation " />
-            
-           
+            <TableHeading label="dropLocation" />
           </tr>
         </thead>
         <tbody>
@@ -33,7 +25,7 @@ function RidesHistoryTable({  userId }: {  userId: string }) {
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export default RidesHistoryTable
+export default RidesHistoryTable;

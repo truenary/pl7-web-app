@@ -7,12 +7,14 @@ import { useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
 // import { FormWithNumberProp } from "@/types/data";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export default function FormWithNumber() {
   const { repo } = useRepository();
   const [disabled, setDisabled] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
   //sending otp to the user's phone
   async function handlePhoneSubmit() {
     const regex =
@@ -63,10 +65,10 @@ export default function FormWithNumber() {
           <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
             <div className="flex flex-col items-center justify-center text-center space-y-2">
               <div className="font-semibold text-3xl">
-                <p>Join us via Phone Number</p>
+                <p>{t("Join us via Phone Number")}</p>
               </div>
               <div className="flex flex-row text-sm font-medium text-gray-400">
-                <p>we will text a code to verify your phone</p>
+                <p>{t("we will text a code to verify your phone")}</p>
               </div>
             </div>
 
@@ -89,7 +91,7 @@ export default function FormWithNumber() {
                       onClick={handlePhoneSubmit}
                       className="hover:bg-blue-500 disabled:bg-gray-700 flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm focus:border focus:border-b-black"
                     >
-                      Next
+                      {t("Next")}
                     </button>
                   </div>
                   <div id="recaptcha"></div>

@@ -16,7 +16,7 @@ function Login() {
     formData.append("phoneNumber", `977${data.phoneNumber}`);
     formData.append("password", data.password);
     const response = await repo.login(formData);
-    if (response) {
+    if (response && "access-token" in response) {
       console.log(response);
       navigate("");
     }

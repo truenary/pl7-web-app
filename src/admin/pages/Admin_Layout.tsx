@@ -9,7 +9,7 @@ export default function Admin_Layout() {
         <NavBar />
         <main className="flex">
           <Sidebar />
-          <div className="pt-0 px-4  bg-blue-50 mt-0 mx-auto flex-1 flex-col max-h-screen overflow-y-auto">
+          <div className=" bg-blue-50 mt-0 mx-auto flex-1 flex-col max-h-screen overflow-y-auto">
             <Outlet />
           </div>
         </main>

@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useState } from "react";
 import { useRepository } from "@/hooks/CustomHook";
 import { capitalize } from "@/utils/utilities";
@@ -9,24 +9,27 @@ export default function DriverInfo() {
   const [open, setOpen] = useState<boolean>(false);
   const [report, setReport] = useState<string>("");
   const { repo } = useRepository();
+
+  const location = useLocation();
+  const driver: Driver = location.state?.driver;
   function handleSendMessage() {
     if (_.isEqual(confirm("Are you sure!"), true)) {
       console.log(report);
       setReport("");
     }
   }
-  const location = useLocation();
-  const driver: Driver = location.state?.driver;
+
   async function handleVerify() {
     if (confirm("Are you sured to verify the data?") === true) {
       if (!_.isUndefined(driver.driverId)) {
-        const driver = await repo.verifyDrier(driver.driverId);
+        const driver = await repo.verifyDrier("");
         if (driver) {
           toast.success("Driver is verified successfully");
         }
       }
     }
   }
+  function handleUnVerify() {}
 
   if (driver) {
     return (
@@ -38,12 +41,17 @@ export default function DriverInfo() {
                 <div className="bg-white shadow rounded-lg p-6">
                   <div className="flex flex-col items-center">
                     <img
-                      src={driver.user.userImage}
+                      src={
+                        driver.user.userImage &&
+                        !_.isUndefined(driver.user.userImage)
+                          ? driver.user.userImage
+                          : ""
+                      }
                       alt="driverImage"
                       className="w-full h-48 bg-gray-300 rounded mb-4 shrink-0"
                     ></img>
                     <h1 className="text-xl font-bold">
-                      Role: {driver.user.role}
+                      Role: {driver.user.role === 1 ? "Driver" : "Other"}
                     </h1>
                   </div>
                   <hr className="my-6 border-t border-gray-300" />
@@ -52,12 +60,14 @@ export default function DriverInfo() {
                       Driver Status
                     </span>
                     <ul>
-                      <li className="mb-2">status: {driver.user.status}</li>
-                      <li className="mb-2">Total Rides: {driver.totalRides}</li>
-                      <li className="mb-2">Ratings: {driver.ratings}</li>
                       <li className="mb-2">
-                        Joining Date: {driver.user.createdDate}
+                        status:{" "}
+                        {driver.accountVerifyStatus
+                          ? "Verified"
+                          : "Not Verified"}
                       </li>
+                      <li className="mb-2">Joining Date: Not Given</li>
+                      <li className="mb-2">Ratings: Not given</li>
                     </ul>
                   </div>
                   <hr className="my-6 border-t border-gray-300" />
@@ -72,7 +82,7 @@ export default function DriverInfo() {
                           driver.user.lastName
                         )}`}
                       </li>
-                      <li className="mb-2">Address: {driver.user.address}</li>
+                      <li className="mb-2">Address: Not Given</li>
                       <li className="mb-2">Phone: {driver.user.phoneNumber}</li>
                       <li className="mb-2">
                         Liscence Number:{driver.licenseNumber}
@@ -88,9 +98,7 @@ export default function DriverInfo() {
                       <li className="mb-2">
                         Number Plate: {driver.vehicle.vehicleNumber}
                       </li>
-                      <li className="mb-2">
-                        Color: {driver.vehicle.vehicleColor}
-                      </li>
+                      <li className="mb-2">Color:Not Given</li>
                     </ul>
                   </div>
                   <div
@@ -111,6 +119,14 @@ export default function DriverInfo() {
                       {open ? "Hide Report" : "Report"}
                     </button>
                   </div>
+                  <button
+                    onClick={handleUnVerify}
+                    className={`${
+                      driver.accountVerifyStatus === true ? "flex" : "hidden"
+                    }  text-center bg-red-500 mt-5 py-2 px-4 rounded text-white text-base hover:bg-red-600 w-1/2`}
+                  >
+                    UnVerify
+                  </button>
                   <hr className="my-6 border-t border-gray-300" />
 
                   <div className={`${open ? "flex" : "hidden"} flex-col mt-5`}>
@@ -145,7 +161,12 @@ export default function DriverInfo() {
                         Vehicle Image
                       </h3>
                       <img
-                        src={driver.vehicle.vehicleImage}
+                        src={
+                          driver.vehicle.vehicleImage &&
+                          !_.isUndefined(driver.vehicle.vehicleImage)
+                            ? driver.vehicle.vehicleImage
+                            : ""
+                        }
                         alt="Vehicle Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />
@@ -155,7 +176,12 @@ export default function DriverInfo() {
                         Liscence Image
                       </h3>
                       <img
-                        src={driver.licenseImage}
+                        src={
+                          driver.licenseImage &&
+                          !_.isUndefined(driver.licenseImage)
+                            ? driver.licenseImage
+                            : ""
+                        }
                         alt="Liscence Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />
@@ -165,7 +191,12 @@ export default function DriverInfo() {
                         BillBook Image
                       </h3>
                       <img
-                        src={driver.vehicle.bluebookImage}
+                        src={
+                          driver.vehicle.bluebookImage &&
+                          !_.isUndefined(driver.vehicle.bluebookImage)
+                            ? driver.vehicle.bluebookImage
+                            : ""
+                        }
                         alt="Bill Book Image"
                         className="h-auto max-w-full bg-gray-300 rounded mb-4 shrink-0"
                       />
