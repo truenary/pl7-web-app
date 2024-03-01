@@ -3,31 +3,55 @@ import PassengerTableRow from "./PassengerTableRow";
 import { AllPassenger, Passenger } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
+import { useNavigate, useSearchParams } from "react-router-dom";
 declare type TableProp = {
-  filterValue: string;
   passengers: AllPassenger;
-  handleNextPage: () => void;
-  handlePrevPage: () => void;
   currentPage: number;
 };
-export default function PassengerTable({
-  filterValue,
-  passengers,
-  handleNextPage,
-  handlePrevPage,
-  currentPage,
-}: TableProp) {
+export default function PassengerTable({ passengers, currentPage }: TableProp) {
+  const [s] = useSearchParams();
+  const searchQuery = s.get("searchQuery") || "";
+  const filterValue = s.get("filter") || "all";
+  const navigate = useNavigate();
+
+  //filter by online or offline
   let filterPassengers;
+  if (_.isNull(filterValue)) {
+    filterPassengers = passengers.list;
+  }
   if (filterValue === "all") {
     // No filtering required, all drivers are included
     filterPassengers = passengers.list;
   } else {
-    // Filter based on the accountVerifyStatus attribute
     const isActive = filterValue === "online";
     filterPassengers = passengers.list.filter(
       (passenger) => passenger.status === isActive
     );
   }
+
+  //searching the table data
+  let searchedPassengers;
+  if (!_.isNull(searchQuery) && searchQuery.length > 0) {
+    const data = filterPassengers.filter((passenger) =>
+      `${passenger.firstName} ${passenger.lastName} ${passenger.phoneNumber}`
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    );
+    searchedPassengers = data;
+  } else {
+    searchedPassengers = filterPassengers;
+  }
+  const handleNextPage = () => {
+    if (passengers.meta.nextPageNumber) {
+      navigate(`?page=${passengers.meta.nextPageNumber}`);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (passengers.meta.previousPageNumber) {
+      navigate(`?page=${passengers.meta.previousPageNumber}`);
+    }
+  };
   return (
     <>
       <div className="text-center">
@@ -51,13 +75,16 @@ export default function PassengerTable({
                 <td>The data is undefined</td>
               </tr>
             ) : (
-              _.map(filterPassengers, (passenger: Passenger, index: number) => (
-                <PassengerTableRow
-                  user={passenger}
-                  index={index}
-                  key={passenger.userId}
-                />
-              ))
+              _.map(
+                searchedPassengers,
+                (passenger: Passenger, index: number) => (
+                  <PassengerTableRow
+                    user={passenger}
+                    index={index}
+                    key={passenger.userId}
+                  />
+                )
+              )
             )}
           </tbody>
         </table>

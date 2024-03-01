@@ -4,44 +4,15 @@ import { searchIcon } from "../components/shared/Icons";
 import { AllDriver } from "@/types/data";
 import { InitialStateData } from "@/utils/utilities";
 import { useRepository } from "@/hooks/CustomHook";
+import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 function Driver() {
-  const [filterByAccountVerification, setFilterByAccountVerification] =
-    useState("all");
-  const [filterByOnline, setFilterByOnline] = useState("all");
   const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
-
   const { repo } = useRepository();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const handleNextPage = () => {
-    if (drivers.meta.nextPageNumber) {
-      setCurrentPage(drivers.meta.nextPageNumber);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (drivers.meta.previousPageNumber) {
-      setCurrentPage(drivers.meta.previousPageNumber);
-    }
-  };
-
-  // Derived state. These are the posts that will actually be displayed
-  let searchedDrivers;
-  if (searchQuery.length > 0) {
-    const data = drivers.list.filter((driver) =>
-      `${driver.user.firstName} ${driver.user.lastName} ${driver.user.phoneNumber}`
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
-    searchedDrivers = {
-      list: data,
-      meta: drivers.meta,
-    };
-  } else {
-    searchedDrivers = drivers;
-  }
+  const navigate = useNavigate();
+  const [searchParam] = useSearchParams();
+  const currentPage = Number(searchParam.get("page")) || 1;
   useEffect(() => {
     const fetchData = async (pageNumber: number) => {
       try {
@@ -68,7 +39,9 @@ function Driver() {
           <input
             type="text"
             id="search"
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&searchQuery=${e.target.value}`)
+            }
             placeholder="Search by name or phone number"
             className="bg-white h-10 px-10 rounded-md w-96 border focus:outline-none focus:border-green-700"
           />
@@ -83,9 +56,13 @@ function Driver() {
           <select
             id="accountVerify"
             className="text-base font-medium p-2 rounded border focus:border-green-700"
-            onChange={(e) => setFilterByAccountVerification(e.target.value)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&filterByV=${e.target.value}`)
+            }
           >
-            <option value="all">All</option>
+            <option value="all" defaultChecked>
+              All
+            </option>
             <option value="verified">Verified</option>
             <option value="notVerified">Not Verified</option>
           </select>
@@ -95,23 +72,20 @@ function Driver() {
           <select
             id="online"
             className="text-base font-medium p-2 rounded border focus:border-green-700"
-            onChange={(e) => setFilterByOnline(e.target.value)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&filterByOF=${e.target.value}`)
+            }
           >
-            <option value="all">All</option>
+            <option value="all" defaultChecked>
+              All
+            </option>
             <option value="online">Online</option>
             <option value="offline">Offline</option>
           </select>
         </div>
       </div>
       <div className="mt-5 mb-5">
-        <Drivertable
-          filterByVerification={filterByAccountVerification}
-          filterByOnline={filterByOnline}
-          drivers={searchedDrivers}
-          currentPage={currentPage}
-          handleNextPage={handleNextPage}
-          handlePrevPage={handlePrevPage}
-        />
+        <Drivertable drivers={drivers} currentPage={currentPage} />
       </div>
     </div>
   );

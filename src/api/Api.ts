@@ -41,7 +41,7 @@ export class API implements IJsonApi {
       const ac = await this._localStorageClient.getAccessToken();
       //adding access token manually only for testing
       const accessToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwianRpIjoiZmU5NWY4NTAtMDNhMS00NThiLWJjZTItZjk4MTFmYmIwMWMzIiwiVXNlcklkIjoiM2ZhODVmNjQtNTcxNy00NTYyLWIzZmMtMmM5NjNmNjZhZmE2IiwiUm9sZSI6IkRyaXZlciIsImV4cCI6MTcwOTEwMjM1MCwiaXNzIjoiQXV0b0Jvb2tpbmciLCJhdWQiOiJBdXRvQm9va2luZyJ9.pCD3p0qe0Fsk--w_3LPUq0EhkGBlvxEv7XozrYc7tE8";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwianRpIjoiNDFiYTVlOWEtODcyNi00NzFhLWE0ZjUtOGU5MjZmODg1ZGE3IiwiVXNlcklkIjoiZjRiYTM3NGQtZmUyMy00OTdiLTljNDEtNDAzZTZjM2FiODZlIiwiUm9sZSI6IkFkbWluIiwiZXhwIjoxNzA5MjkyMTAzLCJpc3MiOiJBdXRvQm9va2luZyIsImF1ZCI6IkF1dG9Cb29raW5nIn0.wv8--_dJcCTPlaZwfCSJ6JUWx7Dmn9NAlLSYDnEhcJA";
       _headers.append("Authorization", `Bearer ${accessToken}`);
       if (ac) {
         _headers.append("token", ac);

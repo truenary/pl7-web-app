@@ -3,40 +3,57 @@ import DriverTableRow from "./DriverTableRow";
 import { AllDriver, Driver } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 declare type TableProp = {
-  filterByVerification: string;
-  filterByOnline: string;
   drivers: AllDriver;
   currentPage: number;
-  handleNextPage: () => void;
-  handlePrevPage: () => void;
 };
-function Drivertable({
-  filterByVerification,
-  drivers,
-  handleNextPage,
-  handlePrevPage,
-  currentPage,
-  filterByOnline,
-}: TableProp) {
-  let filteredDrivers;
-  if (filterByVerification === "all") {
-    // No filtering required, all drivers are included
-    filteredDrivers = drivers.list;
-  } else {
-    // Filter based on the accountVerifyStatus attribute
+function Drivertable({ drivers, currentPage }: TableProp) {
+  const [s] = useSearchParams();
+  const navigate = useNavigate();
+  const searchQuery = s.get("searchQuery") || "";
+  const filterByVerification = s.get("filterByV") || "all";
+  const filterByOnline = s.get("filterByOF") || "all";
+
+  const handleNextPage = () => {
+    if (drivers.meta.nextPageNumber) {
+      navigate(`?page=${drivers.meta.nextPageNumber}`);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (drivers.meta.previousPageNumber) {
+      // setCurrentPage(drivers.meta.previousPageNumber);
+      navigate(`?page=${drivers.meta.previousPageNumber}`);
+    }
+  };
+
+  const filteredDrivers = drivers.list.filter((driver: Driver) => {
+    // Filter by verification
     const isVerified = filterByVerification === "verified";
-    filteredDrivers = drivers.list.filter(
-      (driver) => driver.accountVerifyStatus === isVerified
-    );
-  }
-  if (filterByOnline !== "all") {
+    if (
+      filterByVerification !== "all" &&
+      driver.accountVerifyStatus !== isVerified
+    ) {
+      return false;
+    }
+    // Filter by ride status
     const isOnline = filterByOnline === "online";
-    filteredDrivers = filteredDrivers.filter(
-      (driver) => driver.availabilityStatus === isOnline
-    );
-  }
+    if (filterByOnline !== "all" && driver.availabilityStatus !== isOnline) {
+      return false;
+    }
+    // Search by passenger or driver name
+    if (
+      searchQuery &&
+      !`${driver.user?.firstName} ${driver.user?.lastName} ${driver.user.phoneNumber}`
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    ) {
+      return false;
+    }
+    return true;
+  });
   return (
     <>
       <div className="text-center">

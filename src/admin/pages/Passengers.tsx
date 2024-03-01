@@ -4,39 +4,15 @@ import { useRepository } from "@/hooks/CustomHook";
 import { AllPassenger } from "@/types/data";
 import { InitialStateData } from "@/utils/utilities";
 import { searchIcon } from "../components/shared/Icons";
+import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 function Passengers() {
-  const [filterValue, setFilterValue] = useState<string>("");
   const { repo } = useRepository();
   const [passengers, setPassengers] = useState<AllPassenger>(InitialStateData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleNextPage = () => {
-    if (passengers.meta.nextPageNumber) {
-      setCurrentPage(passengers.meta.nextPageNumber);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (passengers.meta.previousPageNumber) {
-      setCurrentPage(passengers.meta.previousPageNumber);
-    }
-  };
-  let searchedPassengers;
-  if (searchQuery.length > 0) {
-    const data = passengers.list.filter((passenger) =>
-      `${passenger.firstName} ${passenger.lastName} ${passenger.phoneNumber}`
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
-    searchedPassengers = {
-      list: data,
-      meta: passengers.meta,
-    };
-  } else {
-    searchedPassengers = passengers;
-  }
+  const navigate = useNavigate();
+  const [searchParam] = useSearchParams();
+  const currentPage = Number(searchParam.get("page")) || 1;
   useEffect(() => {
     const fetchData = async (pageNumber: number) => {
       try {
@@ -61,7 +37,9 @@ function Passengers() {
         <div className="relative">
           <input
             type="text"
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&searchQuery=${e.target.value}`)
+            }
             placeholder="Search by name or phone number"
             className="bg-white h-10 px-10 rounded-md w-96 border focus:outline-none focus:border-green-700"
           />
@@ -76,22 +54,20 @@ function Passengers() {
           <select
             id="online"
             className="text-lg font-medium p-2 rounded border focus:border-green-700"
-            onChange={(e) => setFilterValue(e.target.value)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&filter=${e.target.value}`)
+            }
           >
-            <option value="all">All</option>
+            <option value="all" defaultChecked>
+              All
+            </option>
             <option value="online">Online</option>
             <option value="offline">Offline</option>
           </select>
         </div>
       </div>
       <div className="mt-5 mb-5">
-        <PassengerTable
-          filterValue={filterValue}
-          passengers={searchedPassengers}
-          currentPage={currentPage}
-          handleNextPage={handleNextPage}
-          handlePrevPage={handlePrevPage}
-        />
+        <PassengerTable passengers={passengers} currentPage={currentPage} />
       </div>
     </div>
   );
