@@ -4,40 +4,19 @@ import { useEffect, useState } from "react";
 import { ALLRides } from "@/types/data";
 import { InitialStateData } from "@/utils/utilities";
 import { searchIcon } from "../components/shared/Icons";
+import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 function Ride() {
-  const [filterByRideType, setFilterByRideType] = useState("single");
-  const [filterByStatus, setFilterByStatus] = useState("pending");
   const { repo } = useRepository();
   const [rides, setRides] = useState<ALLRides>(InitialStateData);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const handleNextPage = () => {
-    if (rides.meta.nextPageNumber) {
-      setCurrentPage(rides.meta.nextPageNumber);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (rides.meta.previousPageNumber) {
-      setCurrentPage(rides.meta.previousPageNumber);
-    }
-  };
-  let searchedRides;
-  if (searchQuery.length > 0) {
-    const data = rides.list.filter((ride) =>
-      `${ride.user?.firstName} ${ride.user?.lastName} ${ride.user?.phoneNumber}`
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
-    searchedRides = {
-      list: data,
-      meta: rides.meta,
-    };
-  } else {
-    searchedRides = rides;
-  }
+  const navigate = useNavigate();
+  const [searchParam] = useSearchParams();
+  const currentPage = Number(searchParam.get("page")) || 1;
+  // const [currentPage, setCurrentPage] = useState<number>(1);
+  // useEffect(() => {
+  //   setCurrentPage(cp);
+  // }, [cp]);
   useEffect(() => {
     const fetchData = async (pageNumber: number) => {
       try {
@@ -63,7 +42,7 @@ function Ride() {
           <input
             type="text"
             id="search"
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => navigate(`?searchQuery=${e.target.value}`)}
             placeholder="Search name of passenger or driver"
             className="bg-white h-10 px-10 rounded-md w-96 border focus:outline-none focus:border-green-700"
           />
@@ -78,9 +57,11 @@ function Ride() {
           <select
             id="accountVerify"
             className="text-base font-medium p-2 rounded border"
-            onChange={(e) => setFilterByRideType(e.target.value)}
+            onChange={(e) => navigate(`?filterByRideType=${e.target.value}`)}
           >
-            <option value="all">All</option>
+            <option value="all" defaultChecked>
+              All
+            </option>
             <option value="single">Single</option>
             <option value="sharing">Sharing</option>
           </select>
@@ -90,9 +71,11 @@ function Ride() {
           <select
             id="online"
             className="text-base font-medium  p-2 rounded border   "
-            onChange={(e) => setFilterByStatus(e.target.value)}
+            onChange={(e) => navigate(`?filterByStatus=${e.target.value}`)}
           >
-            <option value="all">All</option>
+            <option value="all" defaultChecked>
+              All
+            </option>
             <option value="Pending">Pending</option>
             <option value="Accepted">Accepted</option>
             <option value="Cancelled">Canceled</option>
@@ -101,14 +84,7 @@ function Ride() {
         </div>
       </div>
       <div className="mt-5 mb-5">
-        <Ridestable
-          filterByRideType={filterByRideType}
-          filterByStatus={filterByStatus}
-          rides={searchedRides}
-          currentPage={currentPage}
-          handleNextPage={handleNextPage}
-          handlePrevPage={handlePrevPage}
-        />
+        <Ridestable rides={rides} currentPage={currentPage} />
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
 import {
-  // BrowserRouter as Router,
   Route,
-  // Routes,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
@@ -9,7 +7,6 @@ import {
 import AppLayout from "./client/pages/AppLayout";
 import Home from "./client/pages/Home";
 import Contact from "./client/pages/Contact";
-// import Register from "./client/pages/Register";
 import Blog from "./client/pages/Blog";
 import About from "./client/pages/About";
 import Download from "./client/pages/Download";

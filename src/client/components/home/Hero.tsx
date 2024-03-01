@@ -29,9 +29,6 @@ export default function Hero() {
             />
             <Button
               action={() => navigate("/download")}
-              label={"Download App"}
-            <Button
-              action={() => navigate("/download")}
               label={t("Download App")}
               style={
                 "p-2 md:p-3 bg-white text-black text-base font-normal rounded w-full text-center lg:w-64 border border-1 border-black  md:w-56"

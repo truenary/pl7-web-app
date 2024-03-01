@@ -3,21 +3,28 @@ import PassengerTableRow from "./PassengerTableRow";
 import { AllPassenger, Passenger } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
 import _ from "lodash";
+import { useSearchParams } from "react-router-dom";
 declare type TableProp = {
-  filterValue: string;
+  // filterValue: string;
   passengers: AllPassenger;
   handleNextPage: () => void;
   handlePrevPage: () => void;
   currentPage: number;
 };
 export default function PassengerTable({
-  filterValue,
+  // filterValue,
   passengers,
   handleNextPage,
   handlePrevPage,
   currentPage,
 }: TableProp) {
+  const [s] = useSearchParams();
+  const searchQuery = s.get("searchQuery") || "";
+  const filterValue = s.get("filter") || "all";
   let filterPassengers;
+  if (_.isNull(filterValue)) {
+    filterPassengers = passengers.list;
+  }
   if (filterValue === "all") {
     // No filtering required, all drivers are included
     filterPassengers = passengers.list;
@@ -28,6 +35,18 @@ export default function PassengerTable({
       (passenger) => passenger.status === isActive
     );
   }
+  let searchedPassengers;
+  if (!_.isNull(searchQuery) && searchQuery.length > 0) {
+    const data = filterPassengers.filter((passenger) =>
+      `${passenger.firstName} ${passenger.lastName} ${passenger.phoneNumber}`
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    );
+    searchedPassengers = data;
+  } else {
+    searchedPassengers = filterPassengers;
+  }
+
   return (
     <>
       <div className="text-center">
@@ -51,13 +70,16 @@ export default function PassengerTable({
                 <td>The data is undefined</td>
               </tr>
             ) : (
-              _.map(filterPassengers, (passenger: Passenger, index: number) => (
-                <PassengerTableRow
-                  user={passenger}
-                  index={index}
-                  key={passenger.userId}
-                />
-              ))
+              _.map(
+                searchedPassengers,
+                (passenger: Passenger, index: number) => (
+                  <PassengerTableRow
+                    user={passenger}
+                    index={index}
+                    key={passenger.userId}
+                  />
+                )
+              )
             )}
           </tbody>
         </table>

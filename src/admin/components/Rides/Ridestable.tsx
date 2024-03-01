@@ -1,52 +1,60 @@
 import { ALLRides, Ride } from "@/types/data";
 import { explore, leftArrow } from "../shared/Icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+// import _ from "lodash";
 declare type TableProp = {
-  filterByRideType: string;
-  filterByStatus: string;
   rides: ALLRides;
   currentPage: number;
-  handleNextPage: () => void;
-  handlePrevPage: () => void;
+  // handleNextPage: () => void;
+  // handlePrevPage: () => void;
 };
 function Ridestable({
-  filterByRideType,
-  filterByStatus,
   rides,
   currentPage,
-  handleNextPage,
-  handlePrevPage,
-}: TableProp) {
+}: // handleNextPage,
+// handlePrevPage,
+TableProp) {
   const navigate = useNavigate();
-  let filteredRides;
-  if (filterByRideType === "all") {
-    // No filtering required, all drivers are included
-    filteredRides = rides.list;
-  } else {
-    // Filter based on the accountVerifyStatus attribute
+  const [searchParam] = useSearchParams();
+  const searchQuery = searchParam.get("searchQuery") || "";
+  const filterByRideType = searchParam.get("filterByRideType") || "all";
+  const filterByStatus = searchParam.get("filterByStatus") || "all";
+
+  const filteredRides = rides.list.filter((ride: Ride) => {
+    // Filter by ride type
     const isActive = filterByRideType === "single";
-    filteredRides = rides.list.filter((ride) => ride.rideType === isActive);
-  }
-  if (filterByStatus !== "all") {
-    if (filterByStatus === "Accepted") {
-      filteredRides = filteredRides.filter(
-        (ride) => ride.status === "Accepted"
-      );
+    if (filterByRideType !== "all" && ride.rideType !== isActive) {
+      return false;
     }
-    if (filterByStatus === "Rejected") {
-      filteredRides = filteredRides.filter(
-        (ride) => ride.status === "Rejected"
-      );
+    // Filter by ride status
+    if (filterByStatus !== "all" && ride.status !== filterByStatus) {
+      return false;
     }
-    if (filterByStatus === "Cancelled") {
-      filteredRides = filteredRides.filter(
-        (ride) => ride.status === "Cancelled"
-      );
+    // Search by passenger or driver name
+    if (
+      searchQuery &&
+      !`${ride.user?.firstName} ${ride.user?.lastName}`
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    ) {
+      return false;
     }
-    if (filterByStatus === "Pending") {
-      filteredRides = filteredRides.filter((ride) => ride.status === "Pending");
+    return true;
+  });
+  const handleNextPage = () => {
+    if (rides.meta.nextPageNumber) {
+      // setCurrentPage(rides.meta.nextPageNumber);
+      navigate(`?page=${rides.meta.nextPageNumber}`);
     }
-  }
+  };
+
+  const handlePrevPage = () => {
+    if (rides.meta.previousPageNumber) {
+      // setCurrentPage(rides.meta.previousPageNumber);
+      navigate(`?page=${rides.meta.previousPageNumber}`);
+    }
+  };
+
   return (
     <>
       <div>
