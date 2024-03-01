@@ -10,22 +10,9 @@ import { useSearchParams } from "react-router-dom";
 function Driver() {
   const [drivers, setDrivers] = useState<AllDriver>(InitialStateData);
   const { repo } = useRepository();
-  // const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const [searchParam] = useSearchParams();
   const currentPage = Number(searchParam.get("page")) || 1;
-
-  // const handleNextPage = () => {
-  //   if (drivers.meta.nextPageNumber) {
-  //     setCurrentPage(drivers.meta.nextPageNumber);
-  //   }
-  // };
-
-  // const handlePrevPage = () => {
-  //   if (drivers.meta.previousPageNumber) {
-  //     setCurrentPage(drivers.meta.previousPageNumber);
-  //   }
-  // };
   useEffect(() => {
     const fetchData = async (pageNumber: number) => {
       try {
@@ -52,7 +39,9 @@ function Driver() {
           <input
             type="text"
             id="search"
-            onChange={(e) => navigate(`?searchQuery=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&searchQuery=${e.target.value}`)
+            }
             placeholder="Search by name or phone number"
             className="bg-white h-10 px-10 rounded-md w-96 border focus:outline-none focus:border-green-700"
           />
@@ -67,7 +56,9 @@ function Driver() {
           <select
             id="accountVerify"
             className="text-base font-medium p-2 rounded border focus:border-green-700"
-            onChange={(e) => navigate(`?filterByV=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&filterByV=${e.target.value}`)
+            }
           >
             <option value="all" defaultChecked>
               All
@@ -81,7 +72,9 @@ function Driver() {
           <select
             id="online"
             className="text-base font-medium p-2 rounded border focus:border-green-700"
-            onChange={(e) => navigate(`?filterByOF=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&filterByOF=${e.target.value}`)
+            }
           >
             <option value="all" defaultChecked>
               All
@@ -92,12 +85,7 @@ function Driver() {
         </div>
       </div>
       <div className="mt-5 mb-5">
-        <Drivertable
-          drivers={drivers}
-          currentPage={currentPage}
-          // handleNextPage={handleNextPage}
-          // handlePrevPage={handlePrevPage}
-        />
+        <Drivertable drivers={drivers} currentPage={currentPage} />
       </div>
     </div>
   );

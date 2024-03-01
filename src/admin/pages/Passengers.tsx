@@ -5,24 +5,14 @@ import { AllPassenger } from "@/types/data";
 import { InitialStateData } from "@/utils/utilities";
 import { searchIcon } from "../components/shared/Icons";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 function Passengers() {
   const { repo } = useRepository();
   const [passengers, setPassengers] = useState<AllPassenger>(InitialStateData);
-  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-
-  const handleNextPage = () => {
-    if (passengers.meta.nextPageNumber) {
-      setCurrentPage(passengers.meta.nextPageNumber);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (passengers.meta.previousPageNumber) {
-      setCurrentPage(passengers.meta.previousPageNumber);
-    }
-  };
+  const [searchParam] = useSearchParams();
+  const currentPage = Number(searchParam.get("page")) || 1;
   useEffect(() => {
     const fetchData = async (pageNumber: number) => {
       try {
@@ -47,7 +37,9 @@ function Passengers() {
         <div className="relative">
           <input
             type="text"
-            onChange={(e) => navigate(`?searchQuery=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&searchQuery=${e.target.value}`)
+            }
             placeholder="Search by name or phone number"
             className="bg-white h-10 px-10 rounded-md w-96 border focus:outline-none focus:border-green-700"
           />
@@ -62,7 +54,9 @@ function Passengers() {
           <select
             id="online"
             className="text-lg font-medium p-2 rounded border focus:border-green-700"
-            onChange={(e) => navigate(`?filter=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&filter=${e.target.value}`)
+            }
           >
             <option value="all" defaultChecked>
               All
@@ -73,12 +67,7 @@ function Passengers() {
         </div>
       </div>
       <div className="mt-5 mb-5">
-        <PassengerTable
-          passengers={passengers}
-          currentPage={currentPage}
-          handleNextPage={handleNextPage}
-          handlePrevPage={handlePrevPage}
-        />
+        <PassengerTable passengers={passengers} currentPage={currentPage} />
       </div>
     </div>
   );

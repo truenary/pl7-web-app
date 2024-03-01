@@ -13,10 +13,6 @@ function Ride() {
   const navigate = useNavigate();
   const [searchParam] = useSearchParams();
   const currentPage = Number(searchParam.get("page")) || 1;
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // useEffect(() => {
-  //   setCurrentPage(cp);
-  // }, [cp]);
   useEffect(() => {
     const fetchData = async (pageNumber: number) => {
       try {
@@ -42,7 +38,9 @@ function Ride() {
           <input
             type="text"
             id="search"
-            onChange={(e) => navigate(`?searchQuery=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&searchQuery=${e.target.value}`)
+            }
             placeholder="Search name of passenger or driver"
             className="bg-white h-10 px-10 rounded-md w-96 border focus:outline-none focus:border-green-700"
           />
@@ -57,7 +55,11 @@ function Ride() {
           <select
             id="accountVerify"
             className="text-base font-medium p-2 rounded border"
-            onChange={(e) => navigate(`?filterByRideType=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(
+                `?page=${currentPage}&filterByRideType=${e.target.value}`
+              )
+            }
           >
             <option value="all" defaultChecked>
               All
@@ -71,7 +73,9 @@ function Ride() {
           <select
             id="online"
             className="text-base font-medium  p-2 rounded border   "
-            onChange={(e) => navigate(`?filterByStatus=${e.target.value}`)}
+            onChange={(e) =>
+              navigate(`?page=${currentPage}&filterByStatus=${e.target.value}`)
+            }
           >
             <option value="all" defaultChecked>
               All
